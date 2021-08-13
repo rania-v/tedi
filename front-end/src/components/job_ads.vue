@@ -2,7 +2,10 @@
     <v-container>
         <v-card>
             <v-card-title class="justify-center orange mb-3" style="color:white" @click="show_job_ads=false">
+                <v-spacer></v-spacer>
                 CREATE A NEW JOB AD
+                <v-spacer></v-spacer>
+                <i class="fas fa-angle-double-down" v-if="show_job_ads==true || show_job_ads==null"></i>
             </v-card-title>
             <div  v-if="show_job_ads==false">
                 <v-card-actions  class="pr-14">
@@ -15,7 +18,12 @@
             </div>
         </v-card>
         <v-card class="mt-4 mb-4">
-            <v-card-title class="justify-center orange mb-3" style="color:white" @click="show_job_ads=true">JOB ADS</v-card-title>
+            <v-card-title class="justify-center orange mb-3" style="color:white" @click="show_job_ads=true">
+                <v-spacer></v-spacer>
+                JOB ADS
+                <v-spacer></v-spacer>
+                <i class="fas fa-angle-double-down" v-if="show_job_ads==fasle || show_job_ads==null"></i>
+            </v-card-title>
             <div v-show="show_job_ads==true">
                 <v-card-actions>
                     search

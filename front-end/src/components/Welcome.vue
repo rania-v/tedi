@@ -24,26 +24,14 @@ export default {
   text-indent:-100px;
   font-size: 100px;
   /* color: #587b7f; */
-  /* color: #a0e338; */
-  /* color: #e08d2d; */
-  /* color: #2c7456; */
-    color: hsl(0, 0%, 100%);
-
+  color: #a0e338;
   margin-top: 60px;
   padding: 5%;
-    /* text-shadow: -4px 3px 0 #ebe0f8, -14px 7px 0 #ffffff; */
 }
 
 /* #welcome_headr:after {
   content:" ";
   margin: -100px;
-} */
-
-/* #relief {
-  background-color: #3a50d9;
-  color: #e0eff2;
-  font: italic bold 100px Georgia, Serif;
-  text-shadow: -4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27;
 } */
 
 </style>

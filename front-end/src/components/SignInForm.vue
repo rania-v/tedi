@@ -1,18 +1,16 @@
 <template>
-    <v-card id="card" max-width="70%">
+    <v-card>
         <v-card-title>
-            <h2 id="get_in">Get In Now</h2>
+            <h2>SIGN UP</h2>
         </v-card-title>
-        <v-btn @click="visible=true">
-            <i class="fas fa-times"></i>
-        </v-btn>
         <v-card-text>
-            <v-form action="/HomePage.vue" method="get">
-
-                <v-text-field label="e-mail" v-model="email" ></v-text-field>
-                <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
-  
-                <v-btn id="valid" type="submit" dark @click="submit" >Sign In</v-btn>
+            <v-form class="px-3">
+                <v-text-field label="First Name" v-model="name" prepend-icon="folder"></v-text-field>
+                <v-text-field label="Last Name" v-model="last_name"></v-text-field>
+                <v-text-field label="phone number" v-model="phone_number"></v-text-field>
+                <v-text-field label="e-mail" v-model="email"></v-text-field>
+                <v-text-field label="password" v-model="password"></v-text-field>
+                <v-text-field label="confirm password" v-model="conf_password"></v-text-field>
             </v-form>
         </v-card-text>
     </v-card>
@@ -26,86 +24,23 @@ export default {
             go_sign:0,
             name:'',
             last_name:'',
-            phone_number: null,
+            phone_number:'',
             email:'',
             password:'',
-            conf_password: null,
-            message: '',
-            checked: false,
-            valid: true
-        };
-    },
-    methods: {
-        validate () {
-            this.$refs.form.validate()
-        },
-        phone_check (evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                evt.preventDefault();
-            }
-        },
-        pass_confirm (e) {
-            if(e.sameAs(this.password))
-                this.conf_password == true;
-            else
-                this.conf_password == false;
-        },
-        onSubmit ()
-        {
-            console.log(this.FormData)
+            conf_password:''
         }
     }
 }
-
 </script>
 
 <style>
 #siform {
-    color: black;
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
-  /* margin-left: 30%;
-  margin-right: 30%; */
-  /* padding: 5%; */
-}
-
-#get_in {
-    font-size: 35px;
-    color: #a0e338;
-    font-family:monospace;
-    font-weight: normal;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -5%;
-    text-shadow: -4px 3px 0 #ffffff, -8px 6px 0 #ebe0f8;
-}
-
-#checkbox {
-    display: inline;
-    margin-right: 5px;
-}
-
-#valid {
-    size: x-large;
-    background-color : #5d1889 ;
-    margin-top: 1%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#card{
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 1%;
-}
-
-p{
-    color: black;
+  align-items: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 5%;
 }
 </style>

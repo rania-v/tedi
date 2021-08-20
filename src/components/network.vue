@@ -3,14 +3,11 @@
         <v-row class="d-flex align-center">
             <v-card  :class="{in_focus: focus=='net', out_of_focus: focus=='search'}" @click="focus='net'" >
 
-            <!-- <v-col :class="{friend_network_focus: focus=='net', friend_network_out_of_focus: focus=='search'}" @click="focus='net'" > -->
                 {{id}}
-                <!-- <v-container class="d-flex justify-center pa-2"> -->
                     <v-card width="100%">
                         <v-card-title class="justify-center">
                             FRIEND NETWORK
                         </v-card-title>
-                        <!-- <v-card-text class="d-flex justify-center"> -->
                                 <v-card-text style="display:flex; flex-wrap: wrap; justify-content: center;">
                                     <v-card v-for="friend in friends" :key="friend" width="20%" class="ma-2 pt-2 pb-2" v-bind:id="friend.status">
                                         <v-avatar>
@@ -25,10 +22,7 @@
                                         </v-card-text>
                                     </v-card>
                                 </v-card-text>
-                        <!-- </v-card-text> -->
                     </v-card>
-                <!-- </v-container> -->
-            <!-- </v-col> -->
             </v-card>
             <v-col :class="{in_focus: focus=='search'}" @click="focus='search'" style="box-shadow: 5px 10px; padding-right:0%">
                 <v-card>

@@ -1,6 +1,5 @@
 <template>
 <v-div>
-
   <v-chip v-if="namechip==true" class="mb-7 ml-0" style="position: absolute"> {{friend_name}}</v-chip>
   <v-container>
     <div class="d-flex">

@@ -1,12 +1,10 @@
 <template>
     <v-app id="home">
+        <Banner/>
         <v-card>
             <v-toolbar id="tb">
-                <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-
                 <v-toolbar-title>{{page_title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
-
                 <template v-slot:extension>
                     <v-tabs align-with-title grow color="orange">
                         <v-tabs-slider color="orange"></v-tabs-slider>
@@ -15,37 +13,44 @@
                             {{ item }}
                         </v-tab>
                     </v-tabs>
-                    <!-- <v-tabs-items>
-                        <v-tab-item v-for="item in items" :key="item" >
-                            <v-card flat>
-                                
-                            </v-card>
-                        </v-tab-item>
-                    </v-tabs-items> -->
                 </template>
             </v-toolbar>
             <v-card-text v-on:GotoNet="ChangeTab($event)">
                 <Home v-if="page_title=='Αρχική Σελίδα'"/>
                 <Network v-else-if="page_title=='Δίκτυο'"/>
                 <JobAds v-else-if="page_title=='Αγγελίες'"/>
+                <Chat v-else-if="page_title=='Συζήτηση'"/>
+                <Notifications v-else-if="page_title=='Ειδοποιήσεις'"/>
+                <PersonalInfo v-else-if="page_title=='Προσωπικά Στοιχεία'"/>
+                <Settings v-else-if="page_title=='Ρυθμίσεις'"/>
             </v-card-text>
         </v-card>
     </v-app>
 </template>
 
 <script>
+import Banner from './banner.vue'
 import Home from './home.vue'
 import Network from './network.vue'
 // import Profile from './profile.vue'
 import JobAds from './job_ads.vue'
+import PersonalInfo from './personal_info.vue'
+import Settings from './settings.vue'
+import Chat from './chat.vue'
+import Notifications from './notifications.vue'
 
 export default {
     name: 'HomePage',
     components: {
+        Banner,
         Home,
         Network,
         // Profile,
-        JobAds
+        JobAds,
+        PersonalInfo,
+        Settings,
+        Chat,
+        Notifications
     },
     data() {
         return {

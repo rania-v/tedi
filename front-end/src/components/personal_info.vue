@@ -1,6 +1,6 @@
 <template>
-    <v-container class="mt-0" style="background:purple">
-        <v-row>
+    <v-container class="mt-0 deep-purple lighten-2">
+        <v-row id="personal_info">
             <v-col style="max-width:30%">
                 <v-card id="info_card">
                     <v-card-title>Profile Photo</v-card-title>
@@ -10,7 +10,9 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-on:click="update_profile_photo_info=true" text small style="color:orange">Update</v-btn>
+                        <!-- <v-btn v-on:click="update_profile_photo_info=true" text small style="color:orange">Update</v-btn> -->
+                        <v-btn v-if="!update_profile_photo_info" v-on:click="update_profile_photo_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_profile_photo_info" v-on:click="save_profile_photo_info,  update_personal_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -43,7 +45,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-on:click="update_personal_info=true" text small style="color:orange">Update</v-btn>
+                        <v-btn v-if="!update_personal_info" v-on:click="update_personal_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_personal_info" v-on:click="save_changes_per_info,  update_personal_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>                    
             </v-col>
@@ -87,7 +90,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-on:click="update_connatct_info=true" text small style="color:orange">Update</v-btn>
+                        <v-btn v-if="!update_connatct_info" v-on:click="update_connatct_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_connatct_info" v-on:click="save_changes_conntatc_inf,  update_connatct_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -99,7 +103,9 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-on:click="update_personal_info=true" text small style="color:orange">Update</v-btn>
+                        <!-- <v-btn v-on:click="update_qualifications=true" text small style="color:orange">Update</v-btn> -->
+                        <v-btn v-if="!update_qualifications" v-on:click="update_qualifications=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_qualifications" v-on:click="save_qualifications,  update_qualifications=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -115,8 +121,13 @@ export default({
         return {
             profile_photo: require('../images/usagi_1.png'),
             update_profile_photo_info: false,
+            save_changes_prof_photo: false,
             update_personal_info: false,
+            save_changes_per_inf: false,
             update_connatct_info: false,
+            save_changes_conntatc_inf: false,
+            update_qualifications:false,
+            save_qualifications: false,
 
             first_name: 'lalala',
             last_name: 'lallaa ',
@@ -229,9 +240,9 @@ export default({
 
 <style>
 
-#info_card .v-card-text, .v-card-actions{
+/* #info_card .v-card-title, .v-card-actions{
     background-color: orange !important;
-}
+} */
 
 .v-switch {
     /* max-height: 10px !important;
@@ -241,5 +252,10 @@ export default({
     transform: scale(0.875) !important;
     transform-origin: left !important;
 }
+
+/* #info_card .v-card-title {
+    color: brown !important;
+    background: brown !important;
+} */
 
 </style>

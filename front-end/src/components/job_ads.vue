@@ -2,9 +2,9 @@
     <v-container>
         <v-conainer>
             <v-row>
-                <v-col><v-btn @click="show_job_ads=false" :class="{'orange': show_job_ads==false, 'orange lighten-4': show_job_ads==true}">CREATE A NEW JOB AD</v-btn></v-col>
-                <v-col><v-btn @click="show_job_ads=true" :class="{'orange': show_job_ads==true, 'orange lighten-4': show_job_ads==false}">JOB ADS</v-btn></v-col>
-                <v-col><v-btn>MY ADS</v-btn></v-col>
+                <v-col><v-btn @click="show_job_ads=false, show_my_ads=false, show_create_ad=true" :class="{'orange white--text': show_create_ad==true, 'deep-purple lighten-5 deep-purple--text': show_create_ad!=true}">CREATE A NEW JOB AD</v-btn></v-col>
+                <v-col><v-btn @click="show_job_ads=true, show_my_ads=false, show_create_ad=false" :class="{'orange white--text': show_job_ads==true, 'deep-purple lighten-5 deep-purple--text': show_job_ads!=true}">JOB ADS</v-btn></v-col>
+                <v-col><v-btn @click="show_job_ads=false, show_my_ads=true, show_create_ad=false" :class="{'orange white--text': show_my_ads==true, 'deep-purple lighten-5 deep-purple--text': show_my_ads!=true}">MY ADS</v-btn></v-col>
             </v-row>
         </v-conainer>
         <v-card class="mt-4 mb-4">
@@ -14,10 +14,10 @@
                 <v-spacer></v-spacer>
                 <i class="fas fa-angle-double-down" v-if="show_job_ads==true || show_job_ads==null"></i>
             </v-card-title> -->
-            <div  v-if="show_job_ads==false">
+            <div  v-if="show_create_ad==true">
                 <v-card-actions  class="pr-14">
                     <v-spacer></v-spacer>
-                    <v-btn v-if="show_job_ads==false" @click="show_job_ads=null" x-small color="orange" rounded outlined><v-icon size="13">fas fa-times</v-icon></v-btn>   
+                    <v-btn v-if="show_job_ads==false" @click="show_job_ads=null, show_my_ads=null, show_create_ad=null" x-small color="orange" rounded outlined><v-icon size="13">fas fa-times</v-icon></v-btn>   
                 </v-card-actions>
                 <v-card-text>
                     <CreateAd/>
@@ -34,7 +34,7 @@
             <div v-show="show_job_ads==true">
                 <v-card-actions   class="pr-14">
                     <v-spacer></v-spacer>
-                    <v-btn v-if="show_job_ads==true" @click="show_job_ads=null" x-small color="orange" rounded outlined><v-icon size="13">fas fa-times</v-icon></v-btn>
+                    <v-btn v-if="show_job_ads==true" @click="show_job_ads=null, show_my_ads=null, show_create_ad=null" x-small color="orange" rounded outlined><v-icon size="13">fas fa-times</v-icon></v-btn>
                 </v-card-actions>
                 <v-card-actions>
                     <v-card-title>SEARCH</v-card-title>
@@ -46,9 +46,21 @@
                 </v-card-text>
             </div>
         </v-card>
-        <v-card>
+        <!-- <v-card  v-if="show_my_ads==true">
             <MyJobAds/>
-        </v-card>
+        </v-card> -->
+        <div  v-if="show_my_ads==true">
+            <v-card>
+                <v-card-actions  class="pr-14">
+                    <v-spacer></v-spacer>
+                
+                    <v-btn v-if="show_job_ads==false" @click="show_job_ads=null, show_my_ads=null, show_create_ad=null" x-small color="orange" rounded outlined><v-icon size="13">fas fa-times</v-icon></v-btn>   
+                </v-card-actions>
+                <v-card-text>
+                    <MyJobAds/>
+                </v-card-text>
+            </v-card>
+        </div>
         <!-- <v-footer>
             lalal
         </v-footer> -->
@@ -70,6 +82,8 @@ export default ({
     data() {
         return {
             show_job_ads: true,
+            show_my_ads: false,
+            show_create_ad: false
         }
     }
 })

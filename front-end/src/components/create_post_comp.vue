@@ -3,7 +3,7 @@
         <v-card class="amber lighten-4" elevation="0">
             <v-subheader class="d-flex justify-center">CREATE AN AWESOME POST</v-subheader>
             <v-card-text :class="color">
-                <v-textarea placeholder="Share your thoughts with your network" v-on:click="focus_rows=3" v-on:blur="focus_rows=1" :rows="focus_rows" color="orange"></v-textarea>
+                <v-textarea placeholder="Share your thoughts with your network" v-model="post_txt" v-on:click="focus_rows=3, create=true" v-on:blur="check_post" :rows="focus_rows" color="orange"></v-textarea>
             </v-card-text>
             <v-card-actions>
                 <v-row class="d-flex align-center pa-0">
@@ -11,6 +11,10 @@
                     <v-col><v-btn outlined color="orange"><v-icon small left>fas fa-camera</v-icon>upload photo/video</v-btn></v-col>
                     <v-file-input class="mt-6" dense outlined color="orange" placeholder="attach file"></v-file-input>
                     <v-spacer></v-spacer>
+                    <!-- <v-div> -->
+                        <v-btn v-if="create" :disabled="post_txt==null || post_txt==''" class="deep-purple white--text">post</v-btn>
+                        <v-spacer v-if="create"></v-spacer>
+                    <!-- </v-div> -->
                 </v-row>
             </v-card-actions>
         </v-card>
@@ -24,6 +28,21 @@ export default {
         return {
             color: 'white',
             focus_rows: '1',
+            create: false,
+            post_txt: null,
+
+        }
+    },
+    methods: {
+        check_post() {
+            this.focus_rows=1;
+            if(this.post_txt == null || this.post_txt == "")
+            {    this.create = false;
+                return false;
+            }
+            else
+                this.create = true;
+                return true;
         }
     }
 }

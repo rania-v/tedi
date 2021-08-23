@@ -1,5 +1,5 @@
 <template>
-    <v-card width="20%">
+    <v-card>
             <v-card-title id="profile_card">Profile</v-card-title>
             <v-img  id="user_prof_pic" :src=image></v-img>
             <v-container id="personal">

@@ -1,11 +1,17 @@
 <template>
     <v-row>
         <!-- <h1  v-on:ShowFriendProf="ChangePT($event)">{{msg}}</h1> -->
-        <Profile/>
-        <v-container>
-            <PostCreate/>
-            <PostComp v-for="item in 7" :key="item"/>
-        </v-container>
+        <v-spacer></v-spacer>
+        <v-col cols="3">
+            <Profile/>
+        </v-col>
+        <v-col cols="7">
+            <v-container>
+                <PostCreate/>
+                <PostComp v-for="item in 7" :key="item"/>
+            </v-container>
+        </v-col>
+        <v-spacer></v-spacer>
     </v-row>
 </template>
 

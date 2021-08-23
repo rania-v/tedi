@@ -1,14 +1,18 @@
 <template>
     <v-row>
-        <Profile/>
-        <v-col style="max-width:7%" class="friend_action">
+        <v-spacer></v-spacer>
+        <v-col cols="2">
+            <Profile/>
+        </v-col>
+        <v-col cols="1" class="friend_action">
             <v-btn v-for="action in ['Posts','Contact', 'Add To Favs']" :key="action" v-on:click="show=action">{{action}}</v-btn>
         </v-col>
-        <v-col class="pt-0">
+        <v-col cols="6" class="pt-0">
             <PostComp v-if="show=='Posts'"/>
             <MsgFriend v-if="show=='Contact'"/>
             <PostComp v-if="show=='Add To Favs'"/>
         </v-col>
+        <v-spacer></v-spacer>
     </v-row>     
 </template>
 
@@ -34,11 +38,6 @@ export default ({
 
 <style>
 
-.friend_action {
-    margin-right: 0% !important;
-    padding-top: 0% !important;
-    padding-left: 0%;
-}
 
 .friend_action .v-btn {
     font-size: 90% !important;

@@ -29,8 +29,9 @@ export default {
   /* color: #2c7456; */
     color: hsl(0, 0%, 100%);
 
-  margin-top: 60px;
+  /* margin-top: 60px; */
   padding: 5%;
+  /* padding: 0 5% 5% 5%; */
     /* text-shadow: -4px 3px 0 #ebe0f8, -14px 7px 0 #ffffff; */
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Welcome msg='Welcome'/>
+    <Welcome msg='Welcome'/>
     <div id="wlcm">
       <div id="SignButts">
         <v-btn x-large rounded color=#5d1889 dark @click="signup=true">
@@ -19,7 +19,6 @@
     </v-form>
     <!-- <v-btn v-on:click="this.$router.push('HomePage') ">HOME PAGE</v-btn> -->
     <router-link to="/HomePage">HomePage</router-link>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -30,7 +29,7 @@ import SignInForm from './SignInForm.vue'
 // import HomePage from './HomePage.vue'
 
 export default {
-  name: 'App',
+  name: 'wlcm',
   components: {
     Welcome,
     SignUpForm,
@@ -63,7 +62,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: hsl(210, 29%, 24%);
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 
 #SignButts {

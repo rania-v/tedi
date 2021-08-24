@@ -66,6 +66,20 @@ export default {
             this.page_title = e;
             console.log("alallas");
         }
+    },
+    watch: {
+        $route(to) {
+            if(to.name == 'Αρχική Σελίδα')
+                this.page_title ='Αρχική Σελίδα';
+            // else if(to.name == 'coWorkers')
+            //     this.selected_id = 2;
+            // else if(to.name == 'profSettings')
+            //     this.selected_id = 3;
+            // else if(to.name == 'Upgrade')
+            //     this.selected_id = 4;
+            // else if(to.name == 'profLogout')
+            //     this.selected_id = 5;
+        }
     }
 }
 

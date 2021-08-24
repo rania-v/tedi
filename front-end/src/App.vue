@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-      <wlcm/>
+
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
 <script>
-import wlcm from './components/wlcm.vue'
 
 export default {
   name: 'App',
-  components: {
-    wlcm
-  },
   data () {
     return {
       signup: false,

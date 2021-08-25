@@ -12,7 +12,7 @@
                     <v-file-input class="mt-6" dense outlined color="orange" placeholder="attach file"></v-file-input>
                     <v-spacer></v-spacer>
                     <!-- <v-div> -->
-                        <v-btn v-if="create" :disabled="post_txt==null || post_txt==''" class="deep-purple white--text">post</v-btn>
+                        <v-btn v-if="create" :disabled="post_txt==null || post_txt==''" class="deep-purple white--text" v-on:click="post">post</v-btn>
                         <v-spacer v-if="create"></v-spacer>
                     <!-- </v-div> -->
                 </v-row>
@@ -43,6 +43,9 @@ export default {
             else
                 this.create = true;
                 return true;
+        },
+        post() {
+            this.$emit('new_post', this.post_txt)
         }
     }
 }

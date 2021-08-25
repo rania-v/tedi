@@ -7,7 +7,8 @@
         </v-col>
         <v-col cols="7">
             <v-container>
-                <PostCreate/>
+                <PostCreate @new_post='show_new_post($event)'/>
+                <MyPost v-if="new_post_txt!=null"/>
                 <PostComp v-for="item in 7" :key="item"/>
             </v-container>
         </v-col>
@@ -19,17 +20,20 @@
 import PostComp from './post_comp.vue'
 import PostCreate from './create_post_comp.vue'
 import Profile from './profile.vue'
+import MyPost from './my_post.vue'
 
 export default ({
     name: 'Home',
     components: {
         PostComp,
         PostCreate,
-        Profile
+        Profile,
+        MyPost
     },
     data() {
        return {
-        msg: "lala"
+        msg: "lala",
+        new_post_txt: null
        }
     },
     methods: {
@@ -44,6 +48,9 @@ export default ({
         ChangePT(pt) {
             console.log("called from child!")
             this.msg = pt;
+        },
+        show_new_post(e) {
+            this.new_post_txt = e;
         }
     }
 })

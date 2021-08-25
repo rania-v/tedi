@@ -23,6 +23,7 @@
                 <Notifications v-else-if="page_title=='Ειδοποιήσεις'"/>
                 <PersonalInfo v-else-if="page_title=='Προσωπικά Στοιχεία'"/>
                 <Settings v-else-if="page_title=='Ρυθμίσεις'"/>
+                <UserList v-else-if="page_title=='ADMIN'"/>
             </v-card-text>
         </v-card>
     </v-app>
@@ -38,6 +39,7 @@ import PersonalInfo from './personal_info.vue'
 import Settings from './settings.vue'
 import Chat from './chat.vue'
 import Notifications from './notifications.vue'
+import UserList from './user_list.vue'
 
 export default {
     name: 'HomePage',
@@ -50,11 +52,12 @@ export default {
         PersonalInfo,
         Settings,
         Chat,
-        Notifications
+        Notifications,
+        UserList
     },
     data() {
         return {
-            items: ['Αρχική Σελίδα', 'Δίκτυο', 'Αγγελίες', 'Συζήτηση', 'Ειδοποιήσεις', 'Προσωπικά Στοιχεία', 'Ρυθμίσεις'],
+            items: ['Αρχική Σελίδα', 'Δίκτυο', 'Αγγελίες', 'Συζήτηση', 'Ειδοποιήσεις', 'Προσωπικά Στοιχεία', 'Ρυθμίσεις', 'ADMIN'],
             page_title: 'Αρχική Σελίδα'
         };
     },

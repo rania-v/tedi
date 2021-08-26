@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -6,21 +7,12 @@ require("dotenv/config");
 
 app.use(express.json({limit: '50mb', extended: true}));
 
+// SET & USE ROUTES
+const dbRoutes = require('./routes/db');
+app.use('/api/db', dbRoutes);
 
-app.get("/",(req, res)=>{
-    res.send("First request !");
-});
-
-
-app.get("/users",(req, res)=>{
-    let users=["bob", "dilan", "mery", "rania", "mike"];
-    res.send({
-        users: users,
-    });
-});
-
+// connect db
 mongoose.connect(
-    // process.env.DB_URL,
     process.env.DB_CONNECTION,
     { 
         useNewUrlParser: true, 
@@ -32,28 +24,12 @@ mongoose.connect(
 .then( () => console.log("Server connected to MongoDB.") )
 .catch( error => console.log(error.message) );
 
-
-const { User } = require('./models/User/user');
-
-app.get("/c-user", async(req, res)=>{
-    console.log(req.query);
-    console.log('Creating User ..')
-    try {
-        console.log('BBBBBBBB   ')
-        const myuser = new User(req.query);
-        console.log('AAAAAAAAAAA')
-        myuser.name = req.query.name;
-        myuser.email = req.query.email;
-
-        console.log('myuser');
-        await myuser.save();
-        console.log(myuser);
-        res.send(myuser);
-    }catch (err) {
-        res.send({message: err});
-        console.log('\t.. FAILED !!');
-    }
-});
+// set session
+app.use(session({
+    secret: 'deers',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.listen(3000, ()=>{
     console.log("Listening to 3000");

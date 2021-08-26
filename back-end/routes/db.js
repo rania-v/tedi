@@ -4,8 +4,6 @@ const router = express.Router();
 
 const User = require('../models/User/user');
 
-
-// Empty DB
 mongoose.connect(
     process.env.DB_CONNECTION,
     { 
@@ -17,10 +15,8 @@ mongoose.connect(
 )
 .catch( error => console.log(error.message) );
 
-router.post('/mpla', async(req,res)=>{
-    res.send('MPLA');
-})
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Empty DB !!
 router.post("/empty", function(req, res){
     console.log("Droping DataBase !!");
     mongoose.connection.db.dropDatabase();
@@ -28,6 +24,7 @@ router.post("/empty", function(req, res){
 })
 
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Empty DB && Create Admins !!
 router.post("/init", function(req, res){
     //  DROP ALL && INIT ADMINS
     mongoose.connection.db.dropDatabase();
@@ -58,7 +55,7 @@ router.post("/init", function(req, res){
     console.log('DB Initallized !!');
 })
 
-
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Create Test Users !!
 router.post("/c-test-users", function(req, res){
     
     var newUser = new User({
@@ -102,13 +99,4 @@ router.post("/c-test-users", function(req, res){
 })
 
 
-
-
-
 module.exports = router;
-// Init DB
-
-
-
-
-

@@ -84,6 +84,10 @@ const friendRequestSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    Date: {
+        type: Date,
+        default: Date.now,
+    },
     invitationCode: String
 })
 

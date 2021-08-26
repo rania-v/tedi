@@ -20,17 +20,17 @@ const jobSchema = new mongoose.Schema({
     jobDescription:{
         duties: [{type: String}],
         workEnv: [{type: String}],
-        remoteWork: {type: Boolean},
-        jobDescription: {type: String},
+        remoteWork: Boolean,
+        jobDescription: String,
     },
     benefits:{
         employmentType:{
             type: String,
             enum: ['full-time', 'part-time', 'casual employment', 'internship', 'commision']
         },
-        minSalary: {type: Number},
-        maxSalary: {type: Number},
-        benefits: {type: String},
+        minSalary: Number,
+        maxSalary: Number,
+        benefits: String,
     },
     apply:{
         email: {type: mongoose.SchemaTypes.Email},
@@ -42,6 +42,6 @@ const jobSchema = new mongoose.Schema({
 })
 
 const job = mongoose.model('Job', jobSchema);
-mongoose.model.exports = {
+module.exports = {
     job: job,
 }

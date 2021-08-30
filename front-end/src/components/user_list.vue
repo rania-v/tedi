@@ -8,23 +8,51 @@
                 <v-spacer></v-spacer>
                 <v-col class="d-flex justify-center">
                     <v-card-actions>
-                        <v-btn :class="{'orange lighten-4 orange--text': pick_to_extract==true, 'orange white--text': pick_to_extract==false}" v-on:click="pick_to_extract=true">Select users to extract data</v-btn>
+                        <v-btn v-if="!pick_to_extract" :class="{'orange lighten-4 orange--text': pick_to_extract==true, 'orange white--text': pick_to_extract==false}" v-on:click="pick_to_extract=true">Select users to extract data</v-btn>
+                        <v-btn v-if="pick_to_extract" class="orange white--text" v-on:click="popup=true" :disabled="extract_list==''">Extract users datadata</v-btn>
+                        <v-btn v-if="pick_to_extract" class="orange lighten-4 orange--text" v-on:click="close_pick"><i class="fas fa-times"></i></v-btn>
                     </v-card-actions>
                 </v-col>
             </v-row>
+            <v-row class="pa-0 ma-0">
+                    <v-spacer></v-spacer>
+                <v-col cols="3" class="pa-0 ma-0">
+                    <v-btn small class="mr-1 ml-1 orange lighten-4 white--text" v-on:click="cust_size='15%'"><v-icon size="15">{{size_icon}}</v-icon></v-btn>
+                    <v-btn small class="mr-1 ml-1 orange lighten-4 white--text" v-on:click="cust_size='20%'"><v-icon size="20">{{size_icon}}</v-icon></v-btn>
+                    <v-btn small class="mr-1 ml-1 orange lighten-4 white--text" v-on:click="cust_size='30%'"><v-icon size="30">{{size_icon}}</v-icon></v-btn>
+                </v-col>
+            </v-row>
             <v-card-text class="d-flex justify-center flex-wrap">
-                <v-card v-for="i in 10" :key="i" class="ma-2" max-width="20%" outlined>
+                <v-card v-for="i in 10" :key="i" class="ma-2" :max-width="cust_size" outlined>
                     <v-card-actions style="max-height:40px" v-if="pick_to_extract">
                         <v-spacer></v-spacer>
-                        <v-checkbox v-on:click="add_to_list()" color="orange"></v-checkbox>
+                        <v-checkbox v-model="extract_list" :value="i" color="orange"></v-checkbox>
                     </v-card-actions>
                     <v-card-text class="d-flex justify-center pt-0">
                         <UserCard/>
                     </v-card-text>
                 </v-card>
-                {{to_extract}}
+                {{extract_list}}
             </v-card-text>
         </v-card>
+        <v-dialog v-model="popup" width="30%">
+            <v-card>
+                <v-card-title>EXTRACT users' data</v-card-title>
+                <v-card-text>
+                    <v-row>
+                        <v-col v-for="i in data_type" :key="i"><v-checkbox :color="check_color" :label="i.type" v-model="i.status"></v-checkbox></v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                    <div style="column-count: 2">
+                        <v-checkbox :color="check_color" v-for="i in extract_data" :key="i" :label="i.data" v-model="i.status"></v-checkbox>
+                    </div>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="orange white--text" v-on:click="extract=true">extract</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -38,13 +66,32 @@ export default ({
     },
     data() {
       return {
-            extract: {},
-            pick_to_extract: false
+            pick_to_extract: false,
+            popup: false,
+            extract: false,
+            extract_list:[],
+            cust_size: '20%',
+            size_icon:'fas fa-ellipsis-h',
+            check_color: 'orange',
+            data_type: [
+                {type: 'XML', status: false},
+                {type: 'JSON', status: false}                
+            ],
+            extract_data: [
+                {data:'bio', status: false},
+                {data:'posts', status: false},
+                {data:'ads', status: false},
+                {data:'qualifications', status: false},
+                {data:'interest in ads', status: false},
+                {data:'network', status: false},
+                {data:'comments in posts', status: false}
+            ]
       }  
     },
     methods: {
-        add_to_list(id) {
-            this.add_to_list.push(id);
+        close_pick() {
+            this.extract_list = [];
+            this.pick_to_extract = false;
         }
     }
 })

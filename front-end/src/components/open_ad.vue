@@ -5,6 +5,10 @@
                 <v-btn :class="{'orange--text': fav==false, 'white orange--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
             </v-card-actions>
             <v-row>
+                <v-spacer></v-spacer>
+                <v-col><v-subheader class="orange--text justify-end">{{ad.date}}</v-subheader> </v-col>
+            </v-row>
+            <v-row>
                 <v-col cols="6">
                     <v-card-title id="title_wrap">{{ad.title}}</v-card-title>
                     <v-divider></v-divider>
@@ -94,6 +98,7 @@ export default ({
             fullstar: 'fas fa-star',
             emptystar: 'far fa-star',
             ad: {
+                date: '1/1/2021',
                 title: 'Amazing Platform Software Engineer',
                 image: require('../images/5.jpg'),
                 basic_info:{

@@ -1,8 +1,8 @@
 <template>
     <v-container>
-        <v-row>
+        <v-row >
             <v-col cols="7">
-                <v-container class="max-length: 20%; wrap:">
+                <v-container class="overflow-hidden orange" :style="{'max-height': height}">
                     <OpenAd/>
                 </v-container>
             </v-col>
@@ -23,8 +23,14 @@ export default ({
     },
     data() {
         return{
-
+            height: '100%',
+            closed: true
         }
     },
 })
 </script>
+
+
+<style>
+
+</style>

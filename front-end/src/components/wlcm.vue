@@ -11,12 +11,12 @@
         </v-btn>
       </div>
     </div>
-    <v-form id="signupform" class="container" v-if="signup==true">
+    <v-container v-if="signup==true">
       <SignUpForm @close_up="signup=false"/>
-    </v-form>
-    <v-form id="signipform" class="container" v-if="signin==true">
+    </v-container>
+    <v-container v-if="signin==true">
       <SignInForm @close_in="signin=false"/>
-    </v-form>
+    </v-container>
     <!-- <v-btn v-on:click="this.$router.push('HomePage') ">HOME PAGE</v-btn> -->
     <router-link to="/HomePage">HomePage</router-link>
   </div>
@@ -42,8 +42,8 @@ export default {
       signin: false,
       // images: ["../images/plane.jpg","../images/blueberries.jpg","../images/stars.jpg",
       //         "../images/buildings.jpg","../images/cupcakes.jpg","../images/mountains.jpg"]
-      images: ["../images/1.jpg","../images/2.jpg","../images/3.jpg",
-        "../images/4.jpg","../images/5.jpg","../images/6.jpg","../images/.jpg"]
+      images: ["../images/1.jpg","../images/2.jpg","../images/11.jpg",
+        "../images/4.jpg","../images/5.jpg","../images/6.jpg","../images/11.jpg"]
     };
   },
   methods: {
@@ -95,7 +95,7 @@ body {
   /* background-image: url(../images/possible_wall_3.jpg); */
   /* background-image: url(../images/possible_wall_v2.jpg); */
   /* background-image: url(../images/2.jpg); */
-  background: url(../images/1.jpg);
+  background: url(../images/9.jpg);
   height: 100%;    
       width: 100%
 /* opacity: 0.5; */

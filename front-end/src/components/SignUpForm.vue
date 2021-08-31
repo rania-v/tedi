@@ -31,7 +31,7 @@
                         <v-spacer></v-spacer>
                     </v-row>
                     <v-card-actions class="">
-                        <v-btn id="valid" type="submit" dark @click="submit" >Sign Up</v-btn>
+                        <v-btn id="valid" type="submit" dark @click="submit">Sign Up</v-btn>
                     </v-card-actions>
                 </v-form>
         </v-card-text>

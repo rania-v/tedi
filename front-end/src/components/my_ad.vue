@@ -16,15 +16,9 @@
             <v-icon v-show="show==false">fas fa-caret-down</v-icon>
             <v-icon v-show="show==true">fas fa-caret-up</v-icon>
           </v-btn>
-          <v-spacer></v-spacer>
-          <!-- <v-btn color="orange lighten-2" text  @click="$router.push('OpenAd')">
-            Open Ad
-          </v-btn> -->          
-          <v-btn color="orange lighten-2" text  @click="openad">
-            Open Ad
-          </v-btn>
-          <v-btn color="orange lighten-2" outlined>
-            Apply
+          <v-spacer></v-spacer>        
+          <v-btn color="orange lighten-2" text  @click="openmyad">
+            View Info
           </v-btn>
         </v-card-actions>
         <v-card-text v-if="show==true" class="pt-0">
@@ -39,12 +33,10 @@
 </template>
 
 <script>
-// import OpenAd from './open_ad.vue'
 
 export default ({
     name: 'Ad',
     components: {
-      // OpenAd
     },
     data() {
         return {
@@ -61,8 +53,8 @@ export default ({
         }
     },
     methods: {
-      openad() {
-        this.$emit('opened_ad', '');
+      openmyad() {
+        this.$emit('open_my_ad', '');
       }
     }
 })

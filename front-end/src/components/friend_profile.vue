@@ -1,53 +1,57 @@
 <template>
-    <v-row>
-        <v-spacer></v-spacer>
-        <v-col cols="2">
-            <Profile/>
-        </v-col>
-        <v-col cols="1" class="friend_action">
-            <v-btn v-for="action in ['Posts','Contact', 'Add To Favs']" :key="action" v-on:click="show=action">{{action}}</v-btn>
-        </v-col>
-        <v-col cols="6" class="pt-0">
-            <PostComp v-if="show=='Posts'"/>
-            <MsgFriend v-if="show=='Contact'"/>
-            <PostComp v-if="show=='Add To Favs'"/>
-        </v-col>
-        <v-spacer></v-spacer>
-    </v-row>     
+    <div>
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-col cols="2">
+                <Profile/>
+            </v-col>
+            <v-col cols="6" class="">
+                <v-row>
+                    <v-col cols="4">
+                        <v-btn v-for="a in actions" :key="a" v-on:click="show=a.action" class="mr-1 ml-0" :class="{'orange white--text': show==a.action, 'orange lighten-4 orange--text': show!=a.action}"><v-icon left>{{a.icon}}</v-icon>{{a.action}}</v-btn>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                </v-row>
+                <PostComp/>
+            </v-col>
+            <v-spacer></v-spacer>
+        </v-row>
+        <v-dialog max-width="30%" v-model="show" v-if="show=='Friend'">
+            <v-card>
+                <v-card-title class="orange lighten-4 orange--text">Friend</v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="orange white--text"><v-icon size="17" left>fas fa-user-times</v-icon> Delete friend</v-btn>
+                    <v-btn color="purple white--text"><v-icon size="17" left>fas fa-star</v-icon> Add to favorites</v-btn>
+                    <v-spacer></v-spacer>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </div>
 </template>
 
 <script>
 import Profile from './profile.vue'
 import PostComp from './post_comp.vue'
-import MsgFriend from './msgfriend.vue'
 
 export default ({
     name:"FriendProfile",
     components: {
         Profile,
-        PostComp,
-        MsgFriend
+        PostComp
     },
     data() {
         return {
-            show: "Posts"
+            show: "Posts",
+            actions: [
+                {action: 'Conact', icon: 'fas fa-comment'},
+                {action: 'Friend', icon: 'fas fa-user-friends'}
+            ]
         };
     },
 })
 </script>
 
 <style>
-
-
-.friend_action .v-btn {
-    font-size: 90% !important;
-    height: 8% !important;
-    margin-bottom: 10% !important;
-    background-color: orange !important;
-    color: cornsilk !important;
-    width: 100%;
-    /* white-space: normal !important; */
-    /* word-wrap: break-word !important; */
-}
 
 </style>

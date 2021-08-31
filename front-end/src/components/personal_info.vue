@@ -100,6 +100,10 @@
                     <v-card-title>Qualification Info</v-card-title>
                     <v-card-text>
                         <v-file-input label="Upload Resume"></v-file-input>
+                         <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update_connatct_info' prepend-icon="fab fa-instagram"></v-text-field></v-col>
+                            <v-spacer v-if="update_connatct_info"></v-spacer>
+                            <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
+                        
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>

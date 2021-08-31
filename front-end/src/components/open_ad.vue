@@ -170,7 +170,7 @@ export default ({
     white-space:pre-wrap;
     word-break:break-word;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     /* white-space: ; */
 }
 
@@ -179,7 +179,7 @@ export default ({
     display: flex;
     white-space:pre-line;
     word-break:break-word;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 </style>

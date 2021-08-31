@@ -3,16 +3,21 @@
         <v-card-title>
             <h2 id="get_in">Get In Now</h2>
         </v-card-title>
-        <v-btn @click="visible=true">
-            <i class="fas fa-times"></i>
-        </v-btn>
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-btn @click="close" text small><i class="fas fa-times"></i></v-btn>
+        </v-row>
         <v-card-text>
             <v-form action="/HomePage.vue" method="get">
-
-                <v-text-field label="e-mail" v-model="email" ></v-text-field>
-                <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
-  
-                <v-btn id="valid" type="submit" dark @click="submit" >Sign In</v-btn>
+            <v-row>
+                <v-spacer></v-spacer>
+                    <v-col cols="6">
+                        <v-text-field label="e-mail" v-model="email" ></v-text-field>
+                        <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
+                    </v-col>
+                <v-spacer></v-spacer>
+            </v-row>
+            <v-btn id="valid" type="submit" dark @click="submit" >Sign In</v-btn>
             </v-form>
         </v-card-text>
     </v-card>
@@ -35,6 +40,9 @@ export default {
         };
     },
     methods: {
+        close() {
+            this.$emit('close_in','');
+        },
         validate () {
             this.$refs.form.validate()
         },

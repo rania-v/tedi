@@ -12,10 +12,10 @@
       </div>
     </div>
     <v-form id="signupform" class="container" v-if="signup==true">
-      <SignUpForm/>
+      <SignUpForm @close_up="signup=false"/>
     </v-form>
     <v-form id="signipform" class="container" v-if="signin==true">
-      <SignInForm/>
+      <SignInForm @close_in="signin=false"/>
     </v-form>
     <!-- <v-btn v-on:click="this.$router.push('HomePage') ">HOME PAGE</v-btn> -->
     <router-link to="/HomePage">HomePage</router-link>

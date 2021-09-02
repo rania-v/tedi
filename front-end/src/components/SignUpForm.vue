@@ -3,40 +3,37 @@
         <v-card-title>
             <h2 id="be_part">Be Part of the Community Now</h2>
         </v-card-title>
-        <v-btn @click="visible=true">
-            <i class="fas fa-times"></i>
-        </v-btn>
-            
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-btn @click="close" text small><i class="fas fa-times"></i></v-btn>
+        </v-row>
         <v-card-text>
                 <v-form @submit.prevent="handleSubmit(onSubmit)">
                     <v-row justify="space-between" align="center">
                         <v-col>
-                            <v-row> <v-text-field label="First Name" required v-model="name"></v-text-field></v-row>
-                            <v-row><v-text-field label="phone number" type="text" @keypress="phone_check" v-model="phone_number" :maxlength="10" required></v-text-field></v-row>
-                            <v-row><v-text-field label="e-mail" v-model="email" ></v-text-field></v-row>
-                            <v-row><v-text-field label="password" v-model="password" :type="'password'" required></v-text-field></v-row>
-                            <v-row><v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field></v-row>
-                            <v-row><span v-if="conf_password==false">password not the same</span></v-row>
+                            <v-text-field label="First Name" required v-model="name"></v-text-field>
+                            <v-text-field label="phone number" type="text" @keypress="phone_check" v-model="phone_number" :maxlength="10" required></v-text-field>
+                            <v-text-field label="e-mail" v-model="email" ></v-text-field>
+                            <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
+                            <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
+                            <span v-if="conf_password==false">password not the same</span>
                         </v-col>
                         <v-col>
-                            <v-row><v-text-field label="Last Name" v-model="last_name" required></v-text-field></v-row>
-                            <v-row>
+                            <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
                                 <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model=photo prepend-inner-icon="fas fa-camera"></v-file-input>
-                            </v-row>
-                            <v-row>
                                 <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
-                            </v-row>
+                            <v-img src="../svgs/talking.svg"></v-img>
                         </v-col>
                     </v-row>
-                    <div id="checkbox" >
-                        <input type="checkbox" v-model="checked">
-                    </div>
-                    <label for="checkbox">Accept Terms & Conditions</label>
-                    <div>
-                        <v-btn id="valid" type="submit" dark @click="submit" >Sign Up</v-btn>
-                    </div>
+                    <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col><v-checkbox label="Accept Terms & Conditions"></v-checkbox></v-col>
+                        <v-spacer></v-spacer>
+                    </v-row>
+                    <v-card-actions class="">
+                        <v-btn id="valid" type="submit" dark @click="submit">Sign Up</v-btn>
+                    </v-card-actions>
                 </v-form>
-                <v-img src="../svgs/talking.svg"></v-img>
         </v-card-text>
     </v-card>
 </template>
@@ -60,6 +57,9 @@ export default {
         };
     },
     methods: {
+        close() {
+            this.$emit('close_up','');
+        },
         validate () {
             this.$refs.form.validate()
         },

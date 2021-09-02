@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-const User = require('../models/user');
+const User_module = require('../models/user');
+const User = User_module.user
 
 mongoose.connect(
     process.env.DB_CONNECTION,
@@ -10,7 +11,8 @@ mongoose.connect(
         useNewUrlParser: true, 
         useUnifiedTopology: true,
         useFindAndModify: false,
-        useCreateIndex: true
+        useCreateIndex: true,
+        // autoIndex: true
     }
 )
 .catch( error => console.log(error.message) );
@@ -25,7 +27,7 @@ router.post("/empty", function(req, res){
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Empty DB && Create Admins !!
-router.post("/init", function(req, res){
+router.post("/init", async function(req, res){
     //  DROP ALL && INIT ADMINS
     mongoose.connection.db.dropDatabase();
 

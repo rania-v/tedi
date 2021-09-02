@@ -3,42 +3,41 @@ require("mongoose-type-email");
 
 
 const jobSchema = new mongoose.Schema({
-    adInfo:{
-        adTitle: {type: String, required: true},
-        jobTitle: {type: String, required: true},
-        companyName: {type: String, required: true},
-        jobLocation: {type: String, required: true},
-        adImg: {data: Buffer, contentType: String,}
+    date:Date.now,
+    title: {type: String, required: true},
+    image: {data: Buffer, contentType: String,},
+    basic_info:{
+        job_title:{type: String, required: true},
+        company_name: {type: String, required: true},
+        location: {type: String, required: true},
     },
     qualifications:{
-        keyQ: [{type: String}],
-        exp: [{type: String}],
-        companyName: {type: String, required: true},
-        jobLocation: {type: String, required: true},
-        adImg: {data: Buffer, contentType: String,}
+        key_qualifications: {type: String},
+        req_experiense: {type: String},
     },
-    jobDescription:{
-        duties: [{type: String}],
-        workEnv: [{type: String}],
+    job_Description:{
+        pos_duties: {type: String},
+        work_env: {type: String},
         remoteWork: Boolean,
-        jobDescription: String,
-    },
-    benefits:{
+        job_desc: String,
         employmentType:{
             type: String,
             enum: ['full-time', 'part-time', 'casual employment', 'internship', 'commision']
         },
-        minSalary: Number,
-        maxSalary: Number,
-        benefits: String,
+    },
+    benefits:{
+        salary:{
+            min: String,
+            max: String,
+        },
+        pos_benefits: String,
     },
     apply:{
+        link: {String},
         email: {type: mongoose.SchemaTypes.Email},
-        site: {type: String},
+        site_link: {type: String},
     },
-    optionalInfo:{
-        type: String,
-    }
+    more_job_info: {type: String,}
 })
 
 const job = mongoose.model('Job', jobSchema);

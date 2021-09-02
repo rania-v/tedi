@@ -6,11 +6,12 @@ require("mongoose-type-email");
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ User Schema
 const UserSchema = new mongoose.Schema({
     // verificationCode: String,
-    isAdmin:{type: Boolean, required: true},
+    isAdmin:{type: Boolean, default: false},
     personal:{
         firstName:{
-            type: String,
+            type: 'String',
             required: true,
+            unique: true,
             minLength: 1
         },
         lastName:{
@@ -20,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         },
         password:{
             type: String,
+            required: true,
             minLength: 8,
         },
         image: {
@@ -112,7 +114,7 @@ UserSchema.methods.isValidPassword = async function(password) {
 
 const user = mongoose.model('user', UserSchema)
 const frequest = mongoose.model('frequest', friendRequestSchema)
-module.exports = {
+module.exports ={
     user: user,
     frequest: frequest,
 }

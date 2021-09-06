@@ -65,6 +65,10 @@ router.post('/update-user-personal', async(req, res) =>{
       targetUser.personal.lastName = req.body.last_name;
     }
 
+    if(req.body.profession){
+      targetUser.personal.profession = req.body.profession;
+    }
+
     if(req.body.birth_day){
       const date = req.body.birth_day + ' ' + req.body.birth_month + ' ' + req.body.birth_year;
       targetUser.personal.birthday = date;
@@ -99,7 +103,7 @@ router.post('/update-user-contact', async(req, res) =>{
     }
 
     if(req.body.telephone){
-      targetUser.personal.phoneNum = req.body.telephone;
+      targetUser.contact.phoneNum = req.body.telephone;
     }
 
     // console.log(targetUser.personal);

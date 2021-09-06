@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
             data: Buffer,
             contentType: String,
         },
+        profession: String,
         birthday: Date,
         country: String,
         friendsList:[

@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
         friendsList:[
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             }
         ],
         myJobsAds:[

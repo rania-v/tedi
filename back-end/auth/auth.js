@@ -73,3 +73,25 @@ passport.use('login', new localStrategy(
       }
     })
   );
+
+// Passport-jwt authentication strategy
+passport.use(new JWTstrategy(
+  {
+    secretOrKey: process.env.JWT_SECRET,
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    passReqToCallback: true
+  }, async (req, payload, done) => {
+    // Find user in the db
+      User.findOne({ _id: payload.sub })
+      .then((user) => {
+        if(user) {
+          // req.user will be used in '../routes/secure-routes'
+          req.user = user;
+          return done(null, user, { message: 'Επιτυχής έλεγχος ταυτότητας.' });
+        } else {
+          return done(null, false, { message: 'Δεν βρέθηκε τέτοιος χρήστης.' });
+        }
+      })
+      .catch(error => done(error, null, { message: 'Προέκυψε σφάλμα.' }));
+  })
+);

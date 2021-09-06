@@ -59,7 +59,7 @@ router.post("/init", async function(req, res){
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Create Test Users !!
 router.post("/c-test-users", function(req, res){
-    
+
     var newUser = new User({
         isAdmin: false,
         personal:{firstName: 'mike', lastName: 'Vour', password: 'mike1234'},

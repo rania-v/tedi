@@ -16,7 +16,7 @@ const chatSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'user'
             },
-            Date:{type: ISODate, default: ISODate.now},
+            Date:{type: Date, default: Date.now},
             content:{type: String, minLength: 1, maxLength: 100},
             status:{
                 type: String,

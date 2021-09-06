@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const authenticate = require("./middlewares/authenticate")
 const app = express();
 
 require("dotenv/config");
@@ -16,6 +17,11 @@ app.use('/api/db', dbRoutes);
 const userRoutes = require('./routes/user');
 app.use('/api/user', userRoutes);
 
+const jobRoutes = require('./routes/job');
+app.use('/api/job', authenticate, jobRoutes);
+
+const secureRoutes = require('./routes/secure')
+app.use('/api/', authenticate, secureRoutes);
 
 
 // set session

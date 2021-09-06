@@ -54,7 +54,7 @@ router.post('/update-user-settings', async(req, res) =>{
 router.post('/update-user-personal', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
-    
+
     // console.log(targetUser.personal);
 
     if(req.body.first_name){
@@ -73,6 +73,7 @@ router.post('/update-user-personal', async(req, res) =>{
       const date = req.body.birth_day + ' ' + req.body.birth_month + ' ' + req.body.birth_year;
       targetUser.personal.birthday = date;
     }
+
     if(req.body.country){
       targetUser.personal.country = req.body.country;
     }

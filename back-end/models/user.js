@@ -48,6 +48,12 @@ const UserSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Chat'
             }
+        ],
+        myPosts:[
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "post"
+            }
         ]
     },
     contact:{

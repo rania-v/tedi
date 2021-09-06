@@ -23,6 +23,9 @@ app.use('/api/job', authenticate, jobRoutes);
 const secureRoutes = require('./routes/secure')
 app.use('/api/', authenticate, secureRoutes);
 
+const postRoutes = require('./routes/post');
+app.use('/api/post', authenticate, postRoutes);
+
 
 // set session
 app.use(session({

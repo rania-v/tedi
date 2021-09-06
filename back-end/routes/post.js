@@ -147,4 +147,89 @@ router.post("/post-edit:postId", async(req, res)=>{
 })
 
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ React
+
+
+        // ~~~~~~~~~~~~~~~~~ REACT: INTRESTED
+router.post("/react1:postId", async(req, res) => {
+    try{
+        const targetUser = req.user;
+        const targetPost = await post.findById(req.params.postId);
+
+        if(!targetPost){
+            return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
+        }
+        
+        const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
+        // console.log(reacted);
+        if(reacted != -1){
+            if(targetPost.reacts[reacted].reaction != 'intrested'){
+                targetPost.reacts[reacted].reaction = 'intrested'
+                console.log(targetPost.reacts);
+                await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
+            }
+        }
+        else{
+            targetPost.reacts.push({reaction: 'intrested', creator: targetUser._id});
+            await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true})
+        }
+        
+        res.json({message: "Η αντίδραση δημοσιεύθηκε!"})
+
+    }catch(err){
+        res.json({message: err});
+    }
+})
+
+
+        // ~~~~~~~~~~~~~~~~~ REACT: LIKE
+router.post("/react2:postId", async(req, res) => {
+    try{
+        const targetUser = req.user;
+        const targetPost = await post.findById(req.params.postId);
+
+        if(!targetPost){
+            return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
+        }
+        
+        const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
+        // console.log(reacted);
+        if(reacted != -1){
+            if(targetPost.reacts[reacted].reaction != 'like'){
+                targetPost.reacts[reacted].reaction = 'like'
+                await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
+            }
+        }
+        else{
+            targetPost.reacts.push({reaction: 'like', creator: targetUser._id});
+            await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true})
+        }
+        
+        res.json({message: "Η αντίδραση δημοσιεύθηκε!"})
+
+    }catch(err){
+        res.json({message: err});
+    }
+})
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Remove a reaction
+router.delete("/react:postId", async(req, res) => {
+    try{
+        const targetUser = req.user;
+        const targetPost = await post.findById(req.params.postId);
+
+        if(!targetPost){
+            return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
+        }
+
+        targetPost.reacts = targetPost.reacts.filter((elem) => { return !elem.creator.equals(targetUser._id) });
+        await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
+
+        res.json({message: 'Η αντίδραση αφαιρέθηκε!'})
+    }catch(err){
+        res.json({message: err});
+    }
+})
+
 module.exports = router;

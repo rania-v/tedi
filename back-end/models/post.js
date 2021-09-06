@@ -11,8 +11,11 @@ const postSchema = new mongoose.Schema({
     content:{ type: String, minLength: 1, maxLength: 250, required: true},
     reacts:[
         {
-            type: String,
-            enum: ['like', 'intrested']
+            reaction:{
+                type: String,
+                enum: ['like', 'intrested']
+            },
+            creator: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
         }
     ],
     comments:[

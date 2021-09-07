@@ -128,6 +128,11 @@ router.post('/frequest', async(req, res) => {
       return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
     }
 
+    // check if users are already friends
+    const friends = user2.personal.friendsList.indexOf(user2._id);
+    if(friends)
+      res.json({message: 'Είστε ήδη φίλος με αυτόν τον χρήστη!'});
+
     const invite = new frequest();
     invite.from = user1._id;
     invite.to = user2._id;
@@ -166,21 +171,94 @@ router.post('/accept-frequest', async(req, res) => {
 
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
     
-    // remove frequest from user's 1 notifications
+    // remove frequest from user's 1 notifications, if still there
     user1.personal.myNotifications.frequests = user1.personal.myNotifications.frequests.filter((reqID) => { return !reqID.equals(request._id) })
 
-    // remove frequest from user's 1 list
+    // remove frequest from user's 1 list, if still there
     user1.personal.frequests = user1.personal.frequests.filter((reqID) => { return !reqID.equals(request._id) })
 
-
+    console.log('edw');
     await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
-    
+
+
+    // Delete frequest
+    await frequest.remove(request);
+
     res.json({messae: 'Το αίτημα φιλίας έγινε αποδεκτό'});
   }catch(err){
     res.json({message: err});
   }
 })
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Deny Friend Request
+router.delete('/deny-frequest', async(req, res) => {
+  try{
 
+    const user1 = req.user;
+    const request = await frequest.findById(req.body.request);
+
+    if(!request){
+      return res.json({message: 'Η πρόσκληση δεν βρέθηκε!'});
+    }
+
+    // remove frequest from user's 1 notifications, if still there
+    user1.personal.myNotifications.frequests = user1.personal.myNotifications.frequests.filter((reqID) => { return !reqID.equals(request._id) })
+
+    // remove frequest from user's 1 list, if still there
+    user1.personal.frequests = user1.personal.frequests.filter((reqID) => { return !reqID.equals(request._id) })
+
+    await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
+
+
+    // Delete frequest
+    mongoose.connection.db.frequests.remove(request);
+
+    res.json({messae: 'Το αίτημα φιλίας απορρίφθηκε'});
+
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Remove a friend
+router.delete('/remove-friend', async(req, res) => {
+  try{
+
+    const user1 = req.user;
+    const user2 = await user.findById(req.body.exfriend);
+    if(!user2)
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
+
+    user1.personal.friendsList = user1.personal.friendsList.filter((fid) => {return !fid.equals(user2._id)});
+    user2.personal.friendsList = user2.personal.friendsList.filter((fid) => {return !fid.equals(user1._id)});
+
+    await user.findByIdAndUpdate(user1._id, {personal: user1.personal});
+    await user.findByIdAndUpdate(user2._id, {personal: user2.personal});
+
+    const username = user2.personal.firstName + ' ' + user2.personal.lastName;
+    res.json({message: 'Ο χρήστης ' + username + ' αφαιρέθηκε απο τους φίλους σας!'});
+
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Clean user's notifications
+router.post('/clean-notifications', async(req, res) => {
+  try{
+    const targetUser = req.user;
+
+    targetUser.personal.myNotifications.frequests = [];
+    targetUser.personal.myNotifications.comments = [];
+    targetUser.personal.myNotifications.reacts = [];
+
+    await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true});
+
+    res.json({message: 'Οι ειδοποιήσεις αφαιρέθηκαν!'});
+  }catch(err){
+    res.json({message: err});
+  }
+})
 
 module.exports = router;

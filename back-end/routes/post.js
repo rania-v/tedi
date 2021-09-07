@@ -109,6 +109,12 @@ router.post("/addComm:postId", async(req, res) => {
         targetPost.comments.push(savedComm._id);
         await post.findByIdAndUpdate(targetPost._id, targetPost, {runValidators: true});
 
+        // notify the post's creator
+        const creator = await user.findById(targetPost.creator);
+        creator.personal.myNotifications.comments.push(newComm._id);
+        await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
+
+
         res.json({message: 'Το σχόλιο δημοσιεύθηκε!'})
     }catch(err){
         res.status(400).json({message: err});
@@ -161,19 +167,31 @@ router.post("/react1:postId", async(req, res) => {
         }
         
         const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
-        // console.log(reacted);
+
+        const reaction = {reaction: 'intrested', creator: targetUser._id};
+        const flag = 0;
+
         if(reacted != -1){
             if(targetPost.reacts[reacted].reaction != 'intrested'){
                 targetPost.reacts[reacted].reaction = 'intrested'
                 console.log(targetPost.reacts);
                 await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
             }
+            else
+                flag = 1;
         }
         else{
-            targetPost.reacts.push({reaction: 'intrested', creator: targetUser._id});
+            targetPost.reacts.push(reaction);
             await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true})
         }
         
+        // notify post's creator
+        if(flag == 0){
+            const creator = await user.findById(targetPost.creator);
+            creator.personal.myNotifications.reacts.push(reaction);
+            await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
+        }
+
         res.json({message: "Η αντίδραση δημοσιεύθηκε!"})
 
     }catch(err){
@@ -193,18 +211,31 @@ router.post("/react2:postId", async(req, res) => {
         }
         
         const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
-        // console.log(reacted);
+
+        const reaction = {reaction: 'like', creator: targetUser._id};
+        const flag = 0;
+
         if(reacted != -1){
             if(targetPost.reacts[reacted].reaction != 'like'){
                 targetPost.reacts[reacted].reaction = 'like'
+                console.log(targetPost.reacts);
                 await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
             }
+            else
+                flag = 1;
         }
         else{
-            targetPost.reacts.push({reaction: 'like', creator: targetUser._id});
+            targetPost.reacts.push(reaction);
             await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true})
         }
         
+        // notify post's creator
+        if(flag == 0){
+            const creator = await user.findById(targetPost.creator);
+            creator.personal.myNotifications.reacts.push(reaction);
+            await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
+        }
+
         res.json({message: "Η αντίδραση δημοσιεύθηκε!"})
 
     }catch(err){

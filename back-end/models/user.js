@@ -39,7 +39,8 @@ const UserSchema = new mongoose.Schema({
         
         myNotifications:{
             frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
-            reacts: [ { type: mongoose.Schema.Types.ObjectId, ref: 'react' } ],
+            reacts: [ {} ],
+            comments: [ { type:mongoose.Schema.Types.ObjectId, ref: 'comment' } ],
         },
     },
     contact:{

@@ -55,7 +55,7 @@ router.post("/", async (req, res)=>{
         targetUser.personal.myPosts.push(savedPost._id);
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
 
-        res.json({post: savedPost, message: 'Η Αγγελία δημιουργήθηκε !!'});
+        res.json({post: savedPost, message: 'Η ανάρτηση δημιουργήθηκε !!'});
     }catch(error){
         res.status(400).json({message: error});
     }

@@ -34,13 +34,14 @@ const UserSchema = new mongoose.Schema({
         friendsList:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
         frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
         myJobsAds:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
-        myChat:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
+        myChats:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
         myPosts:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
         
         myNotifications:{
             frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
             reacts: [ {} ],
-            comments: [ { type:mongoose.Schema.Types.ObjectId, ref: 'comment' } ],
+            comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'comment' } ],
+            chats: [ {type: mongoose.Schema.Types.ObjectId, ref: 'chat'} ],
         },
     },
     contact:{

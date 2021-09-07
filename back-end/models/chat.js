@@ -9,7 +9,7 @@ const chatSchema = new mongoose.Schema({
             ref: 'user'
         }
     ],
-    Date:{ type: ISODate, default: ISODate.now },
+    Date:{ type: Date, default: Date.now },
     content:[
         {
             creator:{
@@ -20,7 +20,7 @@ const chatSchema = new mongoose.Schema({
             content:{type: String, minLength: 1, maxLength: 100},
             status:{
                 type: String,
-                enum: ['pending', 'delivered', 'seen', 'not send']
+                enum: ['not-seen', 'seen']
             }
         }
     ]

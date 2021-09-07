@@ -5,6 +5,7 @@ const utils = require('../auth/utils');
 
 const {invalidToken} = require('../models/token');
 const { user, frequest} = require("../models/user");
+const { chat } = require("../models/chat");
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log out
 router.get('/logout', async(req, res) => {
@@ -256,6 +257,97 @@ router.post('/clean-notifications', async(req, res) => {
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true});
 
     res.json({message: 'Οι ειδοποιήσεις αφαιρέθηκαν!'});
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get all Chats
+router.get('/getChats', async(req, res) => {
+  try{
+      res.json(req.user.personal.myChats);
+  }catch(err){
+      res.json({message: err});
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send a message
+router.post('/sendMssg', async(req, res) => {
+  try{
+
+    const user1 = req.user;                                     // from_user
+    const user2 = await user.findById(req.body.to_user);        // to_user
+    if(!user2)
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
+
+    // check if chat already exists
+    var targetChat = undefined;
+    for(let i in user1.personal.myChats){
+      console.log(i)
+      var tryChat = await chat.findById(user1.personal.myChats[i])
+      if(tryChat.users.includes(user1._id) && tryChat.users.includes(user2._id)){
+        targetChat = tryChat;
+        break;
+      }
+    }
+
+    // if it diesnt create a new one
+    if(!targetChat){
+      targetChat = new chat();
+      
+      targetChat.users.push(user1._id);
+      targetChat.users.push(user2._id);
+      await targetChat.save();
+
+        // init new chat
+      user1.personal.myChats.push(targetChat._id);
+      user2.personal.myChats.push(targetChat._id);
+      await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
+      await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
+    }
+
+    // fill mssg
+    const message = {creator: user1._id, content: req.body.content, status: 'not-seen'};
+
+    targetChat.content.push(message);
+  
+    // send mssg
+    await chat.findByIdAndUpdate(targetChat._id, {content: targetChat.content}, {runValidators: true});
+
+    // send notification
+    user2.personal.myNotifications.chats.push(targetChat.id);
+    await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
+
+
+    res.json({message: 'Το μήνυμα εστάλει!'});
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+
+router.post('/seen-mssg', async(req, res) => {
+  try{
+    const targetChat = await chat.findById(req.body.chatid);
+    if(!targetChat)
+      return res.json({message: 'Η συζήτηση δεν βρέθηκε!'});
+
+    const user1 = targetChat.users[0];
+    const user2 = targetChat.users[1];
+    var sender = null;
+    if(user1 == req.user._id)
+      sender = user2;
+    else
+      sender = user1;
+
+    targetChat.content = targetChat.content.filter((mssg) => {mssg.status = (mssg.creator!=sender) ? 'seen': mssg.status ;return mssg});
+
+    console.log(targetChat.content);
+    await chat.findByIdAndUpdate(targetChat._id, {content: targetChat.content}, {runValidators: true});
+
+    res.json({message: 'Τα μηνύματα διαβάστηκαν!'});
+
   }catch(err){
     res.json({message: err});
   }

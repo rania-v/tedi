@@ -31,30 +31,16 @@ const UserSchema = new mongoose.Schema({
         profession: String,
         birthday: Date,
         country: String,
-        friendsList:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            }
-        ],
-        myJobsAds:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'job'
-            }
-        ],
-        myChat:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Chat'
-            }
-        ],
-        myPosts:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "post"
-            }
-        ]
+        friendsList:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
+        frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
+        myJobsAds:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
+        myChat:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
+        myPosts:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
+        
+        myNotifications:{
+            frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
+            reacts: [ { type: mongoose.Schema.Types.ObjectId, ref: 'react' } ],
+        },
     },
     contact:{
         phoneNum: String,
@@ -82,7 +68,6 @@ const UserSchema = new mongoose.Schema({
     },    
 })
 
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Frined Request Schema
 const friendRequestSchema = new mongoose.Schema({
     from:{
@@ -97,7 +82,6 @@ const friendRequestSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    invitationCode: String
 })
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Hash n Salt
@@ -119,8 +103,8 @@ UserSchema.methods.isValidPassword = async function(password) {
 }
   
 
-const user = mongoose.model('user', UserSchema)
-const frequest = mongoose.model('frequest', friendRequestSchema)
+const user = mongoose.model('user', UserSchema);
+const frequest = mongoose.model('frequest', friendRequestSchema);
 module.exports ={
     user: user,
     frequest: frequest,

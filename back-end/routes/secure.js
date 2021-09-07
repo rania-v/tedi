@@ -4,7 +4,7 @@ const router = express.Router();
 const utils = require('../auth/utils');
 
 const {invalidToken} = require('../models/token');
-const { user } = require("../models/user");
+const { user, frequest} = require("../models/user");
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log out
 router.get('/logout', async(req, res) => {
@@ -116,5 +116,71 @@ router.post('/update-user-contact', async(req, res) =>{
     res.json({message: err});
   }
 })
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send Friend Request
+router.post('/frequest', async(req, res) => {
+  try{
+    const user1 = req.user;
+    const user2 = await user.findById(req.body.to_user);
+    
+    if(!user2){
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
+    }
+
+    const invite = new frequest();
+    invite.from = user1._id;
+    invite.to = user2._id;
+    await invite.save();
+
+    user2.personal.myNotifications.frequests.push(invite._id);
+    user2.personal.frequests.push(invite._id);
+
+    await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
+    res.json({message: 'Το αίτημα φιλίας εστάλει!'})
+
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Accept Friend Request
+router.post('/accept-frequest', async(req, res) => {
+  try{
+
+    const user1 = req.user;
+    const request = await frequest.findById(req.body.request);
+
+    if(!request){
+      return res.json({message: 'Η πρόσκληση δεν βρέθηκε!'});
+    }
+
+    const user2 = await user.findById(request.from);
+    if(!user2){
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
+    }
+
+    //update users friendLists
+    user1.personal.friendsList.push(user2._id);
+    user2.personal.friendsList.push(user1._id);
+
+    await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
+    
+    // remove frequest from user's 1 notifications
+    user1.personal.myNotifications.frequests = user1.personal.myNotifications.frequests.filter((reqID) => { return !reqID.equals(request._id) })
+
+    // remove frequest from user's 1 list
+    user1.personal.frequests = user1.personal.frequests.filter((reqID) => { return !reqID.equals(request._id) })
+
+
+    await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
+    
+    res.json({messae: 'Το αίτημα φιλίας έγινε αποδεκτό'});
+  }catch(err){
+    res.json({message: err});
+  }
+})
+
+
 
 module.exports = router;

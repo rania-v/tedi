@@ -6,11 +6,12 @@ require("mongoose-type-email");
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ User Schema
 const UserSchema = new mongoose.Schema({
     // verificationCode: String,
-    isAdmin:{type: Boolean, required: true},
+    isAdmin:{type: Boolean, default: false},
     personal:{
         firstName:{
-            type: String,
+            type: 'String',
             required: true,
+            unique: true,
             minLength: 1
         },
         lastName:{
@@ -20,32 +21,28 @@ const UserSchema = new mongoose.Schema({
         },
         password:{
             type: String,
+            required: true,
             minLength: 8,
         },
         image: {
             data: Buffer,
             contentType: String,
         },
+        profession: String,
         birthday: Date,
         country: String,
-        friendsList:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            }
-        ],
-        myJobsAds:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'job'
-            }
-        ],
-        myChat:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Chat'
-            }
-        ]
+        friendsList:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
+        frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
+        myJobsAds:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
+        myChats:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
+        myPosts:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
+        
+        myNotifications:{
+            frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
+            reacts: [ {} ],
+            comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'comment' } ],
+            chats: [ {type: mongoose.Schema.Types.ObjectId, ref: 'chat'} ],
+        },
     },
     contact:{
         phoneNum: String,
@@ -73,7 +70,6 @@ const UserSchema = new mongoose.Schema({
     },    
 })
 
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Frined Request Schema
 const friendRequestSchema = new mongoose.Schema({
     from:{
@@ -88,7 +84,6 @@ const friendRequestSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    invitationCode: String
 })
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Hash n Salt
@@ -110,9 +105,9 @@ UserSchema.methods.isValidPassword = async function(password) {
 }
   
 
-const user = mongoose.model('user', UserSchema)
-const frequest = mongoose.model('frequest', friendRequestSchema)
-module.exports = {
+const user = mongoose.model('user', UserSchema);
+const frequest = mongoose.model('frequest', friendRequestSchema);
+module.exports ={
     user: user,
     frequest: frequest,
 }

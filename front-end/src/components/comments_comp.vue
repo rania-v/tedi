@@ -17,7 +17,7 @@
                                 </v-avatar>
                                 <v-col  class="text-left pa-1">
                                     <v-row class="pt-1 pb-1 pl-1">
-                                        <strong id="user_name" v-html=cmnt.user  style="color:orange"></strong>
+                                        <strong id="user_name" v-html=cmnt.user  style="color:teal"></strong>
                                     </v-row >
                                     <v-row class="ma-1">
                                         <p id="comm_text">{{cmnt.comment_text}}</p>
@@ -97,7 +97,7 @@ export default({
     }
     *::-webkit-scrollbar-thumb {
         /* size: thin; */
-    background-color: orange;
+    background-color: teal;
     border-radius: 20px;
     /* border: 3px solid lightgray; */
     }
@@ -105,7 +105,7 @@ export default({
         /* for firefox */
     * {
     scrollbar-width: thin;
-    scrollbar-color: orange white;
+    scrollbar-color: teal white;
     }
 /*----------------------- scrollbars -----------------------*/
 

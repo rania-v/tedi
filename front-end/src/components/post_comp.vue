@@ -1,49 +1,48 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-title>
-                <v-row justify="space-between">
-                    <v-col class=text-left>
-                        <v-avatar>
-                        <v-img :src=user_avatar></v-img>
-                        </v-avatar>
-                        <strong id="user_name" v-html=user></strong>
-                    </v-col>
-                    <v-col id="time" class=text-right >{{time}}</v-col>
-                </v-row>
-            </v-card-title>
-            <v-card-text>
-                <v-row>
-                    <v-card-text>{{text}}</v-card-text>
-                </v-row>
-            </v-card-text>
+    <v-card elevation="0">
+        <v-card-title>
+            <v-row justify="space-between">
+                <v-col class=text-left>
+                    <v-avatar>
+                    <v-img :src=user_avatar></v-img>
+                    </v-avatar>
+                    <strong id="user_name" v-html=user></strong>
+                </v-col>
+                <v-col id="time" class=text-right >{{time}}</v-col>
+            </v-row>
+        </v-card-title>
+        <v-img :src="post_photo" max-height="200px" contain></v-img>
+        <v-card-text>
             <v-row>
-                <v-col id="rcts" class=text-left><v-icon left small>far fa-hand-spock</v-icon>{{reacts}}</v-col>
+                <v-card-text>{{text}}</v-card-text>
             </v-row>
-            <v-divider style="margin-right:5%; margin-left:5%"></v-divider>
-            <v-card-actions id="actions">
-                <v-row>
-                    <v-col><v-btn text color="orange"><v-icon left>far fa-hand-spock</v-icon>React</v-btn></v-col>
-                    <v-col><v-btn text color="orange" @click="comm = true"><v-icon left>far fa-comment-dots</v-icon>Comment</v-btn></v-col>
-                    <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
-                </v-row>
-            </v-card-actions>
-            <v-row v-if="comm==true">
-                <v-card class="rounded-pill mt-2 pr-4 pl-4 mb-1 d-flex" 
-                        flat width="100%" height="60px"
-                        style="margin-right:5%; margin-left:5%; margin-top:1% lenght: length:100%;"
-                        color="orange lighten-5"
-                        v-click-outside="Hide_new_comm">
-                    <v-text-field v-model="new_comm" label="Write a comment..." color="orange accent-4" v-on:keyup.enter="post_new_comm"></v-text-field>
-                    {{new_comm}}
-                </v-card>
-            </v-row>
+        </v-card-text>
+        <v-row>
+            <v-col id="rcts" class=text-left><v-icon left small>far fa-hand-spock</v-icon>{{reacts}}</v-col>
+        </v-row>
+        <v-divider style="margin-right:5%; margin-left:5%"></v-divider>
+        <v-card-actions id="actions">
             <v-row>
-                <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
-                <CommentsComp/>
+                <v-col><v-btn text color="teal"><v-icon left>far fa-hand-spock</v-icon>React</v-btn></v-col>
+                <v-col><v-btn text color="teal" @click="comm = true"><v-icon left>far fa-comment-dots</v-icon>Comment</v-btn></v-col>
+                <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
             </v-row>
-        </v-card>
-    </v-container>
+        </v-card-actions>
+        <v-row v-if="comm==true">
+            <v-card class="rounded-pill mt-2 pr-4 pl-4 mb-1 d-flex" 
+                    flat width="100%" height="60px"
+                    style="margin-right:5%; margin-left:5%; margin-top:1% lenght: length:100%;"
+                    color="teal lighten-5"
+                    v-click-outside="Hide_new_comm">
+                <v-text-field v-model="new_comm" label="Write a comment..." color="teal accent-4" v-on:keyup.enter="post_new_comm"></v-text-field>
+                {{new_comm}}
+            </v-card>
+        </v-row>
+        <v-row>
+            <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
+            <CommentsComp/>
+        </v-row>
+    </v-card>
 </template>
 
 <script>
@@ -59,6 +58,7 @@ export default ({
         return {
             user: 'Haruka Tenou',
             user_avatar: require('../icons/avatars/haruka.jpg'),
+            post_photo: require('../icons/avatars/haruka.jpg'),
             time: '12:35',
             text: 'HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE ',
             reacts: 2,

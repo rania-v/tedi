@@ -3,7 +3,7 @@
             <v-card-title id="profile_card">Profile</v-card-title>
             <v-img  id="user_prof_pic" :src=image></v-img>
             <v-container id="personal">
-                <v-card>
+                <v-card elevation="1">
                     <v-card-title>Personal Info</v-card-title>
                     <v-card-text style="margin:2%">
                         <v-row>{{name}}</v-row>
@@ -12,12 +12,12 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text color="orange" >more...</v-btn>
+                        <v-btn text color="teal" >more...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>
             <v-container id="personal">
-                <v-card>
+                <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
                     <v-card-text>
                         <v-badge :content=usr :value=hover color="deep-purple lighten-1" overlap>
@@ -28,7 +28,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text color="orange" v-on:click="Open_Friend_Net">more...</v-btn>
+                        <v-btn text color="teal" v-on:click="Open_Friend_Net">more...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>

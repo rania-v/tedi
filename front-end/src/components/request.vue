@@ -10,8 +10,8 @@
             <v-row class="d-flex justify-center">{{user.workplace}}</v-row>
         </v-card-text>
         <v-card-actions class="d-flex justify-center">
-            <v-btn color="orange" outlined>Delete</v-btn>
-            <v-btn color="orange" style="color:white">Accept</v-btn>
+            <v-btn color="teal" outlined>Delete</v-btn>
+            <v-btn color="teal" style="color:white">Accept</v-btn>
         </v-card-actions>
     </v-card>
 </v-container>

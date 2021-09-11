@@ -1,19 +1,22 @@
 <template>
-    <v-card id="card" max-width="70%">
+<v-container class="justify-center">
+    <v-card max-width="100%" max-height="100%" class="rounded-xl" color="purple lighten-4" text elevation="0">
         <v-card-title>
             <h2 id="get_in">Get In Now</h2>
         </v-card-title>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-btn @click="close" text small><i class="fas fa-times"></i></v-btn>
-        </v-row>
+        <!-- <v-row>
+                <v-spacer></v-spacer>
+            <v-col cols="2">
+                <v-btn @click="close" text x-small><i class="fas fa-times"></i></v-btn>
+            </v-col>
+        </v-row> -->
         <v-card-text>
             <v-form action="/HomePage.vue" method="get">
                 <v-row>
                     <v-spacer></v-spacer>
                         <v-col cols="6">
-                            <v-text-field label="e-mail" v-model="email" ></v-text-field>
-                            <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
+                            <v-text-field label="e-mail" v-model="email" color="purple"></v-text-field>
+                            <v-text-field label="password" v-model="password" type="password" required color="purple"></v-text-field>
                         </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
@@ -21,6 +24,7 @@
             </v-form>
         </v-card-text>
     </v-card>
+</v-container>
 </template>
 
 <script>
@@ -82,13 +86,14 @@ export default {
 
 #get_in {
     font-size: 35px;
-    color: #a0e338;
+    /* color: #a0e338; */
+    color: #EEFF41;
     font-family:monospace;
     font-weight: normal;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -5%;
-    text-shadow: -4px 3px 0 #ffffff, -8px 6px 0 #ebe0f8;
+    /* margin-top: -5%; */
+    /* text-shadow: -4px 3px 0 #ffffff, -8px 6px 0 #ebe0f8; */
 }
 
 #checkbox {
@@ -104,13 +109,6 @@ export default {
     margin-right: auto;
 }
 
-#card{
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 1%;
-}
 
 p{
     color: black;

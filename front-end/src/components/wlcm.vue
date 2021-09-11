@@ -1,29 +1,52 @@
 <template>
-  <div>
-    <Welcome msg='Welcome'/>
-    <div id="wlcm">
-      <div id="SignButts">
-        <v-btn x-large rounded color=#5d1889 dark @click="signup=true">
-          SIGN UP
-        </v-btn>
-        <v-btn x-large rounded color=#5d1889 dark @click="signin=true">
-          SIGN IN
-        </v-btn>
-      </div>
-    </div>
-    <v-container v-if="signup==true">
-      <SignUpForm @close_up="signup=false"/>
-    </v-container>
-    <v-container v-if="signin==true">
-      <SignInForm @close_in="signin=false"/>
-    </v-container>
-    <!-- <v-btn v-on:click="this.$router.push('HomePage') ">HOME PAGE</v-btn> -->
+  <v-app id="welcome">
+    <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
+    <!-- <Welcome msg='Welcome'/> -->
+      <v-row>
+        <v-col cols="8" class="d-flex align-center">
+          <v-card class=" pa-4 rounded-xl ma-3 purple accent-4" >
+            <v-row>
+              <v-col cols="6">
+                <v-container >
+
+                  <v-card-title id="wlcm_msg">Welcome To FaceIn</v-card-title>
+                  <v-subtitle class="d-flex justify-start ma-2 pa-2" id="wlcm_msg" style="font-size: 25px; text-align:left;">
+                    BE PART OF THE COMMUNITY NOW!<br> Connect with other people, promote your work, hire and get hired!
+                  </v-subtitle>
+                  <v-img :src="wlcm_img" max-width="100%" max-height="350px" class="ma-0 pa-0"></v-img>
+                </v-container>
+              </v-col>
+              <v-col cols="6" class="d-flex align-center">
+                <v-container>
+                    <v-subtitle class="d-flex justify-center ma-2 pa-2" id="wlcm_msg" style="font-size: 30px; text-align:center;">
+                      Not a member yet?<br> Sign Up now!
+                    </v-subtitle>
+                      <v-btn x-large rounded color=lime dark text  v-on:click="signup=true">
+                        SIGN UP
+                      </v-btn>
+                    <v-dialog max-width="600px" v-model="signup">
+
+                            <SignUpForm @close_in="signup=false"/>
+
+                    </v-dialog>
+                </v-container>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col cols="4" class="d-flex align-center pl-0">
+          <SignInForm/>
+        </v-col>
+      </v-row>
+        <v-spacer></v-spacer>
+
     <router-link to="/HomePage">HomePage</router-link>
-  </div>
+  </v-app>
 </template>
 
 <script>
-import Welcome from './Welcome.vue'
+// import Welcome from './Welcome.vue'
 import SignUpForm from './SignUpForm.vue'
 import SignInForm from './SignInForm.vue'
 // import HomePage from './HomePage.vue'
@@ -31,15 +54,17 @@ import SignInForm from './SignInForm.vue'
 export default {
   name: 'wlcm',
   components: {
-    Welcome,
+    // Welcome,
     SignUpForm,
     SignInForm,
     // HomePage
   },
   data () {
     return {
+      // welcome_message: '',
       signup: false,
       signin: false,
+      wlcm_img: require('../illustrations/118_teal.svg'),
       // images: ["../images/plane.jpg","../images/blueberries.jpg","../images/stars.jpg",
       //         "../images/buildings.jpg","../images/cupcakes.jpg","../images/mountains.jpg"]
       images: ["../images/1.jpg","../images/2.jpg","../images/11.jpg",
@@ -63,6 +88,22 @@ export default {
   text-align: center;
   color: hsl(210, 29%, 24%);
   /* margin-top: 60px; */
+}
+
+#welcome {
+  background: url(../illustrations/br.jpg);
+    /* background: url(../images/9.jpg); */
+
+  background-size:cover;
+  /* background: #c9b6ec;  */
+/* background: -webkit-linear-gradient(to right, #f5ae50, #489fda, #b713e9);  */
+/* background: linear-gradient(to top, #ffffff, #ffffff,#ffffff, #b713e9); */
+}
+
+#wlcm_msg {
+  /* font-family: 'Bai Jamjuree', sans-serif; */
+  font-family: 'Fira Sans Extra Condensed', sans-serif;  color: aliceblue;
+  font-size: 60px;
 }
 
 #SignButts {
@@ -96,6 +137,7 @@ body {
   /* background-image: url(../images/possible_wall_v2.jpg); */
   /* background-image: url(../images/2.jpg); */
   background: url(../images/9.jpg);
+  
   height: 100%;    
       width: 100%
 /* opacity: 0.5; */

@@ -8,7 +8,7 @@
             <v-col cols="6" class="">
                 <v-row>
                     <v-col cols="4">
-                        <v-btn v-for="a in actions" :key="a" v-on:click="show=a.action" class="mr-1 ml-0" :class="{'orange white--text': show==a.action, 'orange lighten-4 orange--text': show!=a.action}"><v-icon left>{{a.icon}}</v-icon>{{a.action}}</v-btn>
+                        <v-btn v-for="a in actions" :key="a" v-on:click="show=a.action" class="mr-1 ml-0" :class="{'teal white--text': show==a.action, 'teal lighten-4 teal--text': show!=a.action}"><v-icon left>{{a.icon}}</v-icon>{{a.action}}</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
@@ -18,10 +18,10 @@
         </v-row>
         <v-dialog max-width="30%" v-model="show" v-if="show=='Friend'">
             <v-card>
-                <v-card-title class="orange lighten-4 orange--text">Friend</v-card-title>
+                <v-card-title class="teal lighten-4 teal--text">Friend</v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="orange white--text"><v-icon size="17" left>fas fa-user-times</v-icon> Delete friend</v-btn>
+                    <v-btn color="teal white--text"><v-icon size="17" left>fas fa-user-times</v-icon> Delete friend</v-btn>
                     <v-btn color="purple white--text"><v-icon size="17" left>fas fa-star</v-icon> Add to favorites</v-btn>
                     <v-spacer></v-spacer>
                 </v-card-actions>

@@ -2,11 +2,11 @@
     <v-container>
         <v-card>
             <v-card-actions class="d-flex justify-end">
-                <v-btn :class="{'orange--text': fav==false, 'white orange--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
+                <v-btn :class="{'teal--text': fav==false, 'white teal--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
             </v-card-actions>
             <v-row>
                 <v-spacer></v-spacer>
-                <v-col><v-subheader class="orange--text justify-end">{{ad.date}}</v-subheader> </v-col>
+                <v-col><v-subheader class="teal--text justify-end">{{ad.date}}</v-subheader> </v-col>
             </v-row>
             <v-row>
                 <v-col cols="6">
@@ -155,7 +155,7 @@ export default ({
 <style>
 
 #title_wrap {
-        color: orange !important;
+        color: teal !important;
 
     display: flex;
     white-space:pre-wrap;
@@ -175,7 +175,7 @@ export default ({
 }
 
 #value {
-    /* color: orange !important; */
+    /* color: teal !important; */
     display: flex;
     white-space:pre-line;
     word-break:break-word;

@@ -1,4 +1,5 @@
 <template>
+
     <v-app id="home">
         <Banner/>
         <v-card>
@@ -6,8 +7,8 @@
                 <v-toolbar-title>{{page_title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <template v-slot:extension>
-                    <v-tabs align-with-title grow color="orange">
-                        <v-tabs-slider color="orange"></v-tabs-slider>
+                    <v-tabs align-with-title grow color="teal">
+                        <v-tabs-slider color="teal"></v-tabs-slider>
 
                         <v-tab v-for="item in items" :key="item" v-on:click="page_title = item">
                             {{ item }}

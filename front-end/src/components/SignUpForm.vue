@@ -1,39 +1,38 @@
 <template>
-    <v-card id="card" max-width="70%">
-        <v-card-title>
-            <h2 id="be_part">Be Part of the Community Now</h2>
-        </v-card-title>
+    <v-card id="card">
+        <v-card-title class="lime--text">Be Part of the Community Now</v-card-title>
         <v-row>
             <v-spacer></v-spacer>
             <v-btn @click="close" text small><i class="fas fa-times"></i></v-btn>
         </v-row>
         <v-card-text>
-                <v-form @submit.prevent="handleSubmit(onSubmit)">
-                    <v-row justify="space-between" align="center">
-                        <v-col>
-                            <v-text-field label="First Name" required v-model="name"></v-text-field>
-                            <v-text-field label="phone number" type="text" @keypress="phone_check" v-model="phone_number" :maxlength="10" required></v-text-field>
-                            <v-text-field label="e-mail" v-model="email" ></v-text-field>
-                            <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
-                            <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
-                            <span v-if="conf_password==false">password not the same</span>
-                        </v-col>
-                        <v-col>
-                            <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
-                                <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model=photo prepend-inner-icon="fas fa-camera"></v-file-input>
-                                <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
-                            <v-img src="../svgs/talking.svg"></v-img>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-spacer></v-spacer>
-                        <v-col><v-checkbox label="Accept Terms & Conditions"></v-checkbox></v-col>
-                        <v-spacer></v-spacer>
-                    </v-row>
-                    <v-card-actions class="">
-                        <v-btn id="valid" type="submit" dark @click="submit">Sign Up</v-btn>
-                    </v-card-actions>
-                </v-form>
+            <v-form @submit.prevent="handleSubmit(onSubmit)">
+                <v-row justify="space-between" align="center">
+                    <v-col id="tf">
+                        <v-text-field label="First Name" required v-model="name"></v-text-field>
+                        <v-text-field label="phone number" type="text" @keypress="phone_check" v-model="phone_number" :maxlength="10" required></v-text-field>
+                        <v-text-field label="e-mail" v-model="email" ></v-text-field>
+                        <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
+                        <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
+                        <span v-if="conf_password==false">password not the same</span>
+                    </v-col>
+                    <v-col id="tf">
+                        <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
+                            <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model='photo'></v-file-input>
+                            <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
+                        <v-img src="../svgs/talking.svg"></v-img>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-spacer></v-spacer>
+                    <!-- <v-checkbox label="accept"></v-checkbox> -->
+                    <v-col><v-checkbox label="Accept Terms & Conditions" color="purple"></v-checkbox></v-col>
+                    <v-spacer></v-spacer>
+                </v-row>
+                <v-card-actions class="">
+                    <v-btn id="valid" type="submit" dark @click="submit">Sign Up</v-btn>
+                </v-card-actions>
+            </v-form>
         </v-card-text>
     </v-card>
 </template>
@@ -45,14 +44,14 @@ export default {
         return {
             name:'',
             last_name:'',
-            phone_number: null,
+            phone_number: '',
             email:'',
             password:'',
-            conf_password: null,
+            conf_password: '',
             message: '',
             checked: false,
             valid: true,
-            visible: null,
+            visible: '',
             photo: require('../icons/avatars/user1.png')
         };
     },
@@ -103,6 +102,16 @@ export default {
     margin-top: -5%;
     text-shadow: -4px 3px 0 #ffffff, -8px 6px 0 #ebe0f8;
 }
+
+.v-input--is-focused .v-input__slot{
+    color: purple !important;
+}
+
+.v-input--is-focused .v-input__slot  .v-label{
+    color: purple !important;
+    caret-color: purple;
+}
+
 
 #checkbox {
     display: inline;

@@ -17,13 +17,13 @@
             <v-icon v-show="show==true">fas fa-caret-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <!-- <v-btn color="orange lighten-2" text  @click="$router.push('OpenAd')">
+          <!-- <v-btn color="teal lighten-2" text  @click="$router.push('OpenAd')">
             Open Ad
           </v-btn> -->          
-          <v-btn color="orange lighten-2" text  @click="openad">
+          <v-btn color="teal lighten-2" text  @click="openad">
             Open Ad
           </v-btn>
-          <v-btn color="orange lighten-2" outlined>
+          <v-btn color="teal lighten-2" outlined>
             Apply
           </v-btn>
         </v-card-actions>

@@ -8,12 +8,12 @@
                             <v-avatar><img :src=image alt="u1"></v-avatar>
                             <v-card-title >{{message.user}}</v-card-title>
                         </v-row>
-                        <v-card-text class="rounded-pill pb-1 pt-2" :class="{'orange lighten-4': message.user=='u1', 'light-blue lighten-5': message.user=='u2'}">{{message.msg}}</v-card-text>
+                        <v-card-text class="rounded-pill pb-1 pt-2" :class="{'teal lighten-4': message.user=='u1', 'light-blue lighten-5': message.user=='u2'}">{{message.msg}}</v-card-text>
                     </div>
                 </v-row>
         </v-card-text>
         <v-card-actions class="pr-10 pl-10" >
-            <v-text-field label="Message" v-model="nm" class="rounded-pill orange lighten-4 pb-0 pt-4 pr-5 pl-5 justify-flow-reverse" color="orange accent-4" @keyup.enter.prevent="SendMesage"></v-text-field>
+            <v-text-field label="Message" v-model="nm" class="rounded-pill teal lighten-4 pb-0 pt-4 pr-5 pl-5 justify-flow-reverse" color="teal accent-4" @keyup.enter.prevent="SendMesage"></v-text-field>
         </v-card-actions>
     </v-card>
 </template>
@@ -82,13 +82,13 @@ export default ({
 <style>
 
 .m_you {
-    /* background-color: orange; */
+    /* background-color: teal; */
     max-width: 80% !important;
     justify-self: end !important;
 }
 
 .m_you .v-card-text {
-    background-color: orange !important;
+    background-color: teal !important;
     max-width: 80% !important;
     justify-self: end !important;
 }

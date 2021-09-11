@@ -1,7 +1,7 @@
 <template>
-  <div id='welcome_headr'>
+  <v-container id='welcome_headr'>
     {{msg}}
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -19,9 +19,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 100px;
-  direction:rtl;
+  /* direction:rtl; */
   display:inline-block;
-  text-indent:-100px;
+  /* text-indent:-100px; */
   font-size: 100px;
   /* color: #587b7f; */
   /* color: #a0e338; */
@@ -32,7 +32,7 @@ export default {
   /* margin-top: 60px; */
   padding: 5%;
   /* padding: 0 5% 5% 5%; */
-    /* text-shadow: -4px 3px 0 #ebe0f8, -14px 7px 0 #ffffff; */
+    text-shadow: -4px 3px 0 #CDDC39;
 }
 
 /* #welcome_headr:after {

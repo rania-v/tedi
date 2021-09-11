@@ -6,13 +6,13 @@
                     <v-card-title>Profile Photo</v-card-title>
                     <v-card-text>
                         <v-file-input v-model='profile_photo' label="choose a new profile pic" v-if='update_profile_photo_info'></v-file-input>
-                        <v-img :src="profile_photo" max-height="187" contain class="orange lighten-5" :class="{'mt-9 mb-9': update_profile_photo_info == false}"></v-img>      
+                        <v-img :src="profile_photo" max-height="187" contain class="teal lighten-5" :class="{'mt-9 mb-9': update_profile_photo_info == false}"></v-img>      
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <!-- <v-btn v-on:click="update_profile_photo_info=true" text small style="color:orange">Update</v-btn> -->
-                        <v-btn v-if="!update_profile_photo_info" v-on:click="update_profile_photo_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                        <v-btn v-if="update_profile_photo_info" v-on:click="save_profile_photo_info,  update_personal_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                        <!-- <v-btn v-on:click="update_profile_photo_info=true" text small style="color:teal">Update</v-btn> -->
+                        <v-btn v-if="!update_profile_photo_info" v-on:click="update_profile_photo_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_profile_photo_info" v-on:click="save_profile_photo_info,  update_personal_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -45,8 +45,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-if="!update_personal_info" v-on:click="update_personal_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                        <v-btn v-if="update_personal_info" v-on:click="save_changes_per_info,  update_personal_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                        <v-btn v-if="!update_personal_info" v-on:click="update_personal_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_personal_info" v-on:click="save_changes_per_info,  update_personal_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>                    
             </v-col>
@@ -90,8 +90,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn v-if="!update_connatct_info" v-on:click="update_connatct_info=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                        <v-btn v-if="update_connatct_info" v-on:click="save_changes_conntatc_inf,  update_connatct_info=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                        <v-btn v-if="!update_connatct_info" v-on:click="update_connatct_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_connatct_info" v-on:click="save_changes_conntatc_inf,  update_connatct_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -107,9 +107,9 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <!-- <v-btn v-on:click="update_qualifications=true" text small style="color:orange">Update</v-btn> -->
-                        <v-btn v-if="!update_qualifications" v-on:click="update_qualifications=true" text small style="color:orange"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                        <v-btn v-if="update_qualifications" v-on:click="save_qualifications,  update_qualifications=fas" small text style="color:orange"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                        <!-- <v-btn v-on:click="update_qualifications=true" text small style="color:teal">Update</v-btn> -->
+                        <v-btn v-if="!update_qualifications" v-on:click="update_qualifications=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                        <v-btn v-if="update_qualifications" v-on:click="save_qualifications,  update_qualifications=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -245,7 +245,7 @@ export default({
 <style>
 
 /* #info_card .v-card-title, .v-card-actions{
-    background-color: orange !important;
+    background-color: teal !important;
 } */
 
 .v-switch {

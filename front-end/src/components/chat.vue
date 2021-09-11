@@ -2,12 +2,12 @@
     <v-container class="d-flex justify-center" style="max-width:90%">
         <v-row>
             <v-col cols="4">
-                <v-card max-width="100%" class="ma-3 orange lighten-4">
-                    <v-card-title class="orange" style="color:white">Conversations with friends</v-card-title>
+                <v-card max-width="100%" class="ma-3 teal lighten-4">
+                    <v-card-title class="teal" style="color:white">Conversations with friends</v-card-title>
                     <v-card-text>
                         <!-- <v-subheader style="color:white">Friends</v-subheader> -->
                         <v-list rounded two-line class="overflow-y-auto mt-2" max-height="450">
-                            <v-list-item-group v-model="selected_convo" color="orange" >
+                            <v-list-item-group v-model="selected_convo" color="teal" >
                                 <v-template v-for="friend in convos" :key="friend">
                                     <v-divider></v-divider>
                                     <v-list-item class="d-flex mb-1 mt-1">
@@ -26,10 +26,10 @@
             </v-col>
             <v-col cols="8">
                 <v-card max-width="100%" class="ma-3">
-                    <!-- <v-card-title class="orange" style="color:white">Chat</v-card-title> -->
+                    <!-- <v-card-title class="teal" style="color:white">Chat</v-card-title> -->
                     <v-card-actions class="mr-2 mr-2">
                         <v-spacer></v-spacer>
-                        <v-btn class="orange" style="color:white">open friends profile</v-btn>
+                        <v-btn class="teal" style="color:white">open friends profile</v-btn>
                     </v-card-actions>
                     <v-card-text class="pt-0">
                         <MsgFriend/>

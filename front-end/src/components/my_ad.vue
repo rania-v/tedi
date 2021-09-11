@@ -17,7 +17,7 @@
             <v-icon v-show="show==true">fas fa-caret-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>        
-          <v-btn color="orange lighten-2" text  @click="openmyad">
+          <v-btn color="teal lighten-2" text  @click="openmyad">
             View Info
           </v-btn>
         </v-card-actions>

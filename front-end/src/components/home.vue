@@ -2,14 +2,18 @@
     <v-row>
         <!-- <h1  v-on:ShowFriendProf="ChangePT($event)">{{msg}}</h1> -->
         <v-spacer></v-spacer>
-        <v-col cols="3">
+        <v-col cols="2">
             <Profile/>
         </v-col>
-        <v-col cols="7">
+        <v-col cols="6">
             <v-container>
                 <PostCreate @new_post='show_new_post($event)'/>
-                <MyPost v-if="new_post_txt!=null"/>
-                <PostComp v-for="item in 7" :key="item"/>
+                <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
+                    <MyPost/>
+                </v-card>
+                <v-card v-for="item in 7" :key="item" class="pa-3 ma-3" outlined>
+                    <PostComp/>
+                </v-card>
             </v-container>
         </v-col>
         <v-spacer></v-spacer>

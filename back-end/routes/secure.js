@@ -292,7 +292,7 @@ router.post('/sendMssg', async(req, res) => {
       }
     }
 
-    // if it diesnt create a new one
+    // if it doesnt create a new one
     if(!targetChat){
       targetChat = new chat();
       

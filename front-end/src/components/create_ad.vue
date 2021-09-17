@@ -1,6 +1,6 @@
 <template>
     <v-form id="new_ad" class="pr-10 pl-10">
-        <v-card class="mb-4">
+        <v-card class="mb-4" elevation="0">
             <v-card-title style="color:#7E57C2">Ad Information</v-card-title>
             <v-card-text>
                 <v-row>
@@ -19,15 +19,13 @@
                         <v-text-field clearable :clear-icon="cl_icon" :rules="req" label="Job Location" :color="form_text_color" prepend-icon="fas fa-map-marker-alt"></v-text-field>
                     </v-col>
                 </v-row>
-                <!-- <v-spacer></v-spacer> -->
                 <v-row>
                     <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="ad_image" @change="ShowImg" :color="form_text_color"></v-file-input></v-col>
-                    <!-- <v-spacer></v-spacer> -->
                     <v-col style="max-width:50%; max-height:50%;"><v-img v-if="img_prev!=null" :src="img_prev"></v-img></v-col>
                 </v-row>
             </v-card-text>
         </v-card>
-        <v-card class="mb-4">
+        <v-card class="mb-4"  elevation="0">
             <v-card-title style="color:#7E57C2">Qualifications</v-card-title>
             <v-card-text>
                 <v-textarea clearable :clear-icon="cl_icon" :rules="req" label="Key qualifications" :color="form_text_color" rows="3" prepend-icon="fas fa-key"></v-textarea>
@@ -36,7 +34,7 @@
             </v-card-text>
         </v-card>
 
-        <v-card class="mb-4">
+        <v-card class="mb-4"  elevation="0">
             <v-card-title style="color:#7E57C2">Job Description</v-card-title>
             <v-card-text>
                 <v-text-field label="describe duties associated with the position" :color="form_text_color" prepend-icon="fas fa-align-left"></v-text-field>
@@ -46,7 +44,7 @@
             </v-card-text>
         </v-card>
 
-        <v-card class="mb-4">
+        <v-card class="mb-4"  elevation="0">
             <v-card-title style="color:#7E57C2">Benefits</v-card-title>
             <v-card-text>
                 <v-row>
@@ -61,7 +59,7 @@
         </v-card>
 
         <!-- <v-text-field label="Work Hours" :color="form_text_color"></v-text-field> -->
-        <v-card>
+        <v-card >
             <v-card-title style="color:#7E57C2">How to apply:</v-card-title>
             <v-card-text id="hta_txt">
                 <v-row  class="mr-2 ml-2 pa-2 justify-space-between ">

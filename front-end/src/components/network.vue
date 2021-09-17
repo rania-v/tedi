@@ -1,57 +1,47 @@
 <template>
-    <v-card class="mr-2 ml-2 mb-2"  v-if="net_search==true">
-        <v-row class="d-flex align-center">
-            <v-card  :class="{in_focus: focus=='net', out_of_focus: focus=='search'}" @click="focus='net'" >
+<v-container fluid class="d-flex justify-center">
 
-                {{id}}
-                    <v-card width="100%">
-                        <v-card-title class="justify-center">
-                            FRIEND NETWORK
-                        </v-card-title>
-                                <v-card-text style="display:flex; flex-wrap: wrap; justify-content: center;">
-                                    <v-card v-for="friend in friends" :key="friend" width="20%" class="ma-2 pt-2 pb-2" v-bind:id="friend.status">
-                                        <v-avatar>
-                                            <v-img v-bind:src="friend.avatar"></v-img>
-                                        </v-avatar>
-                                        <v-card-title>
-                                            <v-row class="d-flex justify-center">{{friend.user}}</v-row>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            <v-row class="d-flex justify-center">{{friend.profession}}</v-row>
-                                            <v-row class="d-flex justify-center">{{friend.workplace}}</v-row>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-card-text>
-                    </v-card>
-            </v-card>
-            <v-col :class="{in_focus: focus=='search'}" @click="focus='search'" style="box-shadow: 5px 10px; padding-right:0%">
-                <v-card>
-                    <NetworkSearch/>
+    <v-card class="mr-2 ml-2 mb-2" width="60%" elevation="0"  v-if="net_search==true">
+
+        <NetworkSearch/>
+        <v-card-text class="d-flex justify-center">
+
+        <v-card class=" pa-3 ma-2" >
+            <v-card-title class="justify-center">
+                FRIEND NETWORK
+            </v-card-title>
+            <div class="d-flex justify-center flex-wrap" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
+                <v-card v-for="i in friends" :key="i" class="ma-2" max-width="16%" elevation="0">
+                        <UserCard/>
                 </v-card>
-            </v-col>
-        </v-row>
+            </div>
+        </v-card>
+        </v-card-text>
     </v-card>
     <v-row  v-else>
         <v-card-text>
             <FriendProfile/>
         </v-card-text>
     </v-row>
+</v-container>
 </template>
 
 <script>
 
 import NetworkSearch from './network_search.vue'
 import FriendProfile from './friend_profile.vue'
+import UserCard from './user_card.vue'
 
 export default ({
     name: 'Network',
     components: {
         NetworkSearch,
-        FriendProfile
-    },
+        FriendProfile,
+        UserCard
+},
     data() {
         return {
-            net_search: false,
+            net_search: true,
             focus: 'net',
             friends: [
                     {
@@ -109,11 +99,171 @@ export default ({
                         profession: 'Sports car racing',
                         workplace: 'F1',
                         status: 'friend'
+                    },
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
                     }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ ,
+                    {
+                        user: 'Hotaru Tomoe',
+                        avatar: require('../icons/avatars/tomoe.jpeg'),
+                        profession: 'Sports car racing',
+                        workplace: 'F1',
+                        status: 'friend'
+                    }
+ 
                 ]
         }
         
-    },
+    }
 })
 </script>
 

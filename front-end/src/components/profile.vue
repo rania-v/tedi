@@ -19,16 +19,18 @@
             <v-container id="personal">
                 <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
-                    <v-card-text>
-                        <v-badge :content=usr :value=hover color="deep-purple lighten-1" overlap>
-                            <v-avatar v-for="friend in network" :key="friend.user" >
-                                <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
-                            </v-avatar>
-                        </v-badge>
+                    <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
+                        <v-col cols="3"  v-for="friend in network.slice(0,7)" :key="friend"  >
+                            <v-badge :content=friend.user :value=hover color="deep-purple lighten-1" overlap>
+                                <v-avatar>
+                                    <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
+                                </v-avatar>
+                            </v-badge>
+                        </v-col>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text color="teal" v-on:click="Open_Friend_Net">more...</v-btn>
+                        <v-btn text color="teal" v-on:click="Open_Network">more...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -84,10 +86,10 @@ export default ({
        }
     },
     methods: {
-        Open_Friend_Net() {
+        Open_Network() {
             // let p = this.$parent;
             // if(p.$options.name == 'Home')
-                this.$emit('Goto_Net', 'DIKTYO');
+                this.$emit('Goto_Net', 'Δίκτυο');
                 // this.$emit('update:msg', 'NO')
         },
         ShowFriendProf(nam) {

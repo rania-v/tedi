@@ -16,9 +16,9 @@
                     </v-tabs>
                 </template>
             </v-toolbar>
-            <v-card-text v-on:GotoNet="ChangeTab($event)">
+            <v-card-text  class="grey lighten-4">
                 <Home v-if="page_title=='Αρχική Σελίδα'"/>
-                <Network v-else-if="page_title=='Δίκτυο'"/>
+                <Network v-else-if="page_title=='Δίκτυο'" @openNet="ChangeTab"/>
                 <JobAds v-else-if="page_title=='Αγγελίες'"/>
                 <Chat v-else-if="page_title=='Συζήτηση'"/>
                 <Notifications v-else-if="page_title=='Ειδοποιήσεις'"/>
@@ -66,9 +66,9 @@ export default {
         changeImage ()
         {
         },
-        ChangeTab(e) {
-            this.page_title = e;
-            console.log("alallas");
+        ChangeTab(tab) {
+            this.page_title = tab;
+            // location.reload(); 
         }
     },
     watch: {

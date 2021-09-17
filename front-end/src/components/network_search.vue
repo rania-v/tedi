@@ -1,11 +1,11 @@
 <template>
     <v-container class="width:100%">
-        <v-card id="search_card" rounded="r-xl">
+        <v-card class="deep-purple white--text" rounded="xl" elevation="0">
             <v-card-title class="justify-center">
                 FIND MORE PEOPLE TO CONNECT WITH
             </v-card-title>
             <v-card-actions>
-                <v-toolbar rounded="r-xl">
+                <v-toolbar rounded="xl">
                     <v-toolbar-title>
                         Search
                     </v-toolbar-title>
@@ -31,7 +31,7 @@ export default ({
 <style>
 
 #search_card {
-    background-color: #FFB74D;
+    /* background-color: #FFB74D; */
     color: white;
 }
 

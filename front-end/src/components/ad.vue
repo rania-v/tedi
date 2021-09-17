@@ -1,29 +1,36 @@
 <template>
-<v-div>
-  <v-chip v-if="namechip==true" class="mb-7 ml-0" style="position: absolute"> {{friend_name}}</v-chip>
   <v-container>
     <div class="d-flex">
       <v-avatar size="32" class="justify-start"><img :src=friend_avatar alt="u1"></v-avatar>
       <strong class=" d-flex align-content-center flex-wrap" style="width:100%">
-        <div id="user_name" style="width:calc(80%)">{{friend_name}}</div>
+
+        <v-tooltip top>
+          <template v-slot:activator="{on, attrs}">
+
+          <div id="user_name" style="width:calc(80%)" v-bind="attrs" v-on="on">{{friend_name}}</div>
+          </template>
+          <span>
+                  <div>{{friend_name}}</div>
+          </span>
+        </v-tooltip>
       </strong>
     </div>
     <v-card class="mt-1">
-        <v-img :src="image"></v-img>
+        <v-img :src="image" ></v-img>
         <v-card-title class="pb-1">{{ad_title}}</v-card-title>
         <v-card-actions  class="justify-space-between pt-0">
-          <v-btn icon @click="show = !show" >
-            <v-icon v-show="show==false">fas fa-caret-down</v-icon>
-            <v-icon v-show="show==true">fas fa-caret-up</v-icon>
+          <v-btn icon @click="show = !show" v-bind="size" >
+            <v-icon v-show="show==false" v-bind="size" >fas fa-caret-down</v-icon>
+            <v-icon v-show="show==true" v-bind="size" >fas fa-caret-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
           <!-- <v-btn color="teal lighten-2" text  @click="$router.push('OpenAd')">
             Open Ad
           </v-btn> -->          
-          <v-btn color="teal lighten-2" text  @click="openad">
+          <v-btn color="teal lighten-2" text  @click="openad" v-bind="size">
             Open Ad
           </v-btn>
-          <v-btn color="teal lighten-2" outlined>
+          <v-btn color="teal lighten-2" outlined v-bind="size">
             Apply
           </v-btn>
         </v-card-actions>
@@ -35,7 +42,6 @@
         </v-card-text>
     </v-card>
   </v-container>
-</v-div>
 </template>
 
 <script>
@@ -62,9 +68,15 @@ export default ({
     },
     methods: {
       openad() {
-        this.$emit('opened_ad', '');
+        this.$emit('opened_ad', 'this.open');
       }
+    },
+    computed: {
+    size () {
+      const size = {xs:'x-small',sm:'small',lg:'large',xl:'x-large'}[this.$vuetify.breakpoint.name];
+      return size ? { [size]: true } : {}
     }
+  }
 })
 </script>
 

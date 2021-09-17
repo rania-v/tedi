@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pt-0">
         <v-card class="teal lighten-4" elevation="0">
             <v-subheader class="d-flex justify-center">CREATE AN AWESOME POST</v-subheader>
             <v-card-text :class="color">

@@ -1,10 +1,10 @@
 <template>
 <!-- <v-container> -->
 
-    <v-card width="100%" class="mt-2 pb-2" >
+    <v-card width="100%" class="mt-2 pb-2" max-height="300px">
         <v-img :src="user.photo"></v-img>
         <v-card-title>
-            <v-row class="d-flex justify-center">{{user.name}}</v-row>
+            <v-row class="d-flex justify-center" style="word-break: break-word;">{{user.name}}</v-row>
         </v-card-title>
         <v-card-text>
             <v-row class="d-flex justify-center">{{user.profession}}</v-row>

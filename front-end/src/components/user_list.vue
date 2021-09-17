@@ -10,6 +10,7 @@
                     <v-card-actions>
                         <v-btn v-if="!pick_to_extract" :class="{'teal lighten-4 teal--text': pick_to_extract==true, 'teal white--text': pick_to_extract==false}" v-on:click="pick_to_extract=true">Select users to extract data</v-btn>
                         <v-btn v-if="pick_to_extract" class="teal white--text" v-on:click="popup=true" :disabled="extract_list==''">Extract users datadata</v-btn>
+                        <v-btn v-if="pick_to_extract" class="teal white--text" v-on:click="selectAll">Select All</v-btn>
                         <v-btn v-if="pick_to_extract" class="teal lighten-4 teal--text" v-on:click="close_pick"><i class="fas fa-times"></i></v-btn>
                     </v-card-actions>
                 </v-col>
@@ -23,7 +24,7 @@
                 </v-col>
             </v-row>
             <v-card-text class="d-flex justify-center flex-wrap">
-                <v-card v-for="i in 10" :key="i" class="ma-2" :max-width="cust_size" outlined>
+                <v-card v-for="i in user_list" :key="i" class="ma-2" :max-width="cust_size" outlined>
                     <v-card-actions style="max-height:40px" v-if="pick_to_extract">
                         <v-spacer></v-spacer>
                         <v-checkbox v-model="extract_list" :value="i" color="teal"></v-checkbox>
@@ -66,6 +67,7 @@ export default ({
     },
     data() {
       return {
+            user_list:[1,2,3,4,5,6,7,8,10],
             pick_to_extract: false,
             popup: false,
             extract: false,
@@ -92,6 +94,12 @@ export default ({
         close_pick() {
             this.extract_list = [];
             this.pick_to_extract = false;
+        },
+        selectAll() {
+            this.extract_list = this.user_list;
+        },
+        clear() {
+            this.extract_list = '';
         }
     }
 })

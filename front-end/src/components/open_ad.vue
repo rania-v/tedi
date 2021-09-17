@@ -1,97 +1,119 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-actions class="d-flex justify-end">
-                <v-btn :class="{'teal--text': fav==false, 'white teal--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
-            </v-card-actions>
-            <v-row>
-                <v-spacer></v-spacer>
-                <v-col><v-subheader class="teal--text justify-end">{{ad.date}}</v-subheader> </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="6">
-                    <v-card-title id="title_wrap">{{ad.title}}</v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text>
-                        <v-row v-for="i in ad.basic_info" :key="i" id="basic_info">
-                            <v-col cols="4" id="field">{{i.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="8" id="value">{{i.value}}</v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-col>
-                <v-col cols="6" align-self="center">
-                    <v-img :src="ad.image" max-height="300px" contain></v-img>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="6">
-                    <v-card-title id="title_wrap">Qualifications</v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text>
-                        <v-row v-for="i in ad.qualifications" :key="i" id="basic_info">
-                            <v-col cols="3" id="field">{{i.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="9" id="value">{{i.value}}</v-col>
-                        </v-row>
-                    </v-card-text>
-                    <v-card-title id="title_wrap">Benefits</v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text>
-                        <v-row  id="basic_info">
-                            <v-col cols="3" id="field">Salary: </v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="9" id="value">{{ad.benefits.salary.min}} - {{ad.benefits.salary.max}}</v-col>
-                        </v-row>
-                        <v-row v-for="i in ad.benefits" :key="i" id="basic_info">
-                            <v-col cols="3" id="field">{{i.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="9" id="value">{{i.value}}</v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-col>
-                <v-col cols="6">
-                    <v-card-title id="title_wrap">Job Description</v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text>
-                        <v-row v-for="i in ad.job_description" :key="i" id="basic_info">
-                            <v-col cols="4" id="field">{{i.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="8" id="value">{{i.value}}</v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-card-title id="title_wrap">How to Apply</v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text>
-                        <v-row v-for="i in ad.apply" :key="i" id="basic_info">
-                            <v-col cols="5" id="field">{{i.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="7" id="value">{{i.value}}</v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="5" id="field">{{ad.apply.link.field}}</v-col>
-                            <v-divider vertical></v-divider>
-                            <v-col cols="7" id="value">
-                                <a href="url">{{ad.apply.link.value}}</a>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-col>
-            </v-row>
-        </v-card>
-    </v-container>
+    <v-card class="pa-0"  elevation="0"  height="700px" style="overflow:scroll; overflow-x:hidden;" >
+        <!-- v-if open : add to favs only if not one of my ads -->
+        <v-card-actions class="d-flex justify-end" v-if="open">
+            <v-btn :class="{'teal--text': fav==false, 'white teal--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
+        </v-card-actions>
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-col><v-subheader class="teal--text justify-end">{{ad.date}}</v-subheader> </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="6">
+                <v-card-title id="title_wrap">{{ad.title}}</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                    <v-row v-for="i in ad.basic_info" :key="i" id="basic_info">
+                        <v-col cols="4" id="field">{{i.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="8" id="value">{{i.value}}</v-col>
+                    </v-row>
+                </v-card-text>
+            </v-col>
+            <v-col cols="6" align-self="center">
+                <v-img :src="ad.image" max-height="300px" contain></v-img>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="6">
+                <v-card-title id="title_wrap">Qualifications
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="!open_q" plain v-on:click="open_q=true" rounded><i class="fas fa-chevron-down"></i></v-btn>
+                    <v-btn v-if="open_q" plain v-on:click="open_q=false" rounded><i class="fas fa-chevron-up"></i></v-btn>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text v-if="open_q">
+                    <v-row v-for="i in ad.qualifications" :key="i" id="basic_info">
+                        <v-col cols="3" id="field">{{i.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="9" id="value">{{i.value}}</v-col>
+                    </v-row>
+                </v-card-text>
+                <v-card-title id="title_wrap">Benefits
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="!open_bn" plain v-on:click="open_bn=true" rounded><i class="fas fa-chevron-down"></i></v-btn>
+                    <v-btn v-if="open_bn" plain v-on:click="open_bn=false" rounded><i class="fas fa-chevron-up"></i></v-btn>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text v-if="open_bn">
+                    <v-row  id="basic_info">
+                        <v-col cols="3" id="field">Salary: </v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="9" id="value">{{ad.benefits.salary.min}} - {{ad.benefits.salary.max}}</v-col>
+                    </v-row>
+                    <v-row v-for="i in ad.benefits" :key="i" id="basic_info">
+                        <v-col cols="3" id="field">{{i.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="9" id="value">{{i.value}}</v-col>
+                    </v-row>
+                </v-card-text>
+            </v-col>
+            <v-col cols="6">
+                <v-card-title id="title_wrap">Job Description
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="!open_jd" plain v-on:click="open_jd=true" rounded><i class="fas fa-chevron-down"></i></v-btn>
+                    <v-btn v-if="open_jd" plain v-on:click="open_jd=false" rounded><i class="fas fa-chevron-up"></i></v-btn>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text v-if="open_jd">
+                    <v-row v-for="i in ad.job_description" :key="i" id="basic_info">
+                        <v-col cols="4" id="field">{{i.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="8" id="value">{{i.value}}</v-col>
+                    </v-row>
+                </v-card-text>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-card-title id="title_wrap">
+                    <v-spacer></v-spacer>
+                    How to Apply
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="!open_apl" plain v-on:click="open_apl=true" rounded><i class="fas fa-chevron-down"></i></v-btn>
+                    <v-btn v-if="open_apl" plain v-on:click="open_apl=false" rounded><i class="fas fa-chevron-up"></i></v-btn>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text v-if="open_apl">
+                    <v-row v-for="i in ad.apply" :key="i" id="basic_info">
+                        <v-col cols="5" id="field">{{i.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="7" id="value">{{i.value}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">{{ad.apply.link.field}}</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="7" id="value">
+                            <a href="url">{{ad.apply.link.value}}</a>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-col>
+        </v-row>
+    </v-card>
 </template>
 
 <script>
 
 export default ({
     name: 'OpenAd',
+    props: ['open'],
     data() {
         return {
+            open_q: this.open,
+            open_jd: this.open,
+            open_bn: this.open,
+            open_apl: this.open,
             fav_btn_msg: 'Add to Favourites',
             fav: false,
             star_icon: 'far fa-star',

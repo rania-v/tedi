@@ -3,18 +3,18 @@
         <!-- <h1  v-on:ShowFriendProf="ChangePT($event)">{{msg}}</h1> -->
         <v-spacer></v-spacer>
         <v-col cols="2">
-            <Profile/>
+            <Profile :Goto_Net="openNet"/>
         </v-col>
         <v-col cols="6">
-            <v-container>
+            <!-- <v-container> -->
                 <PostCreate @new_post='show_new_post($event)'/>
                 <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
                     <MyPost/>
                 </v-card>
-                <v-card v-for="item in 7" :key="item" class="pa-3 ma-3" outlined>
+                <v-card v-for="item in 7" :key="item" class="pa-3 ma-3" elevation="0">
                     <PostComp/>
                 </v-card>
-            </v-container>
+            <!-- </v-container> -->
         </v-col>
         <v-spacer></v-spacer>
     </v-row>
@@ -41,13 +41,8 @@ export default ({
        }
     },
     methods: {
-        Goto_Net(e) {
-            this.msg = e
-            // let p = this.$parent;
-            // if(this.goto_net == true)
-            //     this.root.$emit('ChangeTab', 'Δίκτυο');
-            // if(p.$options.name == 'HomePage')
-            //     p.page_title='Δίκτυο';
+        openNet() {
+            this.$emit('ChangeTab', 'Δίκτυο')
         },
         ChangePT(pt) {
             console.log("called from child!")

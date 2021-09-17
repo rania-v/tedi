@@ -1,5 +1,10 @@
 <template>
-    <v-container style="width:50%">
+    <v-container fluid class="d-flex">
+        <v-col cols="3" class="d-flex">
+            <v-img :src="sett_img_left" max-width="100%" class="align-self-start" contain></v-img>
+        </v-col>
+        <v-col cols="6">
+
         <v-card class="pb-5 pt-5 pr-3 pl-3">
             <v-card-title class="justify-center">Settings</v-card-title>
             <v-subheader class="justify-center">Update Login Information</v-subheader>
@@ -38,6 +43,10 @@
                 <v-btn v-if="update" v-on:click="save_changes" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
             </v-card-actions>
         </v-card>
+        </v-col>
+         <v-col cols="3" class="d-flex">
+            <v-img :src="sett_img_right" max-width="100%" class="align-self-end" contain></v-img>
+        </v-col>
     </v-container>
 </template>
 
@@ -47,6 +56,8 @@ export default ({
     name: 'Settings',
     data() {
         return {
+            sett_img_left: require('../illustrations/190.svg'),
+            sett_img_right: require('../illustrations/196.svg'),
             login_email: 'lala@la.org',
             password: '123456789',
             pass_for_check: null,

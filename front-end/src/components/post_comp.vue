@@ -23,7 +23,7 @@
         <v-divider style="margin-right:5%; margin-left:5%"></v-divider>
         <v-card-actions id="actions">
             <v-row>
-                <v-col><v-btn text color="teal"><v-icon left>far fa-hand-spock</v-icon>React</v-btn></v-col>
+                <v-col><v-btn text color="teal" @click="React"><v-icon left>far fa-hand-spock</v-icon>React</v-btn></v-col>
                 <v-col><v-btn text color="teal" @click="comm = true"><v-icon left>far fa-comment-dots</v-icon>Comment</v-btn></v-col>
                 <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
             </v-row>
@@ -78,6 +78,11 @@ export default ({
         Hide_new_comm() {
             if (this.comm == true)
                 this.comm = false;
+        },
+        React() {
+            // search react list of comment and if not already there add 
+            this.reacts++;
+            // else reacts -- and remove from react list
         }
     }
 })

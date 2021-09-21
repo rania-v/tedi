@@ -7,8 +7,8 @@
                     <v-card-text>
                         <!-- <v-subheader style="color:white">Friends</v-subheader> -->
                         <v-list rounded two-line class="overflow-y-auto mt-2" max-height="750px">
-                            <v-list-item-group v-model="selected_convo" color="deep-purple darken-5" >
-                                <v-template v-for="friend in convos" :key="friend">
+                            <v-list-item-group v-model="selected_convo" color="deep-purple darken-5">
+                                <v-template v-for="friend in ConvosArray()" :key="friend.name">
                                     <v-divider></v-divider>
                                     <v-list-item id="myFont" :class="{'d-flex mb-1 mt-1': friend.read, 'not_seen': !friend.read}" @click="conv=friend.name, friend.read=true">
                                         <v-badge :value="!friend.read" left color="teal accent-4" bordered icon="far fa-envelope">
@@ -25,14 +25,22 @@
                             </v-list-item-group>
                         </v-list>
                     </v-card-text>
+                    <v-card-actions class="mr-3 ml-3 mb-0 rounded-xl white">
+                        <v-autocomplete v-model="find_chat" :items="friend_list" label="start chating with a friend" @change="find_chat" >
+                            
+                        </v-autocomplete>
+
+                    </v-card-actions>
                 </v-card>
             </v-col>
             <v-col cols="8">
                 <v-card max-width="100%" height="100%" class="ml-3 mr-3 mt-3 pb-0 mb-0" elevation="0" >
                     <!-- <v-card-title class="teal" style="color:white">Chat</v-card-title> -->
-                    <v-card-actions class="mr-2 mr-2">
+                    <v-card-actions class="mr-2 mr-2" v-if="selected_convo!=null">
                         <v-spacer></v-spacer>
-                        <v-btn class="grey darken-2" style="color:white">open friends profile</v-btn>
+                        <router-link :to="{ name: 'Friend_Profile', params:{ id: convos[selected_convo].name, page_title: 'Δίκτυο'}}">
+                            <v-btn class="pink white--text">open friends profile</v-btn>
+                        </router-link>
                     </v-card-actions>
                     <v-card-text class="pt-0 pb-0 mb-0" style="height:100%">
                         <MsgFriend :conv="conv"/>
@@ -53,8 +61,11 @@ export default ({
     },
     data() {
         return {
+            find_chat: null,
+            new_chat: null,
             conv:false,
             selected_convo: null,
+            selected_name: null,
             convos: [
                 {
                     name: 'kei',
@@ -64,7 +75,7 @@ export default ({
                 },
                 {
                     name: 'lalal',
-                    last_msg: 'lksdpksdjsdv sivj odn voij sov sdlvs',
+                    last_msg: 'lorem10',
                     avatar: require('../icons/avatars/rei.png'),
                     read: false
 
@@ -140,9 +151,30 @@ export default ({
 
                 },
                 
-            ]
+            ],
+            tmp: null,
+            friend_list:['kei', 'lila', 'anna', 'maria', 'mixalis', 'giwrgos', 'dhmhtrhs', 'a', 'aa', 'aaaaaa', 'oksdposkdpvsd', 'wjkmnefwf']
         }
     },
+    methods: {
+        ConvosArray() {
+            let nc;
+            if(this.find_chat!=null) {
+                nc = this.convos.find(x => x.name === this.find_chat);
+                this.tmp.push(nc);
+                return this.tmp;
+            }
+            else
+                return this.convos;
+        },
+        findChat() {
+            let nc;
+            if(this.find_chat!=null) {
+                nc = this.convos.find(o => o.name === this.find_chat);
+                this.tmp.push(nc);
+            }
+        }
+    }
 })
 </script>
 

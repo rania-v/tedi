@@ -2,88 +2,56 @@
 
     <v-app id="home">
         <Banner/>
-        <v-card>
-            <v-toolbar id="tb">
+        <v-card min-height="88%">
+            <v-toolbar id="tb" style="position: -webkit-sticky; position: sticky; top: 0rem; z-index: 2;">
                 <v-toolbar-title>{{page_title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <template v-slot:extension>
                     <v-tabs align-with-title grow color="teal">
                         <v-tabs-slider color="teal"></v-tabs-slider>
-
-                        <v-tab v-for="item in items" :key="item" v-on:click="page_title = item">
-                            {{ item }}
+                        <v-tab v-for="item in items" :key="item.page_name" :to="{ name: item.route_name, params:{ page_title : item.page_name}}">
+                            {{ item.page_name }}
                         </v-tab>
                     </v-tabs>
                 </template>
             </v-toolbar>
             <v-card-text  class="grey lighten-4">
-                <Home v-if="page_title=='Αρχική Σελίδα'"/>
-                <Network v-else-if="page_title=='Δίκτυο'" @openNet="ChangeTab"/>
-                <JobAds v-else-if="page_title=='Αγγελίες'"/>
-                <Chat v-else-if="page_title=='Συζήτηση'"/>
-                <Notifications v-else-if="page_title=='Ειδοποιήσεις'"/>
-                <PersonalInfo v-else-if="page_title=='Προσωπικά Στοιχεία'"/>
-                <Settings v-else-if="page_title=='Ρυθμίσεις'"/>
-                <UserList v-else-if="page_title=='ADMIN'"/>
+                <router-view></router-view>
             </v-card-text>
         </v-card>
     </v-app>
 </template>
 
 <script>
-import Banner from './banner.vue'
-import Home from './home.vue'
-import Network from './network.vue'
-// import Profile from './profile.vue'
-import JobAds from './job_ads.vue'
-import PersonalInfo from './personal_info.vue'
-import Settings from './settings.vue'
-import Chat from './chat.vue'
-import Notifications from './notifications.vue'
-import UserList from './user_list.vue'
+    import Banner from './banner.vue'
 
 export default {
     name: 'HomePage',
     components: {
-        Banner,
-        Home,
-        Network,
-        // Profile,
-        JobAds,
-        PersonalInfo,
-        Settings,
-        Chat,
-        Notifications,
-        UserList
+        Banner
     },
+    props: {
+        page_title: String
+    }        
+    ,
     data() {
         return {
-            items: ['Αρχική Σελίδα', 'Δίκτυο', 'Αγγελίες', 'Συζήτηση', 'Ειδοποιήσεις', 'Προσωπικά Στοιχεία', 'Ρυθμίσεις', 'ADMIN'],
-            page_title: 'Αρχική Σελίδα'
+            items: [
+                {page_name:'Αρχική Σελίδα', route_name: 'Home'},
+                {page_name: 'Δίκτυο', route_name: 'MyNetwork'},
+                {page_name: 'Αγγελίες', route_name: 'AllJobAds'},
+                {page_name: 'Συζήτηση', route_name: 'Chat'},
+                {page_name: 'Ειδοποιήσεις', route_name: 'Notifications'},
+                {page_name: 'Προσωπικά Στοιχεία', route_name: 'PersonalInfo'},
+                {page_name: 'Ρυθμίσεις', route_name: 'Settings'},
+                {page_name: 'ADMIN', route_name: 'UserList'}
+            ],
         };
     },
     methods: {
-        changeImage ()
-        {
-        },
-        ChangeTab(tab) {
-            this.page_title = tab;
-            // location.reload(); 
-        }
-    },
-    watch: {
-        $route(to) {
-            if(to.name == 'Αρχική Σελίδα')
-                this.page_title ='Αρχική Σελίδα';
-            // else if(to.name == 'coWorkers')
-            //     this.selected_id = 2;
-            // else if(to.name == 'profSettings')
-            //     this.selected_id = 3;
-            // else if(to.name == 'Upgrade')
-            //     this.selected_id = 4;
-            // else if(to.name == 'profLogout')
-            //     this.selected_id = 5;
-        }
+        // Goto(tab_name) {
+        //     this.page_title = tab_name;
+        // }
     }
 }
 
@@ -102,5 +70,11 @@ export default {
     margin-bottom: 1%;
 }
 
+#router_tab {
+    color: grey;
+    margin: 0px;
+    padding: 4px;
+    width: 100%;
+}
 
 </style>

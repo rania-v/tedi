@@ -25,13 +25,19 @@ import MyAdsList from '../components//my_ads_list.vue'
 
 import MyNetwork from '../components/my_network.vue'
 
+import GettingStarted from '../components/getting_started.vue'
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: "/",
         name: "wlcm",
-        component: wlcm
+        component: wlcm,
+    },
+    {
+        path: '/GettingStarted',
+        name: "GettingStarted",
+        component: GettingStarted
     },
     {
         path: "/HomePage",

@@ -31,10 +31,12 @@ router.get("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Post
-router.get("/:postId", async (req, res)=>{
+router.get("/post", async (req, res)=>{
     try{
-        const post = await post.findById(req.params.postId);
-        res.json(jobs);
+        const post = await post.findById(req.body.postId);
+        res.json({
+            post:post
+        });
     }catch(error){
         res.status(400).json({message: error});
     }

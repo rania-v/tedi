@@ -32,4 +32,7 @@ export default{
     profession: state => state.profession ? state.profession : null,
     workplace: state => state.workplace ? state.workplace : null,
     skills: state => state.skills ? state.skills : [],
+
+    postsToSee: state => state.postsToSee ? state.postsToSee : [],
+
 }

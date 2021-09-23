@@ -30,4 +30,6 @@ export default {
     profession: null,
     workplace: null,
 	skills: [],
+
+    postsToSee: [],
 }

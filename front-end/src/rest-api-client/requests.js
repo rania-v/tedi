@@ -12,3 +12,23 @@ export const loginRequest = async (email, password) => {
     .then(function(response) { return response })
     .catch(function(error) { throw error })
 }
+
+export const postRequest = async (postId, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    postId: postId,
+  }
+  return restAPI.send('POST', 'post', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const userRequest = async (userId, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    userId: userId,
+  }
+  return restAPI.send('GET', 'user', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}

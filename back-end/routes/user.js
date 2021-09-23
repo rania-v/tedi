@@ -6,8 +6,7 @@ const utils = require('../auth/utils');
 
 
 // const User_module;
-const User_module = require('../models/user');
-const User = User_module.user
+const { user, frequest} = require("../models/user");
 
 mongoose.connect(
     process.env.DB_CONNECTION,
@@ -20,6 +19,20 @@ mongoose.connect(
     }
 )
 .catch( error => console.log(error.message) );
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get User
+router.get("/", async (req, res)=>{
+  try{
+    console.log(req.body)
+      const targetUser = await user.findById(req.body.userId);
+      res.json({
+          user:targetUser
+      });
+  }catch(error){
+      res.status(400).json({message: error});
+  }
+})
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Register new User
 router.post("/register",

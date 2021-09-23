@@ -19,12 +19,41 @@ export default{
 		})
 		.catch( error => { 
 			console.log(error);
-			commit("SET_LOADING_STATE", false)
+			commit("SET_LOADING", false)
 			throw error;
 		})
     },
 
     async mpla(){
         console.log('mpla')
-    }
+    },
+
+	async getPost({commit}, payload){
+		commit("SET_LOADING", true);
+		return actions.getPost(payload.id)
+		.then( response => {
+			commit("SET_LOADING", false);
+			return response;
+		})
+		.catch( error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async getUser({commit}, payload){
+		commit("SET_LOADING", true);
+		console.log(payload)
+		return actions.getUser(payload)
+		.then( response => {
+			commit("SET_LOADING", false);
+			return response;
+		})
+		.catch( error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	}
 }

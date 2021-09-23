@@ -11,8 +11,8 @@
                 <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
                     <MyPost/>
                 </v-card>
-                <v-card v-for="item in 7" :key="item" class="pa-3 ma-3" elevation="0">
-                    <PostComp/>
+                <v-card v-for="item in this.postsToSee" :key="item._id" class="pa-3 ma-3" elevation="0">
+                    <PostComp :id="item"/>
                 </v-card>
             <!-- </v-container> -->
         </v-col>
@@ -25,6 +25,8 @@ import PostComp from './post_comp.vue'
 import PostCreate from './create_post_comp.vue'
 import Profile from './profile.vue'
 import MyPost from './my_post.vue'
+import { mapGetters } from 'vuex'
+
 
 export default ({
     name: 'Home',
@@ -37,8 +39,13 @@ export default ({
     data() {
        return {
         msg: "lala",
-        new_post_txt: null
-       }
+        new_post_txt: null,
+        }
+    },
+    computed:{
+        ...mapGetters({
+            postsToSee: "postsToSee"
+        })
     },
     methods: {
         openNet() {

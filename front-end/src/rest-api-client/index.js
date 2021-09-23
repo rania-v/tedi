@@ -20,7 +20,6 @@ function initClient(){
         user:{
             isAdmin: null,
             // constants: {maxCoWorkers:20, maxNonPremiumProjects:3},
-            // token: null,
             _id: null,
             // userName: null,
             firstName: null,
@@ -31,7 +30,7 @@ function initClient(){
             friends: null,
             frequests: null,
             myJobs: null,
-            myChat: null,
+            myChats: null,
 
             phoneNum: null,
             profEmail: null,
@@ -45,8 +44,7 @@ function initClient(){
 
             resume: null,
             workplace: null,
-            invites: [],
-            coWorkers: [],
+            skills: [],
         },
         token:{
             token: null,
@@ -77,14 +75,32 @@ export const actions = {
     })
     .catch(function(error) {client = initClient(); throw error })
   },
+
+  async getPost(postId){
+    return requests.postRequest(postId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .cathc(function(error){client = initClient(); throw error})
+  },
+
+  async getUser(userId){
+    return requests.userRequest(userId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
 }
 
 export var client = initClient();
 
 export const send = async (method, url, data, headers) => {
+
+  console.log("method: ", method, " api url: ", apiUrl, " url: ", url, " data: ", data, " headers: ", headers)
     switch(method) {
       case('POST'):
-      console.log("method: ", method, " api url: ", apiUrl, " url: ", url, " data: ", data, " headers: ", headers)
         return axios.post(`${apiUrl}/${url}`, data, { headers: headers }, { httpAgent: agent })
         .then(function(response) { return response.data })
         .catch(function(error) { console.log('skata'); throw error })

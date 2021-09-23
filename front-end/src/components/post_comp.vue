@@ -48,6 +48,7 @@
 <script>
 
 import CommentsComp from './comments_comp.vue'
+import { mapActions } from 'vuex'
 
 export default ({
     name: 'PostComp',
@@ -56,17 +57,21 @@ export default ({
     },
     data() {
         return {
-            user: 'Haruka Tenou',
+            user: '',
             user_avatar: require('../icons/avatars/haruka.jpg'),
             post_photo: require('../icons/avatars/haruka.jpg'),
-            time: '12:35',
-            text: 'HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE HOT TAKE ',
-            reacts: 2,
+            time: '',
+            text: '',
+            reacts: null,
             comm: false,
             new_comm: null
         }
     },
+    props:{
+        id: String,
+    },
     methods: {
+        ...mapActions(["getPost",]),
         post_new_comm() {
             let new_comment = {
                 user_avatar: this.user_avatar,
@@ -84,6 +89,11 @@ export default ({
             this.reacts++;
             // else reacts -- and remove from react list
         }
+    },
+    
+    beforeMount(){
+        var post = this.getPost();
+        console.log(post);
     }
 })
 </script>

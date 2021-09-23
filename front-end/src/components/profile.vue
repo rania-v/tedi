@@ -41,7 +41,7 @@
 
 <script>
 
-import { mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default ({
     name: "Profile",
@@ -51,40 +51,41 @@ export default ({
             image: require('../images/usagi_1.png'),
             hover: false,
             usr:null,
-            network: [
-                {
-                    user: 'Haruka Tenou',
-                    avatar: require('../icons/avatars/haruka.jpg')
-                },
-                {
-                    user: 'Mizuno Ami',
-                    avatar: require('../icons/avatars/ami.jpg')
-                },
-                {
-                    user: 'Hino Rei',
-                    avatar: require('../icons/avatars/rei.png')
-                },
-                {
-                    user: 'Minako Aino',
-                    avatar: require('../icons/avatars/aino.jpg')
-                },
-                {
-                    user: 'Makoto Kino',
-                    avatar: require('../icons/avatars/makoto.jpg')
-                },
-                {
-                    user: 'Setsuna Meioh',
-                    avatar: require('../icons/avatars/meioh.png')
-                },
-                {
-                    user: 'Michiru Kaioh',
-                    avatar: require('../icons/avatars/michiru.jpg')
-                },
-                {
-                    user: 'Hotaru Tomoe',
-                    avatar: require('../icons/avatars/tomoe.jpeg')
-                }
-            ]
+            network: this.buildNetwork()
+            // network: [
+            //     {
+            //         user: 'Haruka Tenou',
+            //         avatar: require('../icons/avatars/haruka.jpg')
+            //     },
+            //     {
+            //         user: 'Mizuno Ami',
+            //         avatar: require('../icons/avatars/ami.jpg')
+            //     },
+            //     {
+            //         user: 'Hino Rei',
+            //         avatar: require('../icons/avatars/rei.png')
+            //     },
+            //     {
+            //         user: 'Minako Aino',
+            //         avatar: require('../icons/avatars/aino.jpg')
+            //     },
+            //     {
+            //         user: 'Makoto Kino',
+            //         avatar: require('../icons/avatars/makoto.jpg')
+            //     },
+            //     {
+            //         user: 'Setsuna Meioh',
+            //         avatar: require('../icons/avatars/meioh.png')
+            //     },
+            //     {
+            //         user: 'Michiru Kaioh',
+            //         avatar: require('../icons/avatars/michiru.jpg')
+            //     },
+            //     {
+            //         user: 'Hotaru Tomoe',
+            //         avatar: require('../icons/avatars/tomoe.jpeg')
+            //     }
+            // ]
        }
     },
     computed:{
@@ -92,11 +93,13 @@ export default ({
             firstName: "firstName",
             lastName: "lastName",
             birthday: "birthday",
-            image: "image",
-            profession: "profession"
+            image2: "image",
+            profession: "profession",
+            friends: "friends"
         }),
     },
     methods: {
+        ...mapActions(['getUser']),
         Open_Network() {
             // let p = this.$parent;
             // if(p.$options.name == 'Home')
@@ -106,6 +109,18 @@ export default ({
         ShowFriendProf(nam) {
             this.name = nam;
             this.$emit('ChangePT', nam);
+        },
+        buildNetwork(){
+            let users = [];
+            for(let i in this.friends){
+                var user = this.getUser(i)
+                users.push({user: user.firstname + ' ' + user.lastName, avatar: user.image})
+            }
+            var user2 = this.getUser('614ccef4f751713c7d415006');
+            users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})
+            console.log(user2)
+
+            return users;
         }
     }
 })

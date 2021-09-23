@@ -102,7 +102,7 @@
                         <v-card-text  style="">
 
 
-                            <v-flex style="height:200px; overflow: hidden">
+                            <v-flex style="height:200px; overflow: auto;">
                                 <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list" :key="skill" >{{skill}}</v-chip>
                             </v-flex>
                         </v-card-text>

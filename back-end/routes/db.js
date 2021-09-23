@@ -55,7 +55,8 @@ router.post("/init", async function(req, res){
     });
     newUser.save();
 
-    var newSkillSet = new skillSet([
+    var newSkillSet = new skillSet(
+        all_skills = [
         {
             category: 'Technical skills',
             skill_list: [
@@ -123,6 +124,7 @@ router.post("/init", async function(req, res){
             ]
         }
     ])
+    newSkillSet.save();
 
 
     res.send('DB Initiallized !!');

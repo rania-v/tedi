@@ -49,7 +49,17 @@ export default {
     methods: {
         ...mapActions(["login",]),
         log(){
-            this.login({email: this.email, password: this.password});
+            this.login({email: this.email, password: this.password})
+            .then( response => {
+                console.log(response);
+                this.$router.push({name:"Home"})
+            })
+            .catch( error => { 
+                console.log(error);
+                // this.badAllert = true;
+                // this.badAllertMessage = error.message
+                
+            }) 
         },
 
         close() {

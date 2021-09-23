@@ -6,9 +6,9 @@
                 <v-card elevation="1">
                     <v-card-title>Personal Info</v-card-title>
                     <v-card-text style="margin:2%">
-                        <v-row>{{name}}</v-row>
-                        <v-row>{{birthdate}}</v-row>
-                        <v-row>{{work}}</v-row>
+                        <v-row>{{this.firstName + ' ' + this.lastName}}</v-row>
+                        <v-row>{{this.birthday}}</v-row>
+                        <v-row>{{this.profession}}</v-row>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -41,15 +41,14 @@
 
 <script>
 
+import { mapGetters } from "vuex"
+
 export default ({
     name: "Profile",
     data() {
        return {
             id: this.$route.params.id,
             image: require('../images/usagi_1.png'),
-            name: 'Lily',
-            birthdate: '09/10/1996',
-            work: 'Computer Science Student',
             hover: false,
             usr:null,
             network: [
@@ -87,6 +86,15 @@ export default ({
                 }
             ]
        }
+    },
+    computed:{
+        ...mapGetters({
+            firstName: "firstName",
+            lastName: "lastName",
+            birthday: "birthday",
+            image: "image",
+            profession: "profession"
+        }),
     },
     methods: {
         Open_Network() {

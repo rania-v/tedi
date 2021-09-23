@@ -27,7 +27,7 @@
           <!-- <v-btn color="teal lighten-2" text  @click="$router.push('OpenAd')">
             Open Ad
           </v-btn> -->          
-          <v-btn color="teal lighten-2" text  @click="openad" v-bind="size">
+          <v-btn color="teal lighten-2" text   :to="{name: 'OpenAd', params:{ open:'open'}}" v-bind="size">
             Open Ad
           </v-btn>
           <v-btn color="teal lighten-2" outlined v-bind="size">

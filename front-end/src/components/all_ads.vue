@@ -35,7 +35,7 @@ export default {
     },
     data() {
         return {
-            job_ads:[],
+            job_ads:[1,2,3,4,5],
             new_applies: true,
             jad_empty: require('../illustrations/115.svg'),
             jad_img_left: require('../illustrations/451_dark.svg'),

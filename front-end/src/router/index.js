@@ -106,6 +106,12 @@ const routes = [
                             }
                         ]
                     },
+                    {
+                        path: '/JobAds/open-ad/ad-id',
+                        name: 'OpenAd',
+                        component: OpenAd,
+                        props: true
+                    }
                 ]
             },
             {

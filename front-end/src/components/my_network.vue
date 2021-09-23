@@ -32,13 +32,16 @@ import NetworkSearch from './network_search.vue'
 import FriendProfile from './friend_profile.vue'
 import UserCard from './user_card.vue'
 
+import { mapGetters } from "vuex"
+// import { mapActions, mapGetters } from "vuex"
+
 export default {
 name: 'Network',
     components: {
         NetworkSearch,
         FriendProfile,
         UserCard
-},
+    },
     data() {
         return {
             net_search: true,
@@ -261,9 +264,14 @@ name: 'Network',
                     }
  
                 ]
-        }
+            }
         
-    }
+        },
+        computed:{
+        ...mapGetters({
+            friends: "friends",
+        }),
+        }
 }
 </script>
 

@@ -1,14 +1,15 @@
-var testUser = [
-    {_id = 1, isAdmin = false, firstName: 'mike', lastName: 'vour', profEmail: 'mvour@test.com'},
+var testUserm = [
+    {_id: 1, isAdmin: false, firstName: 'mike', lastName: 'vour', profEmail: 'mvour@test.com'},
 ];
 
 var testing = true;
 
+console.log(testUserm)
 export default{
     isLoading: state => state.isLoading,
     isLogedIn: state => state.isLogedIn,
 
-    firstName: state => testing ? testUser.firstName : state.firstName,
-    lastName: state => testing ? testUser.lastName : state.lastName,
-    profEmail: state => testing ? testUser.proEmail : state.profEmail,
+    firstName: state => testing ? testUserm.firstName : state.firstName,
+    lastName: state => testing ? testUserm.lastName : state.lastName,
+    profEmail: state => testing ? testUserm.proEmail : state.profEmail,
 }

@@ -11,7 +11,7 @@
             </v-col>
         </v-row> -->
         <v-card-text>
-            <v-form action="/HomePage.vue" method="get">
+            <v-form v-on:submit.prevent="log()">
                 <v-row>
                     <v-spacer></v-spacer>
                         <v-col cols="6">
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+
+import { mapActions } from "vuex"
+
 export default {
     name: 'SignInForm',
     data() {
@@ -44,6 +47,11 @@ export default {
         };
     },
     methods: {
+        ...mapActions(["login",]),
+        log(){
+            this.login({email: this.email, password: this.password});
+        },
+
         close() {
             this.$emit('close_in','');
         },

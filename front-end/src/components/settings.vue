@@ -38,6 +38,7 @@
                     </v-row>
             </v-card-text>
             <v-card-actions class="d-">
+                <v-btn outlined color="pink">log out</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn v-if="!update" v-on:click="update=true" text style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
                 <v-btn v-if="update" v-on:click="save_changes" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>

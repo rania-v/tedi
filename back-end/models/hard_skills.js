@@ -5,13 +5,17 @@ const mongoose = require("mongoose");
 // })
 
 const skillSetSchema = new mongoose.Schema({
-    category: {
-        type: String,
-        required: true,
-        unique: true,
-        minLength: 1
-    },
-    skill_list: [{ type: String, unique: true, minLength:1}]
+    all_skills: [
+        {
+            category: {
+                type: String,
+                required: true,
+                unique: true,
+                minLength: 1
+            },
+            skill_list: [{ type: String, unique: true, minLength:1}]
+        }
+    ]
 })
 
 // const HardSkillList = new mongoose.Schema({

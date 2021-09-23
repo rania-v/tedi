@@ -1,6 +1,6 @@
 <template>
 <v-container class="justify-center">
-    <v-card max-width="100%" max-height="100%" class="rounded-xl" color="purple lighten-4" text elevation="0">
+    <v-card max-width="100%" max-height="100%" class="rounded-xl" color="white" text elevation="0">
         <v-card-title>
             <h2 id="get_in">Get In Now</h2>
         </v-card-title>
@@ -15,7 +15,7 @@
                 <v-row>
                     <v-spacer></v-spacer>
                         <v-col cols="6">
-                            <v-text-field label="e-mail" v-model="email" color="purple"></v-text-field>
+                            <v-text-field  label="e-mail" v-model="email" color="purple"></v-text-field>
                             <v-text-field label="password" v-model="password" type="password" required color="purple"></v-text-field>
                         </v-col>
                     <v-spacer></v-spacer>
@@ -105,7 +105,7 @@ export default {
 #get_in {
     font-size: 35px;
     /* color: #a0e338; */
-    color: #EEFF41;
+    color: #E91E63;
     font-family:monospace;
     font-weight: normal;
     margin-left: auto;

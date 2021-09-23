@@ -4,7 +4,7 @@ export default {
     // constants: {maxCoWorkers:20, maxNonPremiumProjects:3},
 	token: null,
 
-	allSkills: [],
+	allSkills: null,
 
 	_id: null,
 	isAdmin: null,

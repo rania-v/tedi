@@ -12,7 +12,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text color="teal" >more...</v-btn>
+                        <v-btn text color="teal" :to="{ name: 'PersonalInfo' , params:{ page_title : 'Προσωπικά Στοιχεία'}}">more...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -22,15 +22,17 @@
                     <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
                         <v-col cols="3"  v-for="friend in network.slice(0,7)" :key="friend"  >
                             <v-badge :content=friend.user :value=hover color="deep-purple lighten-1" overlap>
-                                <v-avatar>
-                                    <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
-                                </v-avatar>
+                                <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend.user} }">
+                                    <v-avatar>
+                                        <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
+                                    </v-avatar>
+                                </router-link>
                             </v-badge>
                         </v-col>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text color="teal" v-on:click="Open_Network">more...</v-btn>
+                        <v-btn text color="teal" :to="{ name: 'MyNetwork', params:{ page_title : 'Δίκτυο'} }" >more...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -43,6 +45,7 @@ export default ({
     name: "Profile",
     data() {
        return {
+            id: this.$route.params.id,
             image: require('../images/usagi_1.png'),
             name: 'Lily',
             birthdate: '09/10/1996',
@@ -89,7 +92,7 @@ export default ({
         Open_Network() {
             // let p = this.$parent;
             // if(p.$options.name == 'Home')
-                this.$emit('Goto_Net', 'Δίκτυο');
+                this.$emit('Goto', 'Δίκτυο');
                 // this.$emit('update:msg', 'NO')
         },
         ShowFriendProf(nam) {

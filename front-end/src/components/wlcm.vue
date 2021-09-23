@@ -41,7 +41,7 @@
       </v-row>
         <v-spacer></v-spacer>
 
-    <router-link to="/HomePage">HomePage</router-link>
+    <router-link :to="{ name: 'Home', params: {page_title : 'Αρχική Σελίδα' } }">HomePage</router-link>
   </v-app>
 </template>
 

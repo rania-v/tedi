@@ -3,7 +3,7 @@
         <!-- <h1  v-on:ShowFriendProf="ChangePT($event)">{{msg}}</h1> -->
         <v-spacer></v-spacer>
         <v-col cols="2">
-            <Profile :Goto_Net="openNet"/>
+            <Profile @Goto_Net="openNet"/>
         </v-col>
         <v-col cols="6">
             <!-- <v-container> -->
@@ -42,10 +42,8 @@ export default ({
     },
     methods: {
         openNet() {
-            this.$emit('ChangeTab', 'Δίκτυο')
         },
         ChangePT(pt) {
-            console.log("called from child!")
             this.msg = pt;
         },
         show_new_post(e) {

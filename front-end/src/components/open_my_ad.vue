@@ -45,14 +45,12 @@
 <script>
 import OpenAd from './open_ad.vue'
 import UserCard from './user_card.vue'
-// import UserList from './user_list.vue'
 
 export default ({
     name: 'OpenMyAd',
     components: {
         OpenAd,
         UserCard,
-        // UserList
     },
     data() {
         return{

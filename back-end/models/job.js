@@ -18,6 +18,7 @@ const jobSchema = new mongoose.Schema({
     qualifications:{
         key_qualifications: {type: String, required: true},
         req_experiense: {type: String, required: true},
+        skill_list: [{type: String}]
     },
     job_Description:{
         pos_duties: {type: String},

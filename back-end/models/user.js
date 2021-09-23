@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     isAdmin:{type: Boolean, default: false},
     personal:{
         firstName:{
-            type: 'String',
+            type: String,
             required: true,
             unique: true,
             minLength: 1
@@ -65,7 +65,8 @@ const UserSchema = new mongoose.Schema({
             type: String,
             minLength: 4,
         },
-        workplace: String
+        workplace: String,
+        skill_list: [{ type: String}]
     },    
 })
 

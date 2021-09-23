@@ -18,8 +18,10 @@
                     </v-col>
                     <v-col id="tf">
                         <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
-                            <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model='photo'></v-file-input>
+                            <!-- <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model='photo'></v-file-input> -->
+                            <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="photo" @change="ShowImg" :color="form_text_color"></v-file-input></v-col>
                             <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
+                    
                         <v-img src="../svgs/talking.svg"></v-img>
                     </v-col>
                 </v-row>
@@ -30,7 +32,7 @@
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-card-actions class="">
-                    <v-btn id="valid" type="submit" dark @click="submit">Sign Up</v-btn>
+                    <v-btn id="valid" type="submit" dark @click="submit" :to="{name: 'GettingStarted', params:{ usr_name: name}}">Sign Up</v-btn>
                 </v-card-actions>
             </v-form>
         </v-card-text>
@@ -74,7 +76,10 @@ export default {
                 this.conf_password == true;
             else
                 this.conf_password == false;
-        }
+        },
+        ShowImg() {
+            this.photo= URL.createObjectURL(this.photo)
+        },
     }
 }
 

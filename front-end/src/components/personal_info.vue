@@ -4,20 +4,19 @@
             <v-img :src="pr_img_left"></v-img>
         </v-col>
         <v-col cols="8">
+            <v-row class="mb-1" style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2;">
+                <v-spacer></v-spacer>
+                <v-btn v-if="!update" v-on:click="update=true" class="white--text deep-purple"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
+                <v-btn v-if="update" v-on:click="save=true,  update=false" class="white--text deep-purple"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+            </v-row>
             <v-row id="personal_info">
                 <v-col style="max-width:30%" class="deep-purple lighten-4 rounded-t-lg mr-1 mb-n1">
                     <v-card id="info_card">
                         <v-card-title>Profile Photo</v-card-title>
                         <v-card-text>
-                            <v-file-input v-model='profile_photo' label="choose a new profile pic" v-if='update_profile_photo_info'></v-file-input>
-                            <v-img :src="profile_photo" max-height="187" contain class="teal lighten-5" :class="{'mt-9 mb-9': update_profile_photo_info == false}"></v-img>      
+                            <v-file-input v-model='profile_photo' label="choose a new profile pic" v-if='update'></v-file-input>
+                            <v-img :src="profile_photo" max-height="187" contain class="teal lighten-5" :class="{'mt-9 mb-9': update == false}"></v-img>      
                         </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <!-- <v-btn v-on:click="update_profile_photo_info=true" text small style="color:teal">Update</v-btn> -->
-                            <v-btn v-if="!update_profile_photo_info" v-on:click="update_profile_photo_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                            <v-btn v-if="update_profile_photo_info" v-on:click="save_profile_photo_info,  update_personal_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-col>
                 <v-col style="max-height:auto" class="teal lighten-4 rounded-t-lg ml-1 mb-1" >
@@ -26,32 +25,27 @@
                         <v-card-text>
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
-                                <v-col><v-text-field label="First Name" v-model="first_name" :readonly='!update_personal_info'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="first_name" :readonly='!update_personal_info'></v-text-field></v-col>
+                                <v-col><v-text-field label="First Name" v-model="first_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" v-model="first_name" :readonly='!update'></v-text-field></v-col>
                             </v-row>
                             <v-row>
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
                                 <v-col>
                                     <v-row>
-                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update_personal_info'></v-select></v-col>
-                                        <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update_personal_info'></v-select></v-col>
-                                        <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update_personal_info'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
                                     </v-row>
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update_personal_info"><v-switch label="private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private"></v-switch></v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    <v-select label="Country" v-model="country" :readonly='!update_personal_info' :items="countries" prepend-icon="fas fa-globe"></v-select>
+                                    <v-select label="Country" v-model="country" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update_personal_info"><v-switch label="private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private"></v-switch></v-col>
                             </v-row>
                         </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn v-if="!update_personal_info" v-on:click="update_personal_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                            <v-btn v-if="update_personal_info" v-on:click="save_changes_per_info,  update_personal_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
-                        </v-card-actions>
                     </v-card>                    
                 </v-col>
             </v-row>
@@ -61,42 +55,37 @@
                         <v-card-title>Contact Info</v-card-title>
                         <v-card-text>
                             <v-row>
-                                <v-col><v-text-field label="Telephone Number" v-model="telephone.value" :readonly='!update_connatct_info' prepend-icon="fas fa-phone"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update_connatct_info"><v-switch v-model="telephone.private" style="transform: scale(0.875)" label="private"></v-switch></v-col>
+                                <v-col><v-text-field label="Telephone Number" v-model="telephone.value" :readonly='!update' prepend-icon="fas fa-phone"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch v-model="telephone.private"  class="small_switch" label="private"></v-switch></v-col>
                             </v-row>
                             <v-row no-gutters>
-                                <v-col cols="6"><v-text-field label="Personal E-mail" v-model="per_mail.value" :readonly='!update_connatct_info' prepend-icon="fas fa-envelope"></v-text-field></v-col>
+                                <v-col cols="6"><v-text-field label="Personal E-mail" v-model="per_mail.value" :readonly='!update' prepend-icon="fas fa-envelope"></v-text-field></v-col>
                                 <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update_connatct_info"><v-switch id="small_sw" label="private" v-model="per_mail.private"></v-switch></v-col>
-                                <v-col cols="6"><v-text-field label="Professional E-mail" v-model="prof_mail.value" :readonly='!update_connatct_info' prepend-icon="far fa-envelope"></v-text-field></v-col>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
+                                <v-col cols="6"><v-text-field label="Professional E-mail" v-model="prof_mail.value" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
                                 <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update_connatct_info"><v-switch label="private" v-model="per_mail.private"></v-switch></v-col>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
                             </v-row>
                             <v-row>
-                                <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update_connatct_info' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="facebook.private"></v-switch></v-col>
+                                <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch  class="small_switch" label="private" v-model="facebook.private"></v-switch></v-col>
                                 
-                                <v-col cols="4"><v-text-field label="LinkedIn" v-model="linkedin.value" :readonly='!update_connatct_info' prepend-icon="fab fa-linkedin"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="linkedin.private"></v-switch></v-col>
+                                <v-col cols="4"><v-text-field label="LinkedIn" v-model="linkedin.value" :readonly='!update' prepend-icon="fab fa-linkedin"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="linkedin.private"></v-switch></v-col>
                                 
-                                <v-col cols="4"><v-text-field label="Instagram" v-model="instagram.value" :readonly='!update_connatct_info' prepend-icon="fab fa-instagram"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="instagram.private"></v-switch></v-col>
+                                <v-col cols="4"><v-text-field label="Instagram" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="instagram.private"></v-switch></v-col>
                             </v-row>
                             <v-row>
-                                <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update_connatct_info' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update_connatct_info"><v-switch label="private" v-model="website.private"></v-switch></v-col>
+                                <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch class="small_switch" label="private" v-model="website.private"></v-switch></v-col>
                             </v-row>
                         </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn v-if="!update_connatct_info" v-on:click="update_connatct_info=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                            <v-btn v-if="update_connatct_info" v-on:click="save_changes_conntatc_inf,  update_connatct_info=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-col>
                 <v-col class="teal lighten-4 rounded-b-lg ml-1 mt-n1 " >
@@ -104,17 +93,19 @@
                         <v-card-title>Qualification Info</v-card-title>
                         <v-card-text>
                             <v-file-input label="Upload Resume"></v-file-input>
-                            <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update_connatct_info' prepend-icon="fab fa-instagram"></v-text-field></v-col>
-                                <v-spacer v-if="update_connatct_info"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
+                            <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
                             
                         </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <!-- <v-btn v-on:click="update_qualifications=true" text small style="color:teal">Update</v-btn> -->
-                            <v-btn v-if="!update_qualifications" v-on:click="update_qualifications=true" text small style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                            <v-btn v-if="update_qualifications" v-on:click="save_qualifications,  update_qualifications=fas" small text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
-                        </v-card-actions>
+                            <v-card-title>Skill Set</v-card-title>
+                        <v-card-text  style="">
+
+
+                            <v-flex style="height:200px; overflow: hidden">
+                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list" :key="skill" >{{skill}}</v-chip>
+                            </v-flex>
+                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
@@ -134,15 +125,15 @@ export default({
             pr_img_left: require('../illustrations/12.svg'),
             pr_img_right: require('../illustrations/70.svg'),
             profile_photo: require('../images/usagi_1.png'),
-            update_profile_photo_info: false,
-            save_changes_prof_photo: false,
-            update_personal_info: false,
-            save_changes_per_inf: false,
-            update_connatct_info: false,
-            save_changes_conntatc_inf: false,
-            update_qualifications:false,
-            save_qualifications: false,
-
+            update: false,
+            save: false,
+            skill_list:[
+                'CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
+                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
+                        'Automated Billing Systems', 'CRM Platforms','CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
+                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
+                        'Automated Billing Systems', 'CRM Platforms'
+            ],
             first_name: 'lalala',
             last_name: 'lallaa ',
             birth_day: null,
@@ -258,13 +249,12 @@ export default({
     background-color: teal !important;
 } */
 
-.v-switch {
+.small_switch{
     /* max-height: 10px !important;
     min-height: 10px !important;
     font-size: 10px !important; */
-
-    transform: scale(0.875) !important;
-    transform-origin: left !important;
+    transform: scale(0.750) !important;
+    /* transform-origin: left !important; */
 }
 
 /* #info_card .v-card-title {

@@ -6,11 +6,13 @@ export default{
         console.log(payload);
         commit("SET_LOADING", true)
         return actions.login(payload.email, payload.password)
-        .then( response => {
-			console.log(response);
+		.then( response => {
+			console.log()
+			console.log('responsesss: ', response);
             console.log(client);
 			// commit("STORE_CLIENT", client.user)
 			commit("STORE_TOKEN", client.token.token)
+			commit("STORE_CLIENT", client.user)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)
 			return response

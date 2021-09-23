@@ -10,7 +10,22 @@ const cors = require("cors")
 require("dotenv/config");
 require("./auth/auth");
 
+
+app.options('*',cors());
+app.use(cors());
 app.use(express.json({limit: '50mb', extended: true}));
+
+// set session
+app.use(session({
+    secret: 'deers',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 // SET & USE ROUTES
 const dbRoutes = require('./routes/db');
@@ -23,23 +38,12 @@ const jobRoutes = require('./routes/job');
 app.use('/api/job', authenticate, jobRoutes);
 
 const secureRoutes = require('./routes/secure')
-app.use('/api/', authenticate, secureRoutes);
+app.use('/api', authenticate, secureRoutes);
 
 const postRoutes = require('./routes/post');
 app.use('/api/post', authenticate, postRoutes);
 
 
-// set session
-app.use(session({
-    secret: 'deers',
-    resave: false,
-    saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.options('*',cors());
-app.use(cors());
 
 
 // connect db
@@ -56,14 +60,6 @@ mongoose.connect(
 .then( () => console.log("Server connected to MongoDB.") )
 .catch( error => console.log(error.message) );
 
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-
 const options = {
     // key: fs.readFileSync("./security/localhost+1-key.pem"),
     // cert: fs.readFileSync("./security/localhost+1.pem"),
@@ -73,12 +69,12 @@ const options = {
 };
 
 const PORT = process.env.PORT || 3001
-// const PORT = 3000
 const HOST = process.env.HOST || '127.0.0.1'
 
 const server = http.createServer(options, app).listen(PORT, function(){
     console.log(`Server listening at http://${HOST}:${PORT}/`);
 });
+
 
 // app.listen(3001, ()=>{
 //     console.log("Listening to 3001");

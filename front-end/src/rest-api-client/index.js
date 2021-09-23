@@ -1,5 +1,5 @@
 // const https = require('https');
-// const http = require('http');
+const http = require('http');
 const axios = require('axios');
 // const fs = require('fs');
 // require('dotenv').config();
@@ -7,6 +7,13 @@ const requests = require('./requests');
 
 // const apiUrl = `http://${process.env.HOSTNAME}:${process.env.PORT}/api-control`;
 const apiUrl = 'http://127.0.0.1:3001/api';
+
+const agent = new http.Agent({
+  // const agent = new http.Agent({
+    rejectUnauthorized: false, // (NOTE: this will disable client verification)
+})
+
+axios.defaults.options = agent;
 
 function initClient(){
     return {
@@ -61,15 +68,14 @@ export const actions = {
 
       // Login user
   async login(email, password) {
-    console.log('edw')
     return requests.loginRequest(email, password)
     .then(function(response) {
       // Set client object
+      console.log('response: ', response);
       actions.setClient(response);
-      console.log('aaaaaaaaa')
       return response.message;
     })
-    .catch(function(error) { console.log('aaaaaaaaaaaaaaaaaaaa');client = initClient(); throw error })    
+    .catch(function(error) {client = initClient(); throw error })
   },
 }
 
@@ -78,20 +84,20 @@ export var client = initClient();
 export const send = async (method, url, data, headers) => {
     switch(method) {
       case('POST'):
-      console.log("method: ", method, " url: ", url, " data: ", data, " headers: ", headers)
-        return axios.post(`${apiUrl}/${url}`, data, { headers: headers }, /*{ httpsAgent: agent }*/)
+      console.log("method: ", method, " api url: ", apiUrl, " url: ", url, " data: ", data, " headers: ", headers)
+        return axios.post(`${apiUrl}/${url}`, data, { headers: headers }, { httpAgent: agent })
         .then(function(response) { return response.data })
         .catch(function(error) { console.log('skata'); throw error })
       case('GET'):
-        return axios.get(`${apiUrl}/${url}`, { headers: headers }, /*{ httpsAgent: agent }*/)
+        return axios.get(`${apiUrl}/${url}`, { headers: headers }, { httpAgent: agent })
         .then(function(response) { return response.data })
         .catch(function(error) { throw error })
       case('PATCH'):
-        return axios.patch(`${apiUrl}/${url}`, data, { headers: headers }, /*{ httpsAgent: agent }*/)
+        return axios.patch(`${apiUrl}/${url}`, data, { headers: headers }, { httpAgent: agent })
         .then(function(response) { return response.data })
         .catch(function(error) { throw error })
       case('DELETE'):
-        return axios.delete(`${apiUrl}/${url}`, { headers: headers }, /*{ httpsAgent: agent }*/)
+        return axios.delete(`${apiUrl}/${url}`, { headers: headers }, { httpAgent: agent })
         .then(function(response) { return response.data })
         .catch(function(error) { throw error })
     }

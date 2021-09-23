@@ -109,6 +109,14 @@
                                 <v-col class="d-flex justify-end pr-11" cols="5" v-if="update_connatct_info"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
                             
                         </v-card-text>
+                            <v-card-title>Skill Set</v-card-title>
+                        <v-card-text  style="">
+
+
+                            <v-flex style="height:200px; overflow: hidden">
+                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list" :key="skill" >{{skill}}</v-chip>
+                            </v-flex>
+                        </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <!-- <v-btn v-on:click="update_qualifications=true" text small style="color:teal">Update</v-btn> -->
@@ -142,6 +150,11 @@ export default({
             save_changes_conntatc_inf: false,
             update_qualifications:false,
             save_qualifications: false,
+            skill_list:['CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
+                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
+                        'Automated Billing Systems', 'CRM Platforms','CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
+                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
+                        'Automated Billing Systems', 'CRM Platforms'],
 
             first_name: 'lalala',
             last_name: 'lallaa ',

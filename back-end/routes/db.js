@@ -5,6 +5,8 @@ const router = express.Router();
 const User_module = require('../models/user');
 const User = User_module.user
 
+const {skillSet} = require('../models/hard_skills');
+
 mongoose.connect(
     process.env.DB_CONNECTION,
     { 
@@ -52,6 +54,76 @@ router.post("/init", async function(req, res){
         contact:{profEmail: 'admin3@admin.com'}
     });
     newUser.save();
+
+    var newSkillSet = new skillSet([
+        {
+            category: 'Technical skills',
+            skill_list: [
+                'CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
+                'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
+                'Automated Billing Systems', 'CRM Platforms', 'Research', 'Troubleshooting'
+            ]
+        },
+        {
+            category: 'Computer skills',
+            skill_list: [
+                'Google Drive', 'Spreadsheets', 'Email', 'Presentations/Slideshows', 'Database Management', 'Quickbooks', 'Social media', 'Web', 'Typing',
+                'Graphics', 'Enterprise systems', 'WPM', 'Java', 'PHP', 'MySQL', 'SQL', 'C#', 'JavaScript', 'C++', 'Python', 'iOS/Swift', 'Ruby on Rails'
+            ]
+        },
+        {
+            category: 'Analytical skills',
+            skill_list: [
+                'Research', 'Forecasting', 'Data mining', 'Data presentation', 'Resource management', 'Data engineering', 'Database management',
+                'Data and metrics interpreting', 'Reporting', 'Diagnostics', 'Creativity', 'Theorizing'
+            ]
+        },
+        {
+            category: 'Marketing skills',
+            skill_list: [
+                'SEO/SEM: Ahrefs, SEMRush', 'SEO Power Suite', 'Majestic',
+                'PPC', 'Social media marketing and paid social media advertising', 'Writing', 'CRO and A/B testing', 'Email marketing and automation',
+                'HubSpot', 'Aritic PinPoint', 'ONTRAPORT', 'Infusionsoft',
+                'Funnel management', 'UX Design', 'Data visualization', 'Google Analytics and Google Search Console', 'AdWords, Facebook Paid Ads'
+            ]
+        },
+        {
+            category: 'Presentation skills',
+            skill_list: [
+                'Visual communication', 'Slideshows', 'Research', 'Data analysis', 'Reporting', 'Persuasion', 'Graphic design'
+            ]
+        },
+        {
+            category: 'Management Skills',
+            skill_list: [
+                'Business knowledge', 'Budgeting', 'Project management', 'Hiring', 'Finance', 'Office management skills', 'Logistics',
+                'New business development', 'Negotiating', 'Planning'
+            ]
+        },
+        {
+            category: "Project management skills",
+            skill_list: [
+                    'Project scheduling', 'Strategic planning', 'Project lifecycle management', 'Agile software', 'Scrum management',
+                    'Financial modeling', 'Kanban', 'Forecasting', 'Performance tracking', 'Budgeting'
+            ]
+        },
+        {
+            category: 'Writing skills',
+            skill_list: [
+                'Note-taking', 'Letter writing', 'Email writing', 'Business writing reports, press releases, content management',
+                'Data visualization', 'Creative writing: plotting, worldbuilding, dialogue', 'Academic writing', 'Storytelling',
+                'Copywriting', 'SEO', 'Editing', 'Journalism', 'Proposal writing', 'Social media', 'Presentation writing'
+            ]
+        },
+        {
+            category: 'Design SKills',
+            skill_list: [
+                'Photoshop', 'Illustrator', 'InDesign', 'UX/UI design', 'UX research', 'Data visualization', 'Color theory', 'Acrobat',
+                'HTML/CSS', 'Free Hand', 'Corel Draw', 'Sketching', 'Typography', 'Print design', 'Layout'
+            ]
+        }
+    ])
+
 
     res.send('DB Initiallized !!');
     console.log('DB Initallized !!');

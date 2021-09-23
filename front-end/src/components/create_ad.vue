@@ -30,7 +30,7 @@
             <v-card-text>
                 <v-textarea clearable :clear-icon="cl_icon" :rules="req" label="Key qualifications" :color="form_text_color" rows="3" prepend-icon="fas fa-key"></v-textarea>
                 <v-text-field :rules="req" label="Required Experience" :color="form_text_color" prepend-icon="fas fa-briefcase"></v-text-field>
-                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="hard_skills" item-text="category" item-value="list" v-model="catlist" label="Hard Skills Categories">
+                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="hard_skills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
                 </v-autocomplete>
                 <v-card flat>
                     <v-chip :class="{'ma-2': checkList(job_hard_skills,skill)!=1, 'pink pink--text small ma-2':checkList(job_hard_skills,skill)==1}"
@@ -103,9 +103,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 
 export default ({
     name: 'CreateAd',
+    computed:{
+        ...mapGetters({
+            hard_skills: "allSkills"
+        }),
+    },
     data() {
         return {
             req: [
@@ -128,74 +134,6 @@ export default ({
             post: false,
             catlist: null,
             job_hard_skills:[],
-            hard_skills: [
-                {
-                    category: 'Technical skills',
-                    list: [
-                        'CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
-                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
-                        'Automated Billing Systems', 'CRM Platforms', 'Research', 'Troubleshooting'
-                    ]
-                },
-                {
-                    category: 'Computer skills',
-                    list: [
-                        'Google Drive', 'Spreadsheets', 'Email', 'Presentations/Slideshows', 'Database Management', 'Quickbooks', 'Social media', 'Web', 'Typing',
-                        'Graphics', 'Enterprise systems', 'WPM', 'Java', 'PHP', 'MySQL', 'SQL', 'C#', 'JavaScript', 'C++', 'Python', 'iOS/Swift', 'Ruby on Rails'
-                    ]
-                },
-                {
-                    category: 'Analytical skills',
-                    list: [
-                        'Research', 'Forecasting', 'Data mining', 'Data presentation', 'Resource management', 'Data engineering', 'Database management',
-                        'Data and metrics interpreting', 'Reporting', 'Diagnostics', 'Creativity', 'Theorizing'
-                    ]
-                },
-                {
-                    category: 'Marketing skills',
-                    list: [
-                        'SEO/SEM: Ahrefs, SEMRush', 'SEO Power Suite', 'Majestic',
-                        'PPC', 'Social media marketing and paid social media advertising', 'Writing', 'CRO and A/B testing', 'Email marketing and automation',
-                        'HubSpot', 'Aritic PinPoint', 'ONTRAPORT', 'Infusionsoft',
-                        'Funnel management', 'UX Design', 'Data visualization', 'Google Analytics and Google Search Console', 'AdWords, Facebook Paid Ads'
-                    ]
-                },
-                {
-                    category: 'Presentation skills',
-                    list: [
-                        'Visual communication', 'Slideshows', 'Research', 'Data analysis', 'Reporting', 'Persuasion', 'Graphic design'
-                    ]
-                },
-                {
-                    category: 'Management Skills',
-                    list: [
-                        'Business knowledge', 'Budgeting', 'Project management', 'Hiring', 'Finance', 'Office management skills', 'Logistics',
-                        'New business development', 'Negotiating', 'Planning'
-                    ]
-                },
-                {
-                    category: "Project management skills",
-                    list: [
-                            'Project scheduling', 'Strategic planning', 'Project lifecycle management', 'Agile software', 'Scrum management',
-                            'Financial modeling', 'Kanban', 'Forecasting', 'Performance tracking', 'Budgeting'
-                    ]
-                },
-                {
-                    category: 'Writing skills',
-                    list: [
-                        'Note-taking', 'Letter writing', 'Email writing', 'Business writing reports, press releases, content management',
-                        'Data visualization', 'Creative writing: plotting, worldbuilding, dialogue', 'Academic writing', 'Storytelling',
-                        'Copywriting', 'SEO', 'Editing', 'Journalism', 'Proposal writing', 'Social media', 'Presentation writing'
-                    ]
-                },
-                {
-                    category: 'Design SKills',
-                    list: [
-                        'Photoshop', 'Illustrator', 'InDesign', 'UX/UI design', 'UX research', 'Data visualization', 'Color theory', 'Acrobat',
-                        'HTML/CSS', 'Free Hand', 'Corel Draw', 'Sketching', 'Typography', 'Print design', 'Layout'
-                    ]
-                }    
-            ]
         }
     },
     methods: {

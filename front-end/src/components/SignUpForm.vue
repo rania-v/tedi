@@ -1,10 +1,6 @@
 <template>
     <v-card id="card">
-        <v-card-title class="lime--text">Be Part of the Community Now</v-card-title>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-btn @click="close" text small><i class="fas fa-times"></i></v-btn>
-        </v-row>
+        <v-card-title class="pink--text">Be Part of the Community Now</v-card-title>
         <v-card-text>
             <v-form @submit.prevent="handleSubmit(onSubmit)">
                 <v-row justify="space-between" align="center">

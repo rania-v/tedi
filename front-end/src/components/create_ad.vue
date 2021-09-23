@@ -38,6 +38,10 @@
                         {{skill}}
                     </v-chip>
                 </v-card>
+                <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn v-if="!isEmpty(job_hard_skills)" small text class="pink--text" v-on:click="job_hard_skills = EmptyList()">clear</v-btn>
+                                </v-card-actions>
                 <!-- <v-card> -->
                     <v-chip class="ma-1" v-for="skill in job_hard_skills" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(job_hard_skills,skill)">{{skill}}</v-chip>
                 <!-- </v-card> -->
@@ -239,6 +243,16 @@ export default ({
                 return 1;
             }
             return 0;
+        },
+        EmptyList() {
+            let l = [];
+            return l;
+        },
+        isEmpty(list) {
+            if(list.length == 0)
+                return 1;
+            else
+                return 0;
         }
     }
 })

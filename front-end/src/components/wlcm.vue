@@ -22,7 +22,7 @@
                     <v-subtitle class="d-flex justify-center ma-2 pa-2" id="wlcm_msg" style="font-size: 30px; text-align:center;">
                       Not a member yet?<br> Sign Up now!
                     </v-subtitle>
-                      <v-btn x-large rounded color=lime dark text  v-on:click="signup=true">
+                      <v-btn x-large rounded elevation="0" color=pink dark   v-on:click="signup=true">
                         SIGN UP
                       </v-btn>
                     <v-dialog max-width="600px" v-model="signup">

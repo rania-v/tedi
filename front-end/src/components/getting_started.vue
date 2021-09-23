@@ -1,20 +1,20 @@
 <template>
     <v-app>
-        <v-overlay color="deep-purple">
+        <!-- <v-overlay color="deep-purple" style="auto"> -->
 
-        <v-container>
-            <v-card class="pa-3" color="deep-purple" height="950px" width="1000px" v-if="step==1">
+        <v-container class="d-flex justify-center deep-purple lighten-2" fluid>
+            <v-card class="pa-3" color="deep-purple" min-height="950px" width="1000px" v-if="step==1">
                 <v-card-title class="white--text justify-center">Hard Skills</v-card-title>
                 <v-subtitle class="white--text">
                     Lets get you sterted with your Profession Profile!<br/><br/>
                     {{hard_subtitle}}<br/><br/><br/>
                     First, go through the various categories and select what skills best describe your abilities as an employee
                 </v-subtitle>
-                    <v-card class="ma-5 pa-0 deep-purple" flat height="65%">
+                    <v-card class="ma-5 pa-0 deep-purple" flat min-height="550px" height="65%">
                         <v-row class="ma-1 pa-0">
                             <v-spacer></v-spacer>
                             <v-col cols="6">
-                                <v-autocomplete light shaped filled solo type item-color="pink" color="pink"  rounded :items="hard_skills" item-text="category" item-value="list" v-model="catlist" label="Hard Skills Categories">
+                                <v-autocomplete clearable light shaped filled solo type item-color="pink" color="pink"  rounded :items="hard_skills" item-text="category" item-value="list" v-model="catlist" label="Hard Skills Categories">
                                 </v-autocomplete>
                             </v-col>
                             <v-spacer></v-spacer>
@@ -34,11 +34,18 @@
                             </v-col>
                             <v-spacer></v-spacer>
                         </v-row>
-                        <v-row class="mr-10 ml-10">
-                            <v-spacer></v-spacer>
-                            <v-chip class="ma-1" color="pink white--text" v-for="skill in user_hard_skills" :key="skill" >{{skill}}</v-chip>
-                            <v-spacer></v-spacer>
-                        </v-row>
+                        <!-- <v-row> -->
+                            <!-- <v-card max-height="200px" color="deep-purple" flat style="overflow-y: auto"> -->
+                            <v-card color="deep-purple" flat>
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn v-if="!isEmpty(user_hard_skills)" small text class="white--text" v-on:click="user_hard_skills = EmptyList()">clear</v-btn>
+                                </v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-chip class="ma-1" color="pink white--text" v-for="skill in user_hard_skills" :key="skill" close @click:close="ClickSkill(user_hard_skills,skill)">{{skill}}</v-chip>
+                                <v-spacer></v-spacer>
+                            </v-card>
+                        <!-- </v-row> -->
                     </v-card>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -61,7 +68,7 @@
             </v-card>
             
         </v-container>
-        </v-overlay>
+        <!-- </v-overlay> -->
     </v-app>
 </template>
 
@@ -166,6 +173,16 @@ export default {
                 return 1;
             }
             return 0;
+        },
+        EmptyList() {
+            let l = [];
+            return l;
+        },
+        isEmpty(list) {
+            if(list.length == 0)
+                return 1;
+            else
+                return 0;
         }
     }
 }
@@ -176,4 +193,5 @@ export default {
     color: red;
     background-color: chartreuse;
 }
+
 </style>

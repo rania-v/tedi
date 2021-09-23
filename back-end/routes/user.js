@@ -51,7 +51,7 @@ router.post('/login', async (req, res, next) => {
         console.log('messg: ', info.message)
         return res.json({
           message: info.message,
-          user: {name: user.personal.firstName + ' ' + user.personal.lastName, email: user.contact.profEmail},
+          user: user,
           token: tokenObject
         });
       } catch (error) {

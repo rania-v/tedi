@@ -1,20 +1,22 @@
 export default {
 	isLoading: false,
 	isLogedIn: false,
-	isAdmin: null,
     // constants: {maxCoWorkers:20, maxNonPremiumProjects:3},
-	// token: null,
+	token: null,
+
+	allSkills: [],
+
 	_id: null,
-	// userName: null,
+	isAdmin: null,
+
     firstName: null,
 	lastName: null,
-    profession: null,
     country: null,
     birthday: null,
     friends: null,
     frequests: null,
     myJobs: null,
-    myChat: null,
+    myChats: null,
 
     phoneNum: null,
 	profEmail: null,
@@ -23,11 +25,9 @@ export default {
 	
 	posts: null,
 	notifications: [],
-	userStories: [],
-	projects: [],
 
     resume: null,
+    profession: null,
     workplace: null,
-	invites: [],
-	coWorkers: [],
+	skills: [],
 }

@@ -8,6 +8,9 @@
 
 <script>
 
+
+import { mapActions, mapGetters } from "vuex"
+
 export default({
     name: 'Banner',
     data() {
@@ -15,6 +18,17 @@ export default({
             banner_img: require("../banner/banner_img.svg"),
             banner_back: require("../banner/back.jpg")
         }
+    },
+    methods:{
+        ...mapActions(["mpla",]),
+        mpla_(){
+            alert(this.mpla());
+        },
+    },
+    computed:{
+        ...mapGetters({
+            firstName: "firstName",
+        }),  
     },
 })
 </script>

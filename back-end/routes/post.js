@@ -31,7 +31,7 @@ router.get("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Post
-router.get("/post", async (req, res)=>{
+router.post("/getPost", async (req, res)=>{
     try{
         const post = await post.findById(req.body.postId);
         res.json({
@@ -122,6 +122,19 @@ router.post("/addComm:postId", async(req, res) => {
         res.status(400).json({message: err});
     }
 })
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Comment
+router.post("/getComment", async (req, res)=>{
+    try{
+        const comm = await comment.findById(req.body.commId);
+        res.json({
+            comment: comm,
+        });
+    }catch(error){
+        res.status(400).json({message: error});
+    }
+})
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Delete a Comment
 router.delete("/comment:commentId", async(req, res) =>{

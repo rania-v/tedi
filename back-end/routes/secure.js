@@ -263,7 +263,7 @@ router.post('/clean-notifications', async(req, res) => {
 })
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get all Chats
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get all Chats ID
 router.get('/getChats', async(req, res) => {
   try{
       res.json(req.user.personal.myChats);
@@ -271,6 +271,34 @@ router.get('/getChats', async(req, res) => {
       res.json({message: err});
   }
 })
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Chat Info
+router.post('/getChat', async(req, res) => {
+  try{
+    // console.log(req.body)
+      const targetChat = await user.findById(req.body.chatId);
+      res.json({
+          chat: targetChat
+      });
+  }catch(error){
+      res.status(400).json({message: error});
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Comment Info
+router.post('/getComment', async(req, res) => {
+  try{
+    // console.log(req.body)
+      const targetChat = await user.findById(req.body.chatId);
+      res.json({
+          chat: targetChat
+      });
+  }catch(error){
+      res.status(400).json({message: error});
+  }
+})
+
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send a message
 router.post('/sendMssg', async(req, res) => {

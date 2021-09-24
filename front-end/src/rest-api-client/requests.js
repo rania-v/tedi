@@ -49,3 +49,24 @@ export const createAdRequest = async (form, token) =>{
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
+
+
+export const getCommentRequest = async (commId, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    commId: commId,
+  }
+  return restAPI.send('POST', 'secure/getComment', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const getChatRequest = async (chatId, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    chatId: chatId,
+  }
+  return restAPI.send('POST', 'secure/getChat', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}

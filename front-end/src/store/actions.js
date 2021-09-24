@@ -84,5 +84,33 @@ export default{
 			commit("SET_LOADING", false)
 			throw error;
 		})
+	},
+
+	async getComment({commit}, payload){
+		commit("SET-LOADING", true);
+		return actions.getComment(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async getChat({commit}, payload){
+		commit("SET-LOADING", true);
+		return actions.getChat(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
 	}
 }

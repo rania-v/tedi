@@ -106,7 +106,23 @@ export const actions = {
       return response.message;
     })
     .catch(function(error){client = initClient(); throw error})
-  }
+  },
+
+  async getComment(commId){
+    return requests.getCommentRequest(commId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async getChat(chatId){
+    return requests.getChatRequest(chatId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
 
 }
 

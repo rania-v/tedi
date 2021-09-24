@@ -242,6 +242,14 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
+  async sendMssg(data){
+    return requests.sendMssgRequest(data, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
 }
 
 export var client = initClient();

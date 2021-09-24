@@ -126,5 +126,6 @@ export default{
     skills: state => state.skills ? state.skills : [],
 
     postsToSee: state => state.postsToSee ? state.postsToSee : [],
+    jobsToSee: state => state.jobsToSee ? state.jobsToSee : [],
 
 }

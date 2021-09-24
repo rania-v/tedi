@@ -32,4 +32,5 @@ export default {
 	skills: [],
 
     postsToSee: [],
+    jobsToSee: [],
 }

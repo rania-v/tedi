@@ -8,12 +8,12 @@
             <v-card-actions>
                 <v-card-title>SEARCH</v-card-title>
             </v-card-actions>
-            <v-card-text v-if="empty(job_ads) != 0"  style="display:flex; flex-wrap: wrap;  justify-content: center;" class="pr-5 pl-5">
-                <v-container v-for="i in '{1,2,3}'" :key="i"  style="width:30%;" class="mr-2 ml-2">
-                    <Ad @opened_ad="open_ad=true"/>
+            <v-card-text v-if="empty(this.job_ads) != 0"  style="display:flex; flex-wrap: wrap;  justify-content: center;" class="pr-5 pl-5">
+                <v-container v-for="i in this.job_ads" :key="i"  style="width:30%;" class="mr-2 ml-2">
+                    <Ad :id=i @opened_ad="open_ad=true"/>
                 </v-container>
             </v-card-text>
-            <v-card-text v-if="empty(job_ads) == 0" style="display:flex; justify-content: center;">
+            <v-card-text v-if="empty(this.job_ads) == 0" style="display:flex; justify-content: center;">
                 <v-card id="myFont" width="50%" class="rounded-xl" color="deep-purple" elevation="0">
                     <v-card-title style="word-break:break-word;" class="white--text ml-10 mr-10 mt-3">
                         There are no job ads available for you right now... Try expanding your network so we can provide more oportunities for you! 
@@ -28,6 +28,8 @@
 <script>
 import Ad from './ad.vue'
 
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'AllJobAds',
     components: {
@@ -35,7 +37,7 @@ export default {
     },
     data() {
         return {
-            job_ads:[1,2,3,4,5],
+            // job_ads:[1,2,3,4,5],
             new_applies: true,
             jad_empty: require('../illustrations/115.svg'),
             jad_img_left: require('../illustrations/451_dark.svg'),
@@ -46,6 +48,11 @@ export default {
             show_my_ads: false,
             show_create_ad: false
         }
+    },
+    computed:{
+        ...mapGetters({
+            job_ads: 'jobsToSee'
+        })
     },
     methods: {
         empty(a) {

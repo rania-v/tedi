@@ -4,8 +4,8 @@
             <v-img :src="jad_img_left"></v-img>
         </v-col>
         <v-col cols="8">
-            <v-div v-if="open_ad==false && open_my_ad==false">
-                <v-conainer>
+            <div v-if="open_ad==false && open_my_ad==false">
+                <v-container>
                     <v-row>
                         <v-col>
                             <v-btn :to="{name: 'CreateAd'}" class="deep-purple lighten-5 deep-purple--text">CREATE A NEW JOB AD</v-btn>
@@ -19,11 +19,11 @@
                             </v-badge>
                         </v-col>
                     </v-row>
-                </v-conainer>
+                </v-container>
                 <v-card class="mt-4 pt-5 pb-5 mb-4" color="grey lighten-4" elevation="0">
                     <router-view></router-view>
                 </v-card>
-            </v-div>
+            </div>
 
             <!-- <v-div v-if="open_ad">
                 <OpenAd :open="true"/>

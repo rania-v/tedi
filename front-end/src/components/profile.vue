@@ -1,6 +1,6 @@
 <template>
     <v-card>
-            <v-card-title id="profile_card">Profile</v-card-title>
+            <v-card-title id="profile_card" >Profile</v-card-title>
             <v-img  id="user_prof_pic" :src=image></v-img>
             <v-container id="personal">
                 <v-card elevation="1">

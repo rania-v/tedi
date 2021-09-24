@@ -3,7 +3,7 @@
         <!-- <h1  v-on:ShowFriendProf="ChangePT($event)">{{msg}}</h1> -->
         <v-spacer></v-spacer>
         <v-col cols="2">
-            <Profile @Goto_Net="openNet"/>
+            <Profile @Goto_Net="openNet" style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2;"/>
         </v-col>
         <v-col cols="6">
             <!-- <v-container> -->

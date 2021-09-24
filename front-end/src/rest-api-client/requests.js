@@ -28,7 +28,7 @@ export const userRequest = async (userId, token) =>{
   let data = {
     userId: userId,
   }
-  return restAPI.send('GET', 'user', data, headers)
+  return restAPI.send('POST', 'user', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

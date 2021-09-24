@@ -116,9 +116,9 @@ export default ({
                 var user = this.getUser(i)
                 users.push({user: user.firstname + ' ' + user.lastName, avatar: user.image})
             }
-            var user2 = this.getUser('614ccef4f751713c7d415006');
-            users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})
-            console.log(user2)
+            // var user2 = this.getUser('614ccef4f751713c7d415006');
+            // users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})
+            // console.log(user2)
 
             return users;
         }

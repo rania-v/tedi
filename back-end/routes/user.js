@@ -21,7 +21,7 @@ mongoose.connect(
 .catch( error => console.log(error.message) );
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get User
-router.get("/", async (req, res)=>{
+router.post("/", async (req, res)=>{
   try{
     console.log(req.body)
       const targetUser = await user.findById(req.body.userId);

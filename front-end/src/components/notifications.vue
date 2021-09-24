@@ -9,7 +9,7 @@
             </v-card-title>
             <v-card-text class="ma-0 pa-0" v-if="show_requests">
                 <v-slide-group>
-                    <v-slide-item v-for="i in 6" :key="i">
+                    <v-slide-item v-for="i in notifications.frequests" :key="i">
                         <Request/>
                     </v-slide-item>
                 </v-slide-group>
@@ -19,7 +19,11 @@
         <v-container>
             <v-card-title>See what your friends have been up to</v-card-title>
             <v-card-text class="ma-0 pa-0">
-                <Notification/>
+                <Notification
+                    :reacts='notifications.reacts'
+                    :comments='notifications.comments'
+                    :chats='notifications.chats'
+                />
             </v-card-text>
         </v-container>
     </v-container>
@@ -28,6 +32,8 @@
 <script>
 import Request from './request.vue'
 import Notification from './notific_comp.vue'
+
+import { mapGetters } from 'vuex';
 
 export default({
     name: 'Notifications',
@@ -40,6 +46,11 @@ export default({
             show_requests: true,
         }
     },
+    computed:{
+        ...mapGetters({
+            notifications: 'notifications'
+        })
+    }
 })
 </script>
 

@@ -92,6 +92,156 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
+  async getAd(adId){
+    return requests.adRequest(adId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async createAd(data){
+    return requests.createAdRequest(data, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async getComment(commId){
+    return requests.getCommentRequest(commId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async getChat(chatId){
+    return requests.getChatRequest(chatId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async updateUserProfile(form){
+    let mssgs = [];
+    requests.updatePersonalRequest(form.personal, client.token.token)
+    .then(function(response){
+      mssgs.push(response)
+    })
+    .catch(function(error){client = initClient(); throw error})
+  
+    requests.updateContactRequest(form.contact, client.token.token)
+    .then(function(response){
+      mssgs.push(response)
+    })
+    .catch(function(error){client = initClient(); throw error})
+  
+    return requests.updateAttrsRequest(form.attrs, client.token.token)
+    .then(function(response){
+      mssgs.push(response)
+      return mssgs;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async updateUserSettings(form){
+    return requests.updateSettingsRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async createComment(form){
+    return requests.createCommRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async createPost(form){
+    return requests.createPostRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async acceptfreq(form){
+    return requests.acceptfreqRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async denyfreq(form){
+    return requests.denyfreqRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async sendfreq(form){
+    return requests.sendfreqRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async removeFriend(form){
+    return requests.removeFriendRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async seenMssg(form){
+    return requests.seenMssgRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async deleteComm(form){
+    return requests.deleteCommRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async deletePost(form){
+    return requests.deletePostRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async react(data){
+    return requests.reactRequest(data, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async removeReact(data){
+    return requests.removeReactRequest(data, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
 }
 
 export var client = initClient();

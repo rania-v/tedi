@@ -41,7 +41,7 @@
                 <v-btn outlined color="pink">log out</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn v-if="!update" v-on:click="update=true" text style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                <v-btn v-if="update" v-on:click="save_changes" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                <v-btn v-if="update" v-on:click="this.updateUserSettings(this.form)" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
             </v-card-actions>
         </v-card>
         </v-col>
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+
+import { mapActions } from 'vuex';
 
 export default ({
     name: 'Settings',
@@ -66,9 +68,17 @@ export default ({
             new_email: null,
             update: false,
             save: null,
+
+            /// !!!!!!! FORMA
+            form:{
+                //  !! XWRIS TO 'PERSONAL' px:
+                // email: ...
+                // pass: ...
+            }
         }
     },
     methods: {
+        ...mapActions(['updateUserSettings']),
         update_login_email() {
 
         },

@@ -31,7 +31,7 @@ router.get("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Post
-router.get("/post", async (req, res)=>{
+router.post("/getPost", async (req, res)=>{
     try{
         const post = await post.findById(req.body.postId);
         res.json({
@@ -51,8 +51,6 @@ router.post("/", async (req, res)=>{
         const newPost = new post(req.body);
         newPost.creator = targetUser._id;
         const savedPost = await newPost.save();
-        
-
 
         targetUser.personal.myPosts.push(savedPost._id);
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
@@ -65,10 +63,11 @@ router.post("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Delete a Post
-router.delete("/post:postId", async (req, res)=>{
+router.post("/delete-post", async (req, res)=>{
     try{
+        const postId = req.body.postId
         const targetUser = req.user;
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(postId);
 
         console.log(targetUser.personal.myPosts);
 
@@ -84,7 +83,7 @@ router.delete("/post:postId", async (req, res)=>{
         // remove post
         await post.deleteOne({ _id: targetPost._id });
 
-        targetUser.personal.myPosts = targetUser.personal.myPosts.filter((postID) => { return !postID.equals(targetPost._id) });
+        targetUser.personal.myPosts = targetUser.personal.myPosts.filter((postId) => { return !postId.equals(targetPost._id) });
         console.log(targetUser.personal.myPosts);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 
@@ -96,14 +95,14 @@ router.delete("/post:postId", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Add a Comment
-router.post("/addComm:postId", async(req, res) => {
+router.post("/addComm", async(req, res) => {
     try{
 
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(req.body.postId);
         const targetUser = req.user;
 
         
-        const newComm = new comment(req.body);
+        const newComm = new comment(req.body.form);
         newComm.creator = targetUser._id;
         newComm.post = targetPost._id;
         const savedComm = await newComm.save();
@@ -123,10 +122,24 @@ router.post("/addComm:postId", async(req, res) => {
     }
 })
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Delete a Comment
-router.delete("/comment:commentId", async(req, res) =>{
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Comment
+router.post("/getComment", async (req, res)=>{
     try{
-        const targetComm = await comment.findById(req.params.commentId);
+        const comm = await comment.findById(req.body.commId);
+        res.json({
+            comment: comm,
+        });
+    }catch(error){
+        res.status(400).json({message: error});
+    }
+})
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Delete a Comment
+router.post("/delete-comment", async(req, res) =>{
+    try{
+        const commentId = req.body.commId;
+        const targetComm = await comment.findById(commentId);
     
         // remove comment from it's post's comm_list
         const targetPost = await post.findById(targetComm.post);
@@ -159,10 +172,11 @@ router.post("/post-edit:postId", async(req, res)=>{
 
 
         // ~~~~~~~~~~~~~~~~~ REACT: INTRESTED
-router.post("/react1:postId", async(req, res) => {
+router.post("/react1", async(req, res) => {
     try{
+        const postId = req.body.postId
         const targetUser = req.user;
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(postId);
 
         if(!targetPost){
             return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
@@ -203,10 +217,11 @@ router.post("/react1:postId", async(req, res) => {
 
 
         // ~~~~~~~~~~~~~~~~~ REACT: LIKE
-router.post("/react2:postId", async(req, res) => {
+router.post("/react2", async(req, res) => {
     try{
+        const postId = req.body.postId
         const targetUser = req.user;
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(postId);
 
         if(!targetPost){
             return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
@@ -247,10 +262,11 @@ router.post("/react2:postId", async(req, res) => {
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Remove a reaction
-router.delete("/react:postId", async(req, res) => {
+router.post("/remove-react", async(req, res) => {
     try{
+        const postId = req.body.postId;
         const targetUser = req.user;
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(postId);
 
         if(!targetPost){
             return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})

@@ -98,12 +98,12 @@
 
         <v-textarea clearable :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
-        <v-btn :color="form_text_color" style="color:white">Post Ad!</v-btn>
+        <v-btn @click="this.createAd(form)" :color="form_text_color" style="color:white">Post Ad!</v-btn>
     </v-form>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 
 export default ({
     name: 'CreateAd',
@@ -134,9 +134,19 @@ export default ({
             post: false,
             catlist: null,
             job_hard_skills:[],
+
+            // !!!!!!!!!! EDW VALTA, des to model tou job an 8es
+            form:{
+                // title: ...
+                // image: ...
+                // basic_info:{...}
+                ////....
+                ////....
+            }
         }
     },
     methods: {
+        ...mapActions(['createAd']),
         check_apply() {
             if(this.email_list==null && this.apply_link==null)
                 this.apply_alert=true;

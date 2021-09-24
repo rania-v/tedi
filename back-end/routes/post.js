@@ -96,10 +96,10 @@ router.delete("/post:postId", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Add a Comment
-router.post("/addComm:postId", async(req, res) => {
+router.post("/addComm", async(req, res) => {
     try{
 
-        const targetPost = await post.findById(req.params.postId);
+        const targetPost = await post.findById(req.body.postId);
         const targetUser = req.user;
 
         

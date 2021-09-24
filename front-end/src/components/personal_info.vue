@@ -118,6 +118,8 @@
 
 <script>
 
+import { mapActions } from 'vuex';
+
 export default({
     name: 'PersonalInfo',
     data() {
@@ -202,6 +204,7 @@ export default({
         }
     },
     methods: {
+        ...mapActions(['updateUserProfile']),
         fill_days()
         {
             let year = this.birth_year;

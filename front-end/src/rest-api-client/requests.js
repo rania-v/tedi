@@ -56,7 +56,7 @@ export const getCommentRequest = async (commId, token) =>{
   let data = {
     commId: commId,
   }
-  return restAPI.send('POST', 'secure/getComment', data, headers)
+  return restAPI.send('POST', 'post/getComment', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
@@ -67,6 +67,94 @@ export const getChatRequest = async (chatId, token) =>{
     chatId: chatId,
   }
   return restAPI.send('POST', 'secure/getChat', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const updatePersonalRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/update-user-personal', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const updateContactlRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/update-user-contact', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const updateAttrsRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/update-user-attrs', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const updateSettingsRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/update-user-settings', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const createCommRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'post/addComm', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const createPostRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'post/', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const acceptfreqRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/accept-frequest', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const denyfreqRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/deny-frequest', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const sendfreqRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/frequest', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const removeFriendRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/remove-friend', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const seenMssgRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/seen-mssg', form, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

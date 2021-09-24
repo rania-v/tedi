@@ -58,18 +58,18 @@ router.post('/update-user-personal', async(req, res) =>{
 
     // console.log(targetUser.personal);
 
-    if(req.body.first_name){
-      targetUser.personal.firstName = req.body.first_name;
+    if(req.body.firstName){
+      targetUser.personal.firstName = req.body.firstName;
     }
 
-    if(req.body.last_name){
-      targetUser.personal.lastName = req.body.last_name;
+    if(req.body.lastName){
+      targetUser.personal.lastName = req.body.lastName;
     }
-
-    if(req.body.profession){
-      targetUser.personal.profession = req.body.profession;
+    
+    if(req.body.image){
+      targetUser.personal.image = req.body.image;
     }
-
+    
     if(req.body.birth_day){
       const date = req.body.birth_day + ' ' + req.body.birth_month + ' ' + req.body.birth_year;
       targetUser.personal.birthday = date;
@@ -89,23 +89,23 @@ router.post('/update-user-personal', async(req, res) =>{
   }
 })
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Personal Info
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Contact Info
 router.post('/update-user-contact', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
     
     // console.log(targetUser.contact);
 
-    if(req.body.prof_mail){
-      targetUser.contact.profEmail = req.body.prof_mail;
+    if(req.body.profEmail){
+      targetUser.contact.profEmail = req.body.profEmail;
     }
 
-    if(req.body.per_mail){
-      targetUser.contact.perEmail = req.body.per_mail;
+    if(req.body.perEmail){
+      targetUser.contact.perEmail = req.body.perEmail;
     }
 
-    if(req.body.telephone){
-      targetUser.contact.phoneNum = req.body.telephone;
+    if(req.body.phoneNum){
+      targetUser.contact.phoneNum = req.body.phoneNum;
     }
 
     // console.log(targetUser.personal);
@@ -118,6 +118,37 @@ router.post('/update-user-contact', async(req, res) =>{
   }
 })
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Attrs Info
+router.post('/update-user-attrs', async(req, res) =>{
+  try{
+    const targetUser = await user.findById(req.user._id);
+
+    // console.log(targetUser.contact);
+
+    if(req.body.resume){
+      targetUser.attrs.resume = req.body.resume;
+    }
+
+    if(req.body.profession){
+      targetUser.attrs.profession = req.body.profession;
+    }
+
+    if(req.body.workplace){
+      targetUser.attrs.workplace = req.body.workplace;
+    }
+
+    if(req.body.skill_list){
+      targetUser.attrs.skill_list = req.body.skill_list;
+    }
+    // console.log(targetUser.personal);
+
+    await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
+    res.json({message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν'})
+
+  }catch(err){
+    res.json({message: err});
+  }
+})
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send Friend Request
 router.post('/frequest', async(req, res) => {
@@ -284,20 +315,6 @@ router.post('/getChat', async(req, res) => {
       res.status(400).json({message: error});
   }
 })
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Comment Info
-router.post('/getComment', async(req, res) => {
-  try{
-    // console.log(req.body)
-      const targetChat = await user.findById(req.body.chatId);
-      res.json({
-          chat: targetChat
-      });
-  }catch(error){
-      res.status(400).json({message: error});
-  }
-})
-
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send a message

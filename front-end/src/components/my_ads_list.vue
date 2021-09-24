@@ -1,15 +1,16 @@
 <template>
-           <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
-            <v-container v-for="i in '{1,2,3}'" :key="i"  style="width:30%;" class="mr-2 ml-2">
-                <MyAd @open_my_ad="openmy_ad"/>
-            </v-container>
-        </v-card-text>
+    <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
+        <v-container v-for="i in myads" :key="i"  style="width:30%;" class="mr-2 ml-2">
+            <MyAd :id='i' @open_my_ad="openmy_ad"/>
+        </v-container>
+    </v-card-text>
 </template>
 
 <script>
 
 import MyAd from './my_ad.vue'
 // import OpenMyAd from './open_my_ad.vue'
+import { mapGetters } from 'vuex';
 
 export default ({
     name: 'MyAdsList',
@@ -21,6 +22,11 @@ export default ({
         return {
             
             }
+    },
+    computed:{
+        ...mapGetters({
+            myads: 'myJobs'
+        })
     },
     methods: {
         openmy_ad() {

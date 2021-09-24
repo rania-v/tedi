@@ -30,9 +30,9 @@ router.get("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Job Ad
-router.get("/:jobId", async (req, res)=>{
+router.post("/job", async (req, res)=>{
     try{
-        const jobs = await job.findById(req.params.jobId);
+        const jobs = await job.findById(req.body.jobId);
         res.json(jobs);
     }catch(error){
         res.status(400).json({message: error});

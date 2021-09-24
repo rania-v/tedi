@@ -92,6 +92,22 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
+  async getAd(adId){
+    return requests.adRequest(adId, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async createAd(data){
+    return requests.createAdRequest(data, client.token.token)
+    .then(function(response){
+      return response.message;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  }
+
 }
 
 export var client = initClient();

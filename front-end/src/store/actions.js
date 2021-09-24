@@ -44,13 +44,42 @@ export default{
 
 	async getUser({commit}, payload){
 		commit("SET_LOADING", true);
-		console.log(payload)
+		// console.log(payload)
 		return actions.getUser(payload)
 		.then( response => {
 			commit("SET_LOADING", false);
 			return response;
 		})
 		.catch( error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async getAd({commit}, payload){
+		commit("SET_LOADING", true);
+		// console.log(payload)
+		return actions.getAd(payload)
+		.then( response => {
+			commit("SET_LOADING", false);
+			return response;
+		})
+		.catch( error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async createAd({commit}, payload){
+		commit("SET_LOADING", true);
+		return actions.createAd(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
 			console.log(error);
 			commit("SET_LOADING", false)
 			throw error;

@@ -32,3 +32,20 @@ export const userRequest = async (userId, token) =>{
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
+
+export const adRequest = async (adId, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    jobId: adId,
+  }
+  return restAPI.send('POST', 'job/job', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const createAdRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+  return restAPI.send('POST', 'job', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}

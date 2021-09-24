@@ -2,6 +2,29 @@ var testUserm = [
     {_id: 1, isAdmin: false, firstName: 'mike', lastName: 'vour', profEmail: 'mvour@test.com'},
 ];
 
+
+// {
+    //                         user: 'Mizuno Ami',
+    //                         avatar: require('../icons/avatars/ami.jpg'),
+    //                         profession: 'Sports car racing',
+    //                         workplace: 'F1',
+    //                         status: 'close_friend'
+    //                     },
+    //                     {
+    //                         user: 'Hino Rei',
+    //                         avatar: require('../icons/avatars/rei.png'),
+    //                         profession: 'Sports car racing',
+    //                         workplace: 'F1',
+    //                         status: 'close_friend'
+    //                     },
+    //                     {
+    //                         user: 'Minako Aino',
+    //                         avatar: require('../icons/avatars/aino.jpg'),
+    //                         profession: 'Sports car racing',
+    //                         workplace: 'F1',
+    //                         status: 'friend'
+    //                     },
+
 var testSkills = [
     {
         category: 'Technical skills',

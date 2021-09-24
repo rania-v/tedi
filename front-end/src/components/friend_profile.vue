@@ -8,7 +8,7 @@
             <v-col cols="6" class="">
                 <v-row>
                     <v-col cols="4">
-                        <v-btn v-for="a in actions" :key="a" v-on:click="show=a.action" class="mr-1 ml-0" :class="{'teal white--text': show==a.action, 'teal lighten-4 teal--text': show!=a.action}"><v-icon left>{{a.icon}}</v-icon>{{a.action}}</v-btn>
+                        <v-btn v-for="a in actions" :key="a.action" v-on:click="show=a.action" class="mr-1 ml-0" :class="{'teal white--text': show==a.action, 'teal lighten-4 teal--text': show!=a.action}"><v-icon left>{{a.icon}}</v-icon>{{a.action}}</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
@@ -34,6 +34,8 @@
 import Profile from './profile.vue'
 import PostComp from './post_comp.vue'
 
+import { mapActions } from 'vuex';
+
 export default ({
     name:"FriendProfile",
     components: {
@@ -46,9 +48,21 @@ export default ({
             actions: [
                 {action: 'Conact', icon: 'fas fa-comment'},
                 {action: 'Friend', icon: 'fas fa-user-friends'}
-            ]
+            ],
+            user:this.getUser(this.id),
+            // user:this.mpla(),
         };
     },
+    props:{
+        id: String,
+    },
+    methods:{
+        ...mapActions(['getUser']),
+        mpla(){
+            console.log('id: ',this.id);
+            return null;
+        }
+    }
 })
 </script>
 

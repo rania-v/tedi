@@ -58,6 +58,7 @@ const routes = [
                     {
                         path: '/Network/Profile-:id',
                         name: 'Friend_Profile',
+                        props: true,
                         component: FriendProfile
                     },
                     {

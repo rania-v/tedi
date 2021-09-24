@@ -202,3 +202,11 @@ export const removeReactRequest = async (form, token) =>{
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
+
+export const sendMssgRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/sendMssg', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}

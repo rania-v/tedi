@@ -312,4 +312,18 @@ export default{
 		})
 	},
 
+	async sendMssg({commit}, payload){
+		commit("SET_LOADING", true);
+
+		return actions.sendMssg(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
 }

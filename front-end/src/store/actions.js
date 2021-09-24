@@ -251,5 +251,65 @@ export default{
 		})
 	},
 
+	async deleteComm({commit}, payload){
+		commit("SET_LOADING", true);
+
+		return actions.deleteComm(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async deletePost({commit}, payload){
+		commit("SET_LOADING", true);
+
+		return actions.deletePost(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+
+	async react({commit}, payload){
+		commit("SET_LOADING", true);
+
+		return actions.react(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
+
+	async removeReact({commit}, payload){
+		commit("SET_LOADING", true);
+
+		return actions.removeReact(payload)
+		.then(response => {
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
 
 }

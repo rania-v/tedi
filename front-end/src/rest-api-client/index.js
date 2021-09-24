@@ -210,6 +210,37 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
+  async deleteComm(form){
+    return requests.deleteCommRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async deletePost(form){
+    return requests.deletePostRequest(form, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async react(data){
+    return requests.reactRequest(data, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async removeReact(data){
+    return requests.removeReactRequest(data, client.token.token)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
 
 }
 

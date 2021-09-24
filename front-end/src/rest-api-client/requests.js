@@ -158,3 +158,47 @@ export const seenMssgRequest = async (form, token) =>{
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
+
+
+export const deletePostRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'post/delete-post', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+
+export const deleteCommRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'post/delete-comment', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const reactRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data={
+    postId: form.postId
+  }
+
+  if(form.react == 1){
+    return restAPI.send('POST', 'post/react1', data, headers)
+    .then(function(response) { return response })
+    .catch(function(error) { throw error })
+  }
+  else if(form.react == 2){
+    return restAPI.send('POST', 'post/react2', data, headers)
+    .then(function(response) { return response })
+    .catch(function(error) { throw error })
+  }
+}
+
+export const removeReactRequest = async (form, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'post/remove-react', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}

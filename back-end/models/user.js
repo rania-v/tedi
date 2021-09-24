@@ -28,14 +28,25 @@ const UserSchema = new mongoose.Schema({
             data: Buffer,
             contentType: String,
         },
-        birthday: Date,
-        country: String,
-        friendsList:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
-        frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
-        myJobsAds:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
+        birthday: {value:{Date}, private: Boolean},
+        country: {value:{String}, private: Boolean},
+        friendsList:{
+            list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
+            private: Boolean
+        },
+        frequests:{
+            list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
+            private: Boolean
+        },
+        myJobsAds:{
+            list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
+            private: Boolean
+        },
         myChats:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
-        myPosts:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
-        
+        myPosts:{
+            list:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
+            private: Boolean
+        },
         myNotifications:{
             frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
             reacts: [ {} ],
@@ -44,30 +55,54 @@ const UserSchema = new mongoose.Schema({
         },
     },
     contact:{
-        phoneNum: String,
+        phoneNum:{
+            value:{
+                type: String,
+            },
+            private: Boolean
+        },
         perEmail:{
-            type: mongoose.SchemaTypes.Email,
-            unique: true,
+            value: {
+                type: mongoose.SchemaTypes.Email,
+                unique: true,
+            },
+            private: Boolean
         },
         profEmail:{
-            type: mongoose.SchemaTypes.Email,
-            unique: true,
-            required: true
+            value:{
+                type: mongoose.SchemaTypes.Email,
+                unique: true,
+                required: true,
+            },
+            private: Boolean
         }
     },
     attrs:{
         resume:{
-            file: { type: Buffer},
-            filename: { type: String},
-            mimetype: { type: String}
+            value:{
+
+                file: { type: Buffer},
+                filename: { type: String},
+                mimetype: { type: String},
+            },
+            private: Boolean
         },
         profession:{
-            type: String,
-            minLength: 4,
+            value:{
+                type: String,
+                minLength: 4,
+            },
+            private: Boolean
         },
-        workplace: String,
-        skill_list: [{ type: String}]
-    },    
+        workplace: {
+            name: String,
+            private: Boolean
+        },
+        skill_list:{
+            list: [{ type: String}],
+            private: Boolean
+        }
+    },
 })
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Frined Request Schema

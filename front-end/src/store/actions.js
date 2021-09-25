@@ -84,6 +84,7 @@ export default{
 		// console.log(payload)
 		return actions.getAd(payload)
 		.then( response => {
+			console.log('res: ', response)
 			commit("SET_LOADING", false);
 			return response;
 		})

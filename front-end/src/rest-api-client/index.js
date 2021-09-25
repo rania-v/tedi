@@ -30,7 +30,7 @@ function initClient(){
             friends: null,
             frequests: null,
             myJobs: null,
-            myChats: null,
+            myChats: [],
 
             phoneNum: null,
             profEmail: null,
@@ -77,7 +77,7 @@ export const actions = {
   async getPost(postId){
     return requests.postRequest(postId, client.token.token)
     .then(function(response){
-      return response.message;
+      return response;
     })
     .cathc(function(error){client = initClient(); throw error})
   },
@@ -85,7 +85,7 @@ export const actions = {
   async getUser(userId){
     return requests.userRequest(userId, client.token.token)
     .then(function(response){
-      return response.message;
+      return response;
     })
     .catch(function(error){client = initClient(); throw error})
   },
@@ -93,7 +93,7 @@ export const actions = {
   async getAd(adId){
     return requests.adRequest(adId, client.token.token)
     .then(function(response){
-      return response.message;
+      return response;
     })
     .catch(function(error){client = initClient(); throw error})
   },
@@ -101,7 +101,10 @@ export const actions = {
   async createAd(data){
     return requests.createAdRequest(data, client.token.token)
     .then(function(response){
-      client.user.myJobs.push(response.job._id);
+      console.log(client.myJobs);
+      if(client.user.myJobs == undefined)
+        client.user.myJobs={list: [], private: false}
+      client.user.myJobs.list.push(response.job._id);
       actions.setClient(response);
       return response.message;
     })

@@ -1,9 +1,8 @@
 <template>
-<v-div>
-  <v-container>
+<div>
+  <v-container v-if="!this.isLoading">
     <v-card class="mt-1">
-
-        <v-img :src="ad.image ? ad.image : image"></v-img>
+        <v-img :src="image ? image : image"></v-img>
       <v-badge top  overlap color="red accent-2" icon="fas fa-plus" bordered>
         <v-card-title class="pb-1">{{ad.title}}</v-card-title>
       </v-badge>
@@ -25,22 +24,21 @@
         </v-card-text>
     </v-card>
   </v-container>
-</v-div>
+  {{this.ad}}
+</div>
 </template>
 
 <script>
 
 
 // import { mapGetters } from "vuex"
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default ({
     name: 'Ad',
-    components: {
-    },
     data() {
         return {
-          ad: null,
+          ad: this.loadAd(),
           image: require('../images/3.jpg'),
           namechip:false,
           show: false
@@ -53,11 +51,26 @@ export default ({
       ...mapActions(['getAd']),
       openmyad() {
         // this.$emit('open_my_ad', '');
+      },
+      async loadAd(){
+        let a = await this.getAd(this.id);
+        console.log('a: ', a);
+        return a;
       }
+      
     },
-    beforMount(){
-      this.ad = this.getAd(this.id);
+    computed:{
+      ...mapGetters({
+        isLoading:'isLoading'
+      })
+      // aa: function (){return this.getAd(this.id)}
     },
+    created(){
+      // this.ad = this.getAd(this.id)
+      // this.$forceUpdate();
+      // console.log('NA SOIU PE8ANEI')
+      // console.log('ad: ', this.ad)
+    }
 })
 </script>
 

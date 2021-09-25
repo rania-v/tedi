@@ -25,8 +25,8 @@
                         <v-card-text>
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
-                                <v-col><v-text-field label="First Name" v-model="first_name" :readonly='!update'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="last_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="First Name" v-model="this.first_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" v-model="this.last_name" :readonly='!update'></v-text-field></v-col>
                             </v-row>
                             <v-row>
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
@@ -118,16 +118,16 @@
 
 <script>
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default({
     name: 'PersonalInfo',
     computed: {
-        ...mapState({
+        ...mapGetters({
             id: '',
             countries: 'countrie_list',
             first_name: 'firstName',
-            last_name: 'lastName ',
+            last_name: 'lastName',
             birthdate: 'birthday',
             birth_month: null,
             birth_year: null,

@@ -123,25 +123,27 @@ export const actions = {
   },
 
   async updateUserProfile(form){
-    let mssgs = [];
+    // let mssgs = [];
     requests.updatePersonalRequest(form.personal, client.token.token)
     .then(function(response){
-      mssgs.push(response)
+      // mssgs.push(response)
+      console.log('res: ', response)
+      return response;
     })
     .catch(function(error){client = initClient(); throw error})
   
-    requests.updateContactRequest(form.contact, client.token.token)
-    .then(function(response){
-      mssgs.push(response)
-    })
-    .catch(function(error){client = initClient(); throw error})
+    // requests.updateContactRequest(form.contact, client.token.token)
+    // .then(function(response){
+    //   mssgs.push(response)
+    // })
+    // .catch(function(error){client = initClient(); throw error})
   
-    return requests.updateAttrsRequest(form.attrs, client.token.token)
-    .then(function(response){
-      mssgs.push(response)
-      return mssgs;
-    })
-    .catch(function(error){client = initClient(); throw error})
+    // return requests.updateAttrsRequest(form.attrs, client.token.token)
+    // .then(function(response){
+    //   mssgs.push(response)
+    //   return mssgs;
+    // })
+    // .catch(function(error){client = initClient(); throw error})
   },
 
   async updateUserSettings(form){

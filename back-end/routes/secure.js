@@ -44,7 +44,10 @@ router.post('/update-user-settings', async(req, res) =>{
       await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
     }
 
-    res.json({message: 'Το προφίλ χρήστη ενημερώθηκε'})
+    res.json({
+      message: 'Το προφίλ χρήστη ενημερώθηκε',
+      user: targetUser,
+    })
   }catch(err){
     res.json({message: err});
   }
@@ -58,7 +61,7 @@ router.post('/update-user-personal', async(req, res) =>{
     const targetUser = await user.findById(req.user._id);
 
     // console.log(targetUser.personal);
-    // console.log(req.body);
+    console.log(req.body);
     if(req.body.firstName){
       targetUser.personal.firstName = req.body.firstName;
     }
@@ -83,7 +86,10 @@ router.post('/update-user-personal', async(req, res) =>{
     // console.log(targetUser.personal);
 
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
-    res.json({message: 'Οι προσωπικές πληροφορίες του χρήστη ενημερώθηκαν'})
+    res.json({
+      message: 'Οι προσωπικές πληροφορίες του χρήστη ενημερώθηκαν',
+      user: targetUser,
+    })
 
   }catch(err){
     res.json({message: err});
@@ -112,7 +118,10 @@ router.post('/update-user-contact', async(req, res) =>{
     // console.log(targetUser.personal);
 
     await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
-    res.json({message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν'})
+    res.json({
+      message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν',
+      user: targetUser,
+    })
 
   }catch(err){
     res.json({message: err});
@@ -144,7 +153,10 @@ router.post('/update-user-attrs', async(req, res) =>{
     // console.log(targetUser.personal);
 
     await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
-    res.json({message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν'})
+    res.json({
+      message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν',
+      user: targetUser,
+    })
 
   }catch(err){
     res.json({message: err});
@@ -217,7 +229,10 @@ router.post('/accept-frequest', async(req, res) => {
     // Delete frequest
     await frequest.remove(request);
 
-    res.json({messae: 'Το αίτημα φιλίας έγινε αποδεκτό'});
+    res.json({
+      messae: 'Το αίτημα φιλίας έγινε αποδεκτό',
+      user: user1,
+    });
   }catch(err){
     res.json({message: err});
   }
@@ -246,7 +261,10 @@ router.delete('/deny-frequest', async(req, res) => {
     // Delete frequest
     mongoose.connection.db.frequests.remove(request);
 
-    res.json({messae: 'Το αίτημα φιλίας απορρίφθηκε'});
+    res.json({
+      message: 'Το αίτημα φιλίας απορρίφθηκε',
+      user: user1
+    });
 
   }catch(err){
     res.json({message: err});
@@ -273,7 +291,10 @@ router.delete('/remove-friend', async(req, res) => {
     res.json({message: 'Ο χρήστης ' + username + ' αφαιρέθηκε απο τους φίλους σας!'});
 
   }catch(err){
-    res.json({message: err});
+    res.json({
+      message: err,
+      user: user1,
+    });
   }
 })
 
@@ -288,7 +309,10 @@ router.post('/clean-notifications', async(req, res) => {
 
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true});
 
-    res.json({message: 'Οι ειδοποιήσεις αφαιρέθηκαν!'});
+    res.json({
+      message: 'Οι ειδοποιήσεις αφαιρέθηκαν!',
+      user: targetUser,
+    });
   }catch(err){
     res.json({message: err});
   }
@@ -366,7 +390,10 @@ router.post('/sendMssg', async(req, res) => {
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
 
 
-    res.json({message: 'Το μήνυμα εστάλει!'});
+    res.json({
+      message: 'Το μήνυμα εστάλει!',
+      user: user1,
+    });
   }catch(err){
     res.json({message: err});
   }
@@ -392,7 +419,10 @@ router.post('/seen-mssg', async(req, res) => {
     console.log(targetChat.content);
     await chat.findByIdAndUpdate(targetChat._id, {content: targetChat.content}, {runValidators: true});
 
-    res.json({message: 'Τα μηνύματα διαβάστηκαν!'});
+    res.json({
+      message: 'Τα μηνύματα διαβάστηκαν!',
+      // user: 
+    });
 
   }catch(err){
     res.json({message: err});

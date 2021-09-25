@@ -7,8 +7,8 @@
                     <v-card-title>Personal Info</v-card-title>
                     <v-card-text style="margin:2%">
                         <v-row>{{this.firstName + ' ' + this.lastName}}</v-row>
-                        <v-row>{{this.birthday}}</v-row>
-                        <v-row>{{this.profession}}</v-row>
+                        <v-row>{{this.birthday.value}}</v-row>
+                        <v-row>{{this.profession.value}}</v-row>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -112,7 +112,7 @@ export default ({
         },
         buildNetwork(){
             let users = [];
-            for(let i in this.friends){
+            for(let i in this.friends.list){
                 var user = this.getUser(i)
                 users.push({user: user.firstname + ' ' + user.lastName, avatar: user.image})
             }

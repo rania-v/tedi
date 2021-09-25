@@ -52,7 +52,7 @@ passport.use('login', new localStrategy(
         // Find user in the db
             console.log('email: ', email)
             console.log('pass: ', password)
-        const user = await User.findOne({ contact:{profEmail: email} });
+        const user = await User.findOne( {"contact.profEmail.value":email });
         // If no such user
         if (!user) {
             console.log('Ο χρήστης ΔΕΝ βρέθηκε.')

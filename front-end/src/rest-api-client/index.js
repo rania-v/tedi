@@ -123,7 +123,7 @@ export const actions = {
   },
 
   async updateUserProfile(form){
-    // let mssgs = [];
+    let mssgs = [];
     requests.updatePersonalRequest(form.personal, client.token.token)
     .then(function(response){
       mssgs.push(response)

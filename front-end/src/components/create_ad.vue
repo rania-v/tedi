@@ -13,10 +13,10 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" label="Company Name" :color="form_text_color" prepend-icon="fas fa-building"></v-text-field>
+                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" v-model="form.basic_info.company_name" label="Company Name" :color="form_text_color" prepend-icon="fas fa-building"></v-text-field>
                     </v-col>
                     <v-col>
-                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" label="Job form.basic_info.location" :color="form_text_color" prepend-icon="fas fa-map-marker-alt"></v-text-field>
+                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" v-model="form.basic_info.location" label="Location" :color="form_text_color" prepend-icon="fas fa-map-marker-alt"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -96,7 +96,7 @@
 
         <v-textarea clearable v-model="more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
-        <v-btn @click="this.createAd(form)" :color="form_text_color" v-on="submit()" style="color:white">Post Ad!</v-btn>
+        <v-btn :color="form_text_color" v-on:click="submit()" style="color:white">Post Ad!</v-btn>
     </v-form>
 </template>
 

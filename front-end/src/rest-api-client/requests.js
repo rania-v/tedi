@@ -45,7 +45,7 @@ export const adRequest = async (adId, token) =>{
 
 export const createAdRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
-  return restAPI.send('POST', 'job', form, headers)
+  return restAPI.send('POST', 'job/', form, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

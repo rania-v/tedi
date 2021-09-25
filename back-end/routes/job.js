@@ -43,10 +43,10 @@ router.post("/job", async (req, res)=>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Create a Job Ad
 router.post("/", async (req, res)=>{
     try{
-        var targetUser = req.user;
-        
+        const targetUser = await user.findById(req.user._id);
         const newJob = new job(req.body);
         newJob.creator = targetUser._id;
+        
         const savedJob = await newJob.save();
         
         targetUser.personal.myJobsAds.list.push(savedJob._id);
@@ -54,6 +54,7 @@ router.post("/", async (req, res)=>{
 
         res.json({job: savedJob, message: 'Η Αγγελία δημιουργήθηκε !!', user: targetUser});
     }catch(error){
+        console.log('er: ', error)
         res.status(400).json({message: error});
     }
 })

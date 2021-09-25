@@ -24,6 +24,28 @@ export default{
 		})
     },
 
+	async logout({commit}, payload){
+        console.log(payload);
+        commit("SET_LOADING", true)
+        return actions.logout(payload.email, payload.password)
+		.then( response => {
+			console.log()
+			console.log('responsesss: ', response);
+            console.log(client);
+			// commit("STORE_CLIENT", client.user)
+			commit("STORE_TOKEN", client.token.token)
+			commit("STORE_CLIENT", client.user)
+			commit("SET_LOGEDIN", true)
+			commit("SET_LOADING", false)
+			return response
+		})
+		.catch( error => { 
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+    },
+
     async mpla(){
         console.log('mpla')
     },
@@ -62,6 +84,7 @@ export default{
 		// console.log(payload)
 		return actions.getAd(payload)
 		.then( response => {
+			console.log('res: ', response)
 			commit("SET_LOADING", false);
 			return response;
 		})

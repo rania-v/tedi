@@ -29,7 +29,7 @@
             <v-card-title style="color:#7E57C2">Qualifications</v-card-title>
             <v-card-text>
                 <v-textarea clearable :clear-icon="cl_icon" :rules="req" v-model="form.qualifications.key_qualifications" label="Key qualifications" :color="form_text_color" rows="3" prepend-icon="fas fa-key"></v-textarea>
-                <v-text-field :rules="req" label="Required Experience" :color="form_text_color" v-model="form.qualifications.req_exp" prepend-icon="fas fa-briefcase"></v-text-field>
+                <v-text-field :rules="req" label="Required Experience" :color="form_text_color" v-model="form.qualifications.req_experiense" prepend-icon="fas fa-briefcase"></v-text-field>
                 <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="hard_skills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
                 </v-autocomplete>
                 <v-card flat>
@@ -60,7 +60,7 @@
             <v-card-title style="color:#7E57C2">Benefits</v-card-title>
             <v-card-text>
                 <v-row>
-                    <v-col><v-select :rules="req" :items="employment_types" label="Employment type" v-model="form.benefits.emp_type" :color="form_text_color" item-color="deep-purple lighten-1"></v-select></v-col>
+                    <v-col><v-select :rules="req" :items="employment_types" label="Employment type" v-model="form.job_Description.employmentType" :color="form_text_color" item-color="deep-purple lighten-1"></v-select></v-col>
                     <v-icon class="ml-3 mr-3 ">fas fa-money-bill-wave</v-icon>
                     <v-col><v-text-field label="Min Salary" v-model="form.benefits.min" :color="form_text_color"></v-text-field></v-col>
                     <v-col><v-text-field label="Max Salary" v-model="form.benefits.max" :color="form_text_color"></v-text-field></v-col>
@@ -96,8 +96,12 @@
 
         <v-textarea clearable v-model="more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
+<<<<<<< HEAD
         <v-btn v-if="!posted" :color="form_text_color" v-on:click="validate_and_submit()" style="color:white" :disabled="!valid">Post Ad!</v-btn>
         <v-alert v-else color="success " dense text>your ad is posted!</v-alert>
+=======
+        <v-btn :color="form_text_color" @click="submit()" style="color:white">Post Ad!</v-btn>
+>>>>>>> 13b473eabdfd8def70ed1820737e014dbefc6aa5
     </v-form>
 </template>
 
@@ -134,24 +138,24 @@ export default ({
                 },
                 job_Description : {
                     pos_duties : '',
-                    work_env : '',
-                    remoteWork : '',
+                    work_env : null,
+                    remoteWork : false,
                     job_desc: '',
                     employmentType : '',
                 },
                 benefits : {
                     salary : {
-                        min : null,
-                        max : null,
+                        min : '',
+                        max : '',
                     },
-                    pos_benefits : null,
+                    pos_benefits : '',
                 },
                 apply : {
                     link : null,
                     email : null,
                     site_link: null,
                 },
-                more_job_info : null
+                more_job_info : ''
             },
             apply_alert:false,
             form_text_color: '#7E57C2',

@@ -25,14 +25,14 @@
                         <v-card-text>
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
-                                <v-col><v-text-field label="First Name" v-model="this.first_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="First Name" :value="this.first_name" v-bind="user.firstName" :readonly='!update'></v-text-field></v-col>
                                 <v-col><v-text-field label="Last Name" v-model="this.last_name" :readonly='!update'></v-text-field></v-col>
                             </v-row>
                             <v-row>
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
                                 <v-col>
                                     <v-row>
-                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_day" id="bd" label="Day":items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
                                     </v-row>
@@ -67,6 +67,7 @@
                                 <v-spacer></v-spacer>
                                 <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="prof_mail.private"></v-switch></v-col>
                             </v-row>
+                            <!-- lkaslkasndlasndlkasndlaknsdlansdlkasndlk -->
                             <v-row>
                                 <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>
@@ -160,6 +161,21 @@ export default({
     },
     data() {
         return {
+            user: {
+                    firstName: this.first_name,
+                    lastName: this.last_name,
+                    image: this.image,
+                    birthday: this.birth_day,
+                    country: this.country,
+
+                    phoneNum: this.telephone,
+                    perEmain: this.per_mail,
+                    profEmail: this.prof_mail,
+                    resume: this.resume,
+                    professions: this.profession,
+                    workplace: this.workplace,
+                    skill_list: this.skill_list
+            },
             catlist: [],
             pr_img_left: require('../illustrations/12.svg'),
             pr_img_right: require('../illustrations/70.svg'),
@@ -244,28 +260,7 @@ export default({
             return 0;
         },
         submit() {
-            let user = {
-                personal:{
-                    firstName: this.first_name,
-                    lastName: this.last_name,
-                    image: this.image,
-                    birthday: this.birth_day,
-                    country: this.country,
-
-                },
-                contact: {
-                    phoneNum: this.telephone,
-                    perEmain: this.per_mail,
-                    profEmail: this.prof_mail,
-                },
-                attrs: {
-                    resume: this.resume,
-                    professions: this.profession,
-                    workplace: this.workplace,
-                    skill_list: this.skill_list
-                }
-            }
-            this.updateUserProfile(user);
+            this.updateUserProfile(this.user);
         }
     }
 })

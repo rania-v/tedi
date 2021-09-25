@@ -28,8 +28,8 @@ const UserSchema = new mongoose.Schema({
             data: Buffer,
             contentType: String,
         },
-        birthday: {value:{Date}, private: {type: Boolean, default: false},},
-        country: {value:{String}, private: {type: Boolean, default: false},},
+        birthday: {value:Date, private: {type: Boolean, default: false},},
+        country: {value:String, private: {type: Boolean, default: false},},
         friendsList:{
             list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
             private: {type: Boolean, default: false},

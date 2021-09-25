@@ -26,8 +26,77 @@
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
                                 <v-col><v-text-field label="First Name" :value="this.first_name" @input="user.personal.firstName=$event" :readonly='!update'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="user.personal.lastName" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" :value="this.last_name" @input="user.personal.lastName=$event" :readonly='!update'></v-text-field></v-col>
                             </v-row>
+                            <v-row>
+                                <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
+                                <v-col>
+                                    <!-- <v-row>
+                                        <v-col><v-select :value="this.birth_day" @input="user.personal.birth_day=$event" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
+                                    </v-row> -->
+                                </v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" :value="this.birthdate.private" @input="user.personal.birthday.value=$event" label="private"></v-switch></v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <v-select label="Country" :value="this.country.value" @input="user.personal.country.value=$event" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
+                                </v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private" :value="this.country.private" @change="user.personal.country.private=$event"></v-switch></v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>                    
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col class="deep-purple lighten-4 rounded-r-lg mr-1 mt-1">
+                    <v-card id="info_card">
+                        <v-card-title>Contact Info</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col><v-text-field label="Telephone Number" :value="this.telephone.value" @input="user.contact.phoneNum.value=$event" :readonly='!update' prepend-icon="fas fa-phone"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch :value="this.telephone.private" @change="user.contact.phoneNum.private=$event"  class="small_switch" label="private"></v-switch></v-col>
+                            </v-row>
+                            <v-row no-gutters>
+                                <v-col cols="6"><v-text-field label="Personal E-mail" :value="this.per_mail.value" @input="user.contact.perEmail.value=$event" :readonly='!update' prepend-icon="fas fa-envelope"></v-text-field></v-col>
+                                <v-spacer></v-spacer>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" :value="this.per_mail.private" @change="user.contact.perEmail.private=$event"></v-switch></v-col>
+                                <v-col cols="6"><v-text-field label="Professional E-mail" :value="this.prof_mail.value" @input="user.contact.profEmail=$event" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
+                                <v-spacer></v-spacer>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" :value="this.prof_mail.private" @change="user.contact.private=$event"></v-switch></v-col>
+                            </v-row>
+                            <!-- lkaslkasndlasndlkasndlaknsdlansdlkasndlk -->
+                            <v-row>
+                                <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch  class="small_switch" label="private" v-model="facebook.private"></v-switch></v-col>
+                                
+                                <v-col cols="4"><v-text-field label="LinkedIn" v-model="linkedin.value" :readonly='!update' prepend-icon="fab fa-linkedin"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="linkedin.private"></v-switch></v-col>
+                                
+                                <v-col cols="4"><v-text-field label="Instagram" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="instagram.private"></v-switch></v-col> -->
+                            </v-row>
+                            <v-row>
+                                <!-- <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch class="small_switch" label="private" v-model="website.private"></v-switch></v-col> -->
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col class="teal lighten-4 rounded-b-lg ml-1 mt-n1 " >
+                    <v-card id="info_card">
+                        <v-card-title>Qualification Info</v-card-title>
+                        <v-card-text>
+                            <v-file-input label="Upload Resume"></v-file-input>
+                            <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
+                                <v-spacer v-if="update"></v-spacer>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
                             
                         </v-card-text>
                     </v-card>                    
@@ -54,16 +123,16 @@ export default({
             first_name: 'firstName',
             last_name: 'lastName',
             birthdate: 'birthday',
-            birth_month: null,
-            birth_year: null,
+            // birth_month: ,
+            // birth_year: null,
             telephone: 'phoneNum',
             country: 'country',
             per_mail: 'perEmail',
             prof_mail: 'profEmail',
-            facebook: 'country',
-            instagram: {value: null, private: false},
-            linkedin: {value: null, private: false},
-            website: {value: null, private: false},
+            // facebook: 'country',
+            // instagram: {value: null, private: false},
+            // linkedin: {value: null, private: false},
+            // website: {value: null, private: false},
             skill_list: 'skills',
             allSkills: 'allSkills'
         }),
@@ -179,8 +248,12 @@ export default({
         },
         submit() {
             console.log('user: ', this.user)
-            // this.updateUserProfile(user);
+            // this.updateUserProfile(user)
+            this.updateUserProfile(this.user);
         },
+        mpla(event){
+            console.log('eve: ', event)
+        }
     }
 })
 </script>

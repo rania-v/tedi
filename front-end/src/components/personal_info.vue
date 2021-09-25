@@ -102,9 +102,24 @@
                         <v-card-text  style="">
 
 
-                            <v-flex style="height:200px; overflow: auto;">
+                            <v-flex v-if="update!=true" style="height:200px; overflow: auto;">
                                 <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
                             </v-flex>
+                            <v-card v-else>
+                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
+                                </v-autocomplete>
+                                <v-card flat>
+                    <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
+                    v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">
+                        {{skill}}
+                    </v-chip>
+                </v-card>
+                <!-- <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn v-if="!isEmpty(skill_list.list)" small text class="pink--text" v-on:click="skill_list.list = EmptyList()">clear</v-btn>
+                                </v-card-actions> -->
+                    <v-chip class="ma-1" v-for="skill in skill_list.list" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(skill_list.list,skill)">{{skill}}</v-chip>
+                            </v-card>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -145,6 +160,7 @@ export default({
     },
     data() {
         return {
+            catlist: [],
             pr_img_left: require('../illustrations/12.svg'),
             pr_img_right: require('../illustrations/70.svg'),
             profile_photo: require('../images/usagi_1.png'),
@@ -210,6 +226,22 @@ export default({
             let curr_year = new Date().getFullYear()
             var end = 100;
             this.years = Array.from({length: end}, (_, i) => i + curr_year - 100);
+        },ClickSkill(skill_array, skill) {
+            let index = skill_array.indexOf(skill);
+            //if already in skill array , remove
+            if(index > -1) {
+                skill_array.splice(index, 1)
+            }
+            // if not in skill-array then add
+            else
+                skill_array.push(skill);
+        },
+        checkList(skill_array, skill) {
+            let index = skill_array.indexOf(skill);
+            if(index > -1) {
+                return 1;
+            }
+            return 0;
         },
         submit() {
             let user = {

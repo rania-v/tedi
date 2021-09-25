@@ -1,11 +1,11 @@
 <template>
-    <v-form id="new_ad" class="pr-10 pl-10">
+    <v-form id="new_ad" class="pr-10 pl-10" ref="form" v-model="valid" lazy-validation>
         <v-card class="mb-4" elevation="0">
             <v-card-title style="color:#7E57C2">Ad Information</v-card-title>
             <v-card-text>
                 <v-row>
                     <v-col>
-                        <v-text-field v-model="form.title" :rules="req" clearable :clear-icon="cl_icon" label="Ad Title" :color="form_text_color" prepend-icon="fab fa-readme"></v-text-field>
+                        <v-text-field v-model="form.title" :rules="req || 'not valid'" clearable :clear-icon="cl_icon" label="Ad Title" :color="form_text_color" prepend-icon="fab fa-readme"></v-text-field>
                     </v-col>
                     <v-col>
                         <v-text-field v-model="form.basic_info.job_title" :rules="req" clearable :clear-icon="cl_icon" label="Job Title" :color="form_text_color" prepend-icon="fas fa-briefcase"></v-text-field>
@@ -96,7 +96,8 @@
 
         <v-textarea clearable v-model="more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
-        <v-btn :color="form_text_color" v-on:click="submit()" style="color:white">Post Ad!</v-btn>
+        <v-btn v-if="!posted" :color="form_text_color" v-on:click="validate_and_submit()" style="color:white" :disabled="!valid">Post Ad!</v-btn>
+        <v-alert v-else color="success " dense text>your ad is posted!</v-alert>
     </v-form>
 </template>
 
@@ -112,6 +113,8 @@ export default ({
     },
     data() {
         return {
+            valid: false,
+            posted: false,
             req: [
                 value => !!value || 'Required.',
                 value => (value && value.length >= 3) || 'Min 3 characters',
@@ -220,8 +223,11 @@ export default ({
             else
                 return 0;
         },
-        submit() {
-            this.createAd(this.form);
+        validate_and_submit () {
+            this.valid = this.$refs.form.validate()
+            if( this.valid == true  )
+            {    this.createAd(this.form);
+                this.posted = true;}
         }
     }
 })

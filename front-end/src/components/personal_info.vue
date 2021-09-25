@@ -254,6 +254,8 @@ export default({
             // if not in skill-array then add
             else
                 skill_array.push(skill);
+
+            this.user.attrs.skill_list.list = skill_array;
         },
         checkList(skill_array, skill) {
             let index = skill_array.indexOf(skill);

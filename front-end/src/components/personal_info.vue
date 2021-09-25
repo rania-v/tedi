@@ -25,105 +25,15 @@
                         <v-card-text>
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
-                                <v-col><v-text-field label="First Name" v-model="this.first_name" :readonly='!update'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="this.last_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="First Name" :value="this.first_name" @input="user.personal.firstName=$event" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" v-model="user.personal.lastName" :readonly='!update'></v-text-field></v-col>
                             </v-row>
-                            <v-row>
-                                <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
-                                <v-col>
-                                    <v-row>
-                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
-                                        <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
-                                        <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
-                                    </v-row>
-                                </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" v-model="birthdate.private" label="private"></v-switch></v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-select label="Country" v-model="country.value" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
-                                </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private" v-model="country.private"></v-switch></v-col>
-                            </v-row>
+                            
                         </v-card-text>
                     </v-card>                    
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col class="deep-purple lighten-4 rounded-r-lg mr-1 mt-1">
-                    <v-card id="info_card">
-                        <v-card-title>Contact Info</v-card-title>
-                        <v-card-text>
-                            <v-row>
-                                <v-col><v-text-field label="Telephone Number" v-model="telephone.value" :readonly='!update' prepend-icon="fas fa-phone"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update"><v-switch v-model="telephone.private"  class="small_switch" label="private"></v-switch></v-col>
-                            </v-row>
-                            <v-row no-gutters>
-                                <v-col cols="6"><v-text-field label="Personal E-mail" v-model="per_mail.value" :readonly='!update' prepend-icon="fas fa-envelope"></v-text-field></v-col>
-                                <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
-                                <v-col cols="6"><v-text-field label="Professional E-mail" v-model="prof_mail.value" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
-                                <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="prof_mail.private"></v-switch></v-col>
-                            </v-row>
-                            <v-row>
-                                <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch  class="small_switch" label="private" v-model="facebook.private"></v-switch></v-col>
-                                
-                                <v-col cols="4"><v-text-field label="LinkedIn" v-model="linkedin.value" :readonly='!update' prepend-icon="fab fa-linkedin"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="linkedin.private"></v-switch></v-col>
-                                
-                                <v-col cols="4"><v-text-field label="Instagram" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="instagram.private"></v-switch></v-col> -->
-                            </v-row>
-                            <v-row>
-                                <!-- <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update"><v-switch class="small_switch" label="private" v-model="website.private"></v-switch></v-col> -->
-                            </v-row>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col class="teal lighten-4 rounded-b-lg ml-1 mt-n1 " >
-                    <v-card id="info_card">
-                        <v-card-title>Qualification Info</v-card-title>
-                        <v-card-text>
-                            <v-file-input label="Upload Resume"></v-file-input>
-                            <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
-                            
-                        </v-card-text>
-                            <v-card-title>Skill Set</v-card-title>
-                        <v-card-text  style="">
-
-
-                            <v-flex v-if="update!=true" style="height:200px; overflow: auto;">
-                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
-                            </v-flex>
-                            <v-card v-else>
-                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
-                                </v-autocomplete>
-                                <v-card flat>
-                                    <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
-                                    v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">
-                                        {{skill}}
-                                    </v-chip>
-                                </v-card>
-                                <!-- <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn v-if="!isEmpty(skill_list.list)" small text class="pink--text" v-on:click="skill_list.list = EmptyList()">clear</v-btn>
-                                </v-card-actions> -->
-                                    <v-chip class="ma-1" v-for="skill in skill_list.list" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(skill_list.list,skill)">{{skill}}</v-chip>
-                            </v-card>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
+            
         </v-col>
         <v-col cols="2">
             <v-img :src="pr_img_right"></v-img>
@@ -156,11 +66,35 @@ export default({
             website: {value: null, private: false},
             skill_list: 'skills',
             allSkills: 'allSkills'
-        })
+        }),
     },
     data() {
         return {
+
+            user: {
+                personal:{
+                    firstName: '',
+                    lastName: '',
+                    image: '',
+                    birthday: {value: '', private: null },
+                    country: {value: '', private: null }
+
+                },
+                contact: {
+                    phoneNum: {value: '', private: null},
+                    perEmail: {value: '', private: null},
+                    profEmail: {value: '', private: null}
+                },
+                attrs: {
+                    resume: {value: '', private: null},
+                    professions:  {value: '', private: null},
+                    workplace:  {value: '', private: null},
+                    skill_list:  {value: '', private: null}
+                }
+            },
             catlist: [],
+            // user.contact.perEmail.value
+            
             pr_img_left: require('../illustrations/12.svg'),
             pr_img_right: require('../illustrations/70.svg'),
             profile_photo: require('../images/usagi_1.png'),
@@ -185,7 +119,7 @@ export default({
                 {number: 12, name: "December"}
             ],
             days: [],
-            years: []
+            years: [],
         }
     },
     methods: {
@@ -244,29 +178,9 @@ export default({
             return 0;
         },
         submit() {
-            let user = {
-                personal:{
-                    firstName: this.first_name,
-                    lastName: this.last_name,
-                    image: this.image,
-                    birthday: this.birth_day,
-                    country: this.country,
-
-                },
-                contact: {
-                    phoneNum: this.telephone,
-                    perEmain: this.per_mail,
-                    profEmail: this.prof_mail,
-                },
-                attrs: {
-                    resume: this.resume,
-                    professions: this.profession,
-                    workplace: this.workplace,
-                    skill_list: this.skill_list
-                }
-            }
-            this.updateUserProfile(user);
-        }
+            console.log('user: ', this.user)
+            // this.updateUserProfile(user);
+        },
     }
 })
 </script>

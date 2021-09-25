@@ -48,6 +48,27 @@ export default{
       console.log('state: ', state)
     },
 
+    DELETE_FRIEND(state, payload){
+      let friends = state.friends;
+      let newf = [];
+      for(let i in friends.list){
+        if(i != payload)
+          newf.push(i)
+      }
+      friends.list = newf;
+      Vue.set(state, 'friends', friends);
+    },
+
+    DELETE_FREQUEST(state, payload){
+      let reqs = state.frequests;
+      let newreqs = [];
+      for(let i in reqs){
+        if(i != payload)
+          newreqs.push(i)
+      }
+      Vue.set(state, 'frequests', newreqs);
+    },
+
     DELETE_TOKEN(state){
         Vue.set(state, "token", null);
     }

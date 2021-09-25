@@ -4,12 +4,6 @@
         <v-card-title>
             <h2 id="get_in">Get In Now</h2>
         </v-card-title>
-        <!-- <v-row>
-                <v-spacer></v-spacer>
-            <v-col cols="2">
-                <v-btn @click="close" text x-small><i class="fas fa-times"></i></v-btn>
-            </v-col>
-        </v-row> -->
         <v-card-text>
             <v-form v-on:submit.prevent="log()">
                 <v-row>
@@ -35,15 +29,15 @@ export default {
     name: 'SignInForm',
     data() {
         return {
-            name:'',
-            last_name:'',
-            phone_number: null,
-            email:'',
-            password:'',
-            conf_password: null,
-            message: '',
-            checked: false,
-            valid: true
+            // name:'',
+            // last_name:'',
+            // phone_number: null,
+            // email:'',
+            // password:'',
+            // conf_password: null,
+            // message: '',
+            // checked: false,
+            // valid: true
         };
     },
     methods: {

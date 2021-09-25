@@ -7,7 +7,7 @@
             <v-row class="mb-1" style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2;">
                 <v-spacer></v-spacer>
                 <v-btn v-if="!update" v-on:click="update=true" class="white--text deep-purple"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                <v-btn v-if="update" v-on:click="save=true,  update=false" class="white--text deep-purple"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                <v-btn v-if="update" v-on:click="save=true,  update=false, submit()" class="white--text deep-purple"><v-icon class="fas fa-save" left ></v-icon>Save</v-btn>
             </v-row>
             <v-row id="personal_info">
                 <v-col style="max-width:30%" class="deep-purple lighten-4 rounded-t-lg mr-1 mb-n1">
@@ -26,7 +26,7 @@
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
                                 <v-col><v-text-field label="First Name" v-model="first_name" :readonly='!update'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="first_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" v-model="last_name" :readonly='!update'></v-text-field></v-col>
                             </v-row>
                             <v-row>
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
@@ -37,13 +37,13 @@
                                         <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
                                     </v-row>
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" v-model="birthdate.private" label="private"></v-switch></v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    <v-select label="Country" v-model="country" :readonly='!update' :items="this.countries" prepend-icon="fas fa-globe"></v-select>
+                                    <v-select label="Country" v-model="country.value" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private" v-model="country.private"></v-switch></v-col>
                             </v-row>
                         </v-card-text>
                     </v-card>                    
@@ -65,10 +65,10 @@
                                 <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
                                 <v-col cols="6"><v-text-field label="Professional E-mail" v-model="prof_mail.value" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
                                 <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="prof_mail.private"></v-switch></v-col>
                             </v-row>
                             <v-row>
-                                <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
+                                <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>
                                 <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch  class="small_switch" label="private" v-model="facebook.private"></v-switch></v-col>
                                 
@@ -78,12 +78,12 @@
                                 
                                 <v-col cols="4"><v-text-field label="Instagram" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="instagram.private"></v-switch></v-col>
+                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch class="small_switch" label="private" v-model="instagram.private"></v-switch></v-col> -->
                             </v-row>
                             <v-row>
-                                <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
+                                <!-- <v-col><v-text-field label="Website" v-model="website.value" :readonly='!update' prepend-icon="fas fa-window-maximize"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update"><v-switch class="small_switch" label="private" v-model="website.private"></v-switch></v-col>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch class="small_switch" label="private" v-model="website.private"></v-switch></v-col> -->
                             </v-row>
                         </v-card-text>
                     </v-card>
@@ -103,7 +103,7 @@
 
 
                             <v-flex style="height:200px; overflow: auto;">
-                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list" :key="skill" >{{skill}}</v-chip>
+                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
                             </v-flex>
                         </v-card-text>
                     </v-card>
@@ -118,13 +118,29 @@
 
 <script>
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default({
     name: 'PersonalInfo',
-    props: {
-        ...mapGetters({
-            countries: 'countrie_list'
+    computed: {
+        ...mapState({
+            id: '',
+            countries: 'countrie_list',
+            first_name: 'firstName',
+            last_name: 'lastName ',
+            birthdate: 'birthday',
+            birth_month: null,
+            birth_year: null,
+            telephone: 'phoneNum',
+            country: 'country',
+            per_mail: 'perEmail',
+            prof_mail: 'profEmail',
+            facebook: 'country',
+            instagram: {value: null, private: false},
+            linkedin: {value: null, private: false},
+            website: {value: null, private: false},
+            skill_list: 'skills',
+            allSkills: 'allSkills'
         })
     },
     data() {
@@ -134,27 +150,10 @@ export default({
             profile_photo: require('../images/usagi_1.png'),
             update: false,
             save: false,
-            skill_list:[
-                'CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
-                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
-                        'Automated Billing Systems', 'CRM Platforms','CAD','Lean manufacturing',' Multivariate analysis', 'Linear regression', 'Prototyping',
-                        'Workflow development', 'STEM skills', 'Web: HTML, CSS, Javascript', 'Payment processing',
-                        'Automated Billing Systems', 'CRM Platforms'
-            ],
-            first_name: 'lalala',
-            last_name: 'lallaa ',
-            birth_day: null,
-            birth_month: null,
-            birth_year: null,
-            birthdate_private: false, 
-            telephone: {value: null, private: true},
-            country: {value: null, private: false},
-            per_mail: {value: null, private: false},
-            prof_mail: {value: null, private: false},
-            facebook: {value: null, private: false},
-            instagram: {value: null, private: false},
-            linkedin: {value: null, private: false},
-            website: {value: null, private: false},
+            // facebook: {value: null, private: false},
+            // instagram: {value: null, private: false},
+            // linkedin: {value: null, private: false},
+            // website: {value: null, private: false},
             months: [
                 {number: 1, name: "January"},
                 {number: 2, name: "February"},
@@ -211,28 +210,38 @@ export default({
             let curr_year = new Date().getFullYear()
             var end = 100;
             this.years = Array.from({length: end}, (_, i) => i + curr_year - 100);
+        },
+        submit() {
+            let user = {
+                personal:{
+                    firstName: this.first_name,
+                    lastName: this.last_name,
+                    image: this.image,
+                    birthday: this.birth_day,
+                    country: this.country,
+
+                },
+                contact: {
+                    phoneNum: this.telephone,
+                    perEmain: this.per_mail,
+                    profEmail: this.prof_mail,
+                },
+                attrs: {
+                    resume: this.resume,
+                    professions: this.profession,
+                    workplace: this.workplace,
+                    skill_list: this.skill_list
+                }
+            }
+            this.updateUserProfile(user);
         }
     }
 })
 </script>
 
 <style>
-
-/* #info_card .v-card-title, .v-card-actions{
-    background-color: teal !important;
-} */
-
 .small_switch{
-    /* max-height: 10px !important;
-    min-height: 10px !important;
-    font-size: 10px !important; */
     transform: scale(0.750) !important;
-    /* transform-origin: left !important; */
 }
-
-/* #info_card .v-card-title {
-    color: brown !important;
-    background: brown !important;
-} */
 
 </style>

@@ -146,7 +146,7 @@ export default{
     image: state => state.image ? state.image : null,
     birthday: state => state.birthday ? state.birthday : null,
     country: state => state.country ? state.country : null,
-    friendsList: state => state.friends ? state.friends : null,
+    friends: state => state.friends ? state.friends : null,
     frequests: state => state.frequests ? state.frequests : null,
     myJobs: state => state.myJobs ? state.myJobs : null,
     myChats: state => state.myChats ? state.myChats : null,

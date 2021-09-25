@@ -11,17 +11,17 @@
                 <v-container >
 
                   <v-card-title id="wlcm_msg">Welcome To FaceIn</v-card-title>
-                  <v-subtitle class="d-flex justify-start ma-2 pa-2" id="wlcm_msg" style="font-size: 25px; text-align:left;">
+                  <v-card-subtitle class="d-flex justify-start ma-2 pa-2" id="wlcm_msg" style="font-size: 25px; text-align:left;">
                     BE PART OF THE COMMUNITY NOW!<br> Connect with other people, promote your work, hire and get hired!
-                  </v-subtitle>
+                  </v-card-subtitle>
                   <v-img :src="wlcm_img" max-width="100%" max-height="350px" class="ma-0 pa-0"></v-img>
                 </v-container>
               </v-col>
               <v-col cols="6" class="d-flex align-center">
                 <v-container>
-                    <v-subtitle class="d-flex justify-center ma-2 pa-2" id="wlcm_msg" style="font-size: 30px; text-align:center;">
+                    <v-card-subtitle class="d-flex justify-center ma-2 pa-2" id="wlcm_msg" style="font-size: 30px; text-align:center;">
                       Not a member yet?<br> Sign Up now!
-                    </v-subtitle>
+                    </v-card-subtitle>
                       <v-btn x-large rounded elevation="0" color=pink dark   v-on:click="signup=true">
                         SIGN UP
                       </v-btn>

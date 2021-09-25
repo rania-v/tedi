@@ -5,11 +5,11 @@
         <v-container class="d-flex justify-center deep-purple lighten-2" fluid>
             <v-card class="pa-3" color="deep-purple" min-height="950px" width="1000px" v-if="step==1">
                 <v-card-title class="white--text justify-center">Hard Skills</v-card-title>
-                <v-subtitle class="white--text">
+                <v-card-subtitle class="white--text">
                     Lets get you sterted with your Profession Profile!<br/><br/>
                     {{hard_subtitle}}<br/><br/><br/>
                     First, go through the various categories and select what skills best describe your abilities as an employee
-                </v-subtitle>
+                </v-card-subtitle>
                     <v-card class="ma-5 pa-0 deep-purple" flat min-height="550px" height="65%">
                         <v-row class="ma-1 pa-0">
                             <v-spacer></v-spacer>

@@ -96,12 +96,8 @@
 
         <v-textarea clearable v-model="more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
-<<<<<<< HEAD
         <v-btn v-if="!posted" :color="form_text_color" v-on:click="validate_and_submit()" style="color:white" :disabled="!valid">Post Ad!</v-btn>
         <v-alert v-else color="success " dense text>your ad is posted!</v-alert>
-=======
-        <v-btn :color="form_text_color" @click="submit()" style="color:white">Post Ad!</v-btn>
->>>>>>> 13b473eabdfd8def70ed1820737e014dbefc6aa5
     </v-form>
 </template>
 

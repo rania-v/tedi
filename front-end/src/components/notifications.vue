@@ -8,11 +8,14 @@
                 <v-btn v-if="show_requests" plain v-on:click="show_requests=false"><i class="fas fa-chevron-up"></i></v-btn>
             </v-card-title>
             <v-card-text class="ma-0 pa-0" v-if="show_requests">
-                <v-slide-group>
+                <v-slide-group v-if="notifications.frequests.length!=0">
                     <v-slide-item v-for="i in notifications.frequests" :key="i">
-                        <Request/>
+                        <Request :id='i'/>
                     </v-slide-item>
                 </v-slide-group>
+                <v-card v-else flat>
+                    <v-card-text>No friend request, nbody wants to be friends with you</v-card-text>
+                </v-card>
             </v-card-text>
         </v-container>
         <v-divider></v-divider>

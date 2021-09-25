@@ -24,8 +24,8 @@
             <v-row class="d-flex justify-center">{{user.workplace}}</v-row>
         </v-card-text>
         <v-card-actions class="d-flex justify-center">
-            <v-btn color="teal" outlined v-on:click="popup=true">Delete</v-btn>
-            <v-btn color="teal" style="color:white">Accept</v-btn>
+            <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
+            <v-btn color="teal" style="color:white" v-on:click="acceptfreq(id)">Accept</v-btn>
         </v-card-actions>
     </v-card>
         </v-template>
@@ -33,9 +33,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default ({
     name: 'Request',
+    props: {
+        id: null
+    },
     data() {
         return {
             popup: false,
@@ -47,6 +51,9 @@ export default ({
             }
         }    
     },
+    methods: {
+        ...mapActions(['acceptfreq', 'denyfreq']),
+    }
 })
 </script>
 

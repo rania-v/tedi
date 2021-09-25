@@ -40,7 +40,7 @@ const jobSchema = new mongoose.Schema({
     },
     apply:{
         link: {String},
-        email: {type: mongoose.SchemaTypes.Email},
+        email: [{type: mongoose.SchemaTypes.Email}],
         site_link: {type: String},
     },
     more_job_info: {type: String,}

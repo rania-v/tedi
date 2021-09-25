@@ -67,7 +67,6 @@
                                 <v-spacer></v-spacer>
                                 <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" :value="this.prof_mail.private" @change="user.contact.private=$event"></v-switch></v-col>
                             </v-row>
-                            <!-- lkaslkasndlasndlkasndlaknsdlansdlkasndlk -->
                             <v-row>
                                 <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>

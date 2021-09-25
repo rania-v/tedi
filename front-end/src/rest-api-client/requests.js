@@ -79,7 +79,7 @@ export const updatePersonalRequest = async (form, token) =>{
   .catch(function(error) { throw error })
 }
 
-export const updateContactlRequest = async (form, token) =>{
+export const updateContactRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
 
   return restAPI.send('POST', 'secure/update-user-contact', form, headers)

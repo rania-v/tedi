@@ -54,10 +54,11 @@ router.post('/update-user-settings', async(req, res) =>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Personal Info
 router.post('/update-user-personal', async(req, res) =>{
   try{
+    // console.log('AAAAAAAAAAAAAAA')
     const targetUser = await user.findById(req.user._id);
 
     // console.log(targetUser.personal);
-
+    // console.log(req.body);
     if(req.body.firstName){
       targetUser.personal.firstName = req.body.firstName;
     }
@@ -94,7 +95,7 @@ router.post('/update-user-contact', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
     
-    // console.log(targetUser.contact);
+    console.log(targetUser.contact);
 
     if(req.body.profEmail){
       targetUser.contact.profEmail = req.body.profEmail;

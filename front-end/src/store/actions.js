@@ -121,6 +121,7 @@ export default{
 		return actions.updateUserProfile(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -136,6 +137,7 @@ export default{
 		return actions.updateUserSettings(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -151,6 +153,7 @@ export default{
 		return actions.createComment(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -167,6 +170,7 @@ export default{
 		return actions.createPost(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -182,6 +186,7 @@ export default{
 		return actions.acceptfreq(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -197,6 +202,7 @@ export default{
 		return actions.denyfreq(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -212,6 +218,7 @@ export default{
 		return actions.sendfreq(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -227,6 +234,7 @@ export default{
 		return actions.removeFriend(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -257,6 +265,7 @@ export default{
 		return actions.deleteComm(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -272,6 +281,7 @@ export default{
 		return actions.deletePost(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -288,6 +298,7 @@ export default{
 		return actions.react(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -303,6 +314,7 @@ export default{
 		return actions.removeReact(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {
@@ -318,6 +330,7 @@ export default{
 		return actions.sendMssg(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			commit("STORE_CLIENT", client.user)
 			return response
 		})
 		.catch(error => {

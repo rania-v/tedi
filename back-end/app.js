@@ -38,7 +38,7 @@ const jobRoutes = require('./routes/job');
 app.use('/api/job', authenticate, jobRoutes);
 
 const secureRoutes = require('./routes/secure')
-app.use('/api', authenticate, secureRoutes);
+app.use('/api/secure', authenticate, secureRoutes);
 
 const postRoutes = require('./routes/post');
 app.use('/api/post', authenticate, postRoutes);

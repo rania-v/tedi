@@ -101,6 +101,7 @@ export const actions = {
   async createAd(data){
     return requests.createAdRequest(data, client.token.token)
     .then(function(response){
+      client.user.myJobs.push(response.job._id);
       actions.setClient(response);
       return response.message;
     })

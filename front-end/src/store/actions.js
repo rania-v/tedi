@@ -163,8 +163,8 @@ export default{
 
 	async createPost({commit}, payload){
 		commit("SET_LOADING", true);
-
-		return actions.createComment(payload)
+		console.log('payload: ', payload)
+		return actions.createPost(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
 			return response

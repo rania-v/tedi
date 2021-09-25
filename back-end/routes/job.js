@@ -49,7 +49,7 @@ router.post("/", async (req, res)=>{
         newJob.creator = targetUser._id;
         const savedJob = await newJob.save();
         
-        targetUser.personal.myJobsAds.push(savedJob._id);
+        targetUser.personal.myJobsAds.list.push(savedJob._id);
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
 
         res.json({job: savedJob, message: 'Η Αγγελία δημιουργήθηκε !!'});
@@ -73,7 +73,7 @@ router.delete("/:jobId", async (req, res)=>{
         
         await job.deleteOne({ _id: targetJob._id });
 
-        targetUser.personal.myJobsAds = targetUser.personal.myJobsAds.filter((jobID) => { return !jobID.equals(targetJob._id) });
+        targetUser.personal.myJobsAds.list = targetUser.personal.myJobsAds.list.filter((jobID) => { return !jobID.equals(targetJob._id) });
         console.log(targetUser.personal.myJobsAds);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 

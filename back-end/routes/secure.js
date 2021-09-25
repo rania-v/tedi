@@ -40,7 +40,7 @@ router.post('/update-user-settings', async(req, res) =>{
     }
 
     if(req.body.new_email){
-      targetUser.contact.profEmail = req.body.new_email;
+      targetUser.contact.profEmail.value = req.body.new_email;
       await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
     }
 
@@ -161,7 +161,7 @@ router.post('/frequest', async(req, res) => {
     }
 
     // check if users are already friends
-    const friends = user2.personal.friendsList.indexOf(user2._id);
+    const friends = user2.personal.friendsList.list.indexOf(user2._id);
     if(friends)
       res.json({message: 'Είστε ήδη φίλος με αυτόν τον χρήστη!'});
 
@@ -198,8 +198,8 @@ router.post('/accept-frequest', async(req, res) => {
     }
 
     //update users friendLists
-    user1.personal.friendsList.push(user2._id);
-    user2.personal.friendsList.push(user1._id);
+    user1.personal.friendsList.list.push(user2._id);
+    user2.personal.friendsList.list.push(user1._id);
 
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
     
@@ -262,8 +262,8 @@ router.delete('/remove-friend', async(req, res) => {
     if(!user2)
       return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
 
-    user1.personal.friendsList = user1.personal.friendsList.filter((fid) => {return !fid.equals(user2._id)});
-    user2.personal.friendsList = user2.personal.friendsList.filter((fid) => {return !fid.equals(user1._id)});
+    user1.personal.friendsList.list = user1.personal.friendsList.list.filter((fid) => {return !fid.equals(user2._id)});
+    user2.personal.friendsList.list = user2.personal.friendsList.list.filter((fid) => {return !fid.equals(user1._id)});
 
     await user.findByIdAndUpdate(user1._id, {personal: user1.personal});
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal});

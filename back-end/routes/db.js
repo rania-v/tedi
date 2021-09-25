@@ -36,7 +36,7 @@ router.post("/init", async function(req, res){
     var newUser = new User({
         isAdmin: true,
         personal:{firstName: 'admin1', lastName: 'admin1', password: 'admin1234'},
-        contact:{profEmail: 'admin@admin.com'}
+        contact:{profEmail: {value: 'admin@admin.com'}}
     });
     newUser.save();
 
@@ -44,14 +44,14 @@ router.post("/init", async function(req, res){
     newUser = new User({
         isAdmin: true,
         personal:{firstName: 'admin2', lastName: 'admin2', password: 'admin2134'},
-        contact:{profEmail: 'admin2@admin.com'}
+        contact:{profEmail: {value:'admin2@admin.com'}}
     });
     newUser.save();
 
     newUser = new User({
         isAdmin: true,
         personal:{firstName: 'admin3', lastName: 'admin3', password: 'admin3124'},
-        contact:{profEmail: 'admin3@admin.com'}
+        contact:{profEmail: {value: 'admin3@admin.com'}}
     });
     newUser.save();
 
@@ -137,35 +137,35 @@ router.post("/c-test-users", function(req, res){
     var newUser = new User({
         isAdmin: false,
         personal:{firstName: 'mike', lastName: 'Vour', password: 'mike1234'},
-        contact:{profEmail: 'mike_test@admin.com'}
+        contact:{profEmail: {value:'mike_test@admin.com'}}
     });
     newUser.save();
 
     newUser = new User({
         isAdmin: false,
         personal:{firstName: 'rania', lastName: 'Vour', password: 'rania1234'},
-        contact:{profEmail: 'rania_test@admin.com'}
+        contact:{profEmail: {value:'rania_test@admin.com'}}
     });
     newUser.save();
 
     newUser = new User({
         isAdmin: false,
         personal:{firstName: 'Sailor', lastName: 'Moon', password: 'smoon1234'},
-        contact:{profEmail: 'smoon_test@admin.com'}
+        contact:{profEmail: {value:'smoon_test@admin.com'}}
     });
     newUser.save();
 
     newUser = new User({
         isAdmin: false,
         personal:{firstName: 'Random', lastName: 'Guy', password: 'rguy1234'},
-        contact:{profEmail: 'rguy_test@admin.com'}
+        contact:{profEmail: {value:'rguy_test@admin.com'}}
     });
     newUser.save();
 
     newUser = new User({
         isAdmin: false,
         personal:{firstName: 'Spider', lastName: 'Man', password: 'sman1234'},
-        contact:{profEmail: 'sman_test@admin.com'}
+        contact:{profEmail: {value:'sman_test@admin.com'}}
     });
     newUser.save();
 

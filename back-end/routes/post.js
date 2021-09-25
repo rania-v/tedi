@@ -49,12 +49,17 @@ router.post("/", async (req, res)=>{
         var targetUser = req.user;
         console.log(req.body)
         const newPost = new post(req.body);
+        console.log('edw')
         newPost.creator = targetUser._id;
         const savedPost = await newPost.save();
-
-        targetUser.personal.myPosts.push(savedPost._id);
+        console.log('edw')
+        
+        targetUser.personal.myPosts.list.push(savedPost._id);
+        console.log('edw')
+        
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
-
+        console.log('edw')
+        
         res.json({post: savedPost, message: 'Η ανάρτηση δημιουργήθηκε !!'});
     }catch(error){
         res.status(400).json({message: error});
@@ -83,7 +88,7 @@ router.post("/delete-post", async (req, res)=>{
         // remove post
         await post.deleteOne({ _id: targetPost._id });
 
-        targetUser.personal.myPosts = targetUser.personal.myPosts.filter((postId) => { return !postId.equals(targetPost._id) });
+        targetUser.personal.myPosts.list = targetUser.personal.myPosts.list.filter((postId) => { return !postId.equals(targetPost._id) });
         console.log(targetUser.personal.myPosts);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 

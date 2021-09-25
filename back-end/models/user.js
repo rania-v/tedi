@@ -28,24 +28,24 @@ const UserSchema = new mongoose.Schema({
             data: Buffer,
             contentType: String,
         },
-        birthday: {value:{Date}, private: Boolean},
-        country: {value:{String}, private: Boolean},
+        birthday: {value:{Date}, private: {type: Boolean, default: false},},
+        country: {value:{String}, private: {type: Boolean, default: false},},
         friendsList:{
             list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'user'} ],
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
-        frequests:{
-            list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
-            private: Boolean
-        },
+        frequests:[
+            { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' }
+        ],
         myJobsAds:{
             list:[ { type: mongoose.Schema.Types.ObjectId, ref: 'job' } ],
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         myChats:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
         myPosts:{
             list:[ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
-            private: Boolean
+            
+            private: {type: Boolean, default: false},
         },
         myNotifications:{
             frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequest' } ],
@@ -59,14 +59,14 @@ const UserSchema = new mongoose.Schema({
             value:{
                 type: String,
             },
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         perEmail:{
             value: {
                 type: mongoose.SchemaTypes.Email,
                 unique: true,
             },
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         profEmail:{
             value:{
@@ -74,7 +74,7 @@ const UserSchema = new mongoose.Schema({
                 unique: true,
                 required: true,
             },
-            private: Boolean
+            private: {type: Boolean, default: false},
         }
     },
     attrs:{
@@ -85,22 +85,22 @@ const UserSchema = new mongoose.Schema({
                 filename: { type: String},
                 mimetype: { type: String},
             },
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         profession:{
             value:{
                 type: String,
                 minLength: 4,
             },
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         workplace: {
             name: String,
-            private: Boolean
+            private: {type: Boolean, default: false},
         },
         skill_list:{
             list: [{ type: String}],
-            private: Boolean
+            private: {type: Boolean, default: false},
         }
     },
 })

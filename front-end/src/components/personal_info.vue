@@ -32,7 +32,7 @@
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
                                 <v-col>
                                     <v-row>
-                                        <v-col><v-select v-model="birth_day" id="bd" label="Day":items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
+                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
                                     </v-row>
@@ -67,7 +67,6 @@
                                 <v-spacer></v-spacer>
                                 <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="prof_mail.private"></v-switch></v-col>
                             </v-row>
-                            <!-- lkaslkasndlasndlkasndlaknsdlansdlkasndlk -->
                             <v-row>
                                 <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>

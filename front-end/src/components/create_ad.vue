@@ -13,10 +13,10 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-text-field clearable v-model="form.basic_info.company_name" :clear-icon="cl_icon" :rules="req" label="Company Name" :color="form_text_color" prepend-icon="fas fa-building"></v-text-field>
+                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" v-model="form.basic_info.company_name" label="Company Name" :color="form_text_color" prepend-icon="fas fa-building"></v-text-field>
                     </v-col>
                     <v-col>
-                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" label="Job Location" v-model="form.basic_info.location" :color="form_text_color" prepend-icon="fas fa-map-marker-alt"></v-text-field>
+                        <v-text-field clearable :clear-icon="cl_icon" :rules="req" v-model="form.basic_info.location" label="Location" :color="form_text_color" prepend-icon="fas fa-map-marker-alt"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>

@@ -93,10 +93,27 @@
                         <v-card-title>Qualification Info</v-card-title>
                         <v-card-text>
                             <v-file-input label="Upload Resume"></v-file-input>
-                            <!-- <v-col cols="4"><v-text-field label="Profession" v-model="instagram.value" :readonly='!update' prepend-icon="fab fa-instagram"></v-text-field></v-col>
-                                <v-spacer v-if="update"></v-spacer>
-                                <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
-                            
+                            </v-card-text>
+                            <v-card-title>Skill Set</v-card-title>
+                        <v-card-text  style="">
+                            <v-flex v-if="update!=true" style="height:200px; overflow: auto;">
+                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
+                            </v-flex>
+                            <v-card v-else>
+                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
+                                </v-autocomplete>
+                                <v-card flat>
+                                    <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
+                                    v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">
+                                        {{skill}}
+                                    </v-chip>
+                                </v-card>
+                                <!-- <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn v-if="!isEmpty(skill_list.list)" small text class="pink--text" v-on:click="skill_list.list = EmptyList()">clear</v-btn>
+                                </v-card-actions> -->
+                                    <v-chip class="ma-1" v-for="skill in skill_list.list" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(skill_list.list,skill)">{{skill}}</v-chip>
+                            </v-card>
                         </v-card-text>
                     </v-card>                    
                 </v-col>

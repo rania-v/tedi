@@ -25,25 +25,25 @@
                         <v-card-text>
                             <v-row>
                                 <v-col class="d-flex align-content-center flex-wrap" style="max-width: 6%;"><i class="fas fa-user-alt"></i></v-col>
-                                <v-col><v-text-field label="First Name" :value="this.first_name" v-bind="user.firstName" :readonly='!update'></v-text-field></v-col>
-                                <v-col><v-text-field label="Last Name" v-model="this.last_name" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="First Name" :value="this.first_name" @input="user.personal.firstName=$event" :readonly='!update'></v-text-field></v-col>
+                                <v-col><v-text-field label="Last Name" :value="this.last_name" @input="user.personal.lastName=$event" :readonly='!update'></v-text-field></v-col>
                             </v-row>
                             <v-row>
                                 <v-col style="max-width: 15%" ><v-card-text>Birth Date</v-card-text></v-col>
                                 <v-col>
-                                    <v-row>
-                                        <v-col><v-select v-model="birth_day" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
+                                    <!-- <v-row>
+                                        <v-col><v-select :value="this.birth_day" @input="user.personal.birth_day=$event" id="bd" label="Day" :items="days" v-on:click="fill_days" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_month" id="bm" label="Month" :items="months" item-text="name" item-value="number" :rules="[check_day]" :readonly='!update'></v-select></v-col>
                                         <v-col><v-select v-model="birth_year" label="Year" :items="years" v-on:click="fill_years" :readonly='!update'></v-select></v-col>
-                                    </v-row>
+                                    </v-row> -->
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" v-model="birthdate.private" label="private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" :value="this.birthdate.private" @input="user.personal.birthday.value=$event" label="private"></v-switch></v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    <v-select label="Country" v-model="country.value" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
+                                    <v-select label="Country" :value="this.country.value" @input="user.personal.country.value=$event" :readonly='!update' :items="countries" prepend-icon="fas fa-globe"></v-select>
                                 </v-col>
-                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private" v-model="country.private"></v-switch></v-col>
+                                <v-col style="max-width:17%;" v-if="update"><v-switch class="small_switch" label="private" :value="this.country.private" @change="user.personal.country.private=$event"></v-switch></v-col>
                             </v-row>
                         </v-card-text>
                     </v-card>                    
@@ -55,17 +55,17 @@
                         <v-card-title>Contact Info</v-card-title>
                         <v-card-text>
                             <v-row>
-                                <v-col><v-text-field label="Telephone Number" v-model="telephone.value" :readonly='!update' prepend-icon="fas fa-phone"></v-text-field></v-col>
+                                <v-col><v-text-field label="Telephone Number" :value="this.telephone.value" @input="user.contact.phoneNum.value=$event" :readonly='!update' prepend-icon="fas fa-phone"></v-text-field></v-col>
                                 <v-spacer v-if="update"></v-spacer>
-                                <v-col style="max-width:28%;" v-if="update"><v-switch v-model="telephone.private"  class="small_switch" label="private"></v-switch></v-col>
+                                <v-col style="max-width:28%;" v-if="update"><v-switch :value="this.telephone.private" @change="user.contact.phoneNum.private=$event"  class="small_switch" label="private"></v-switch></v-col>
                             </v-row>
                             <v-row no-gutters>
-                                <v-col cols="6"><v-text-field label="Personal E-mail" v-model="per_mail.value" :readonly='!update' prepend-icon="fas fa-envelope"></v-text-field></v-col>
+                                <v-col cols="6"><v-text-field label="Personal E-mail" :value="this.per_mail.value" @input="user.contact.perEmail.value=$event" :readonly='!update' prepend-icon="fas fa-envelope"></v-text-field></v-col>
                                 <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" v-model="per_mail.private"></v-switch></v-col>
-                                <v-col cols="6"><v-text-field label="Professional E-mail" v-model="prof_mail.value" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch  class="small_switch" label="private" :value="this.per_mail.private" @change="user.contact.perEmail.private=$event"></v-switch></v-col>
+                                <v-col cols="6"><v-text-field label="Professional E-mail" :value="this.prof_mail.value" @input="user.contact.profEmail=$event" :readonly='!update' prepend-icon="far fa-envelope"></v-text-field></v-col>
                                 <v-spacer></v-spacer>
-                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" v-model="prof_mail.private"></v-switch></v-col>
+                                <v-col cols="3" style="max-width:25%;" v-if="update"><v-switch class="small_switch" label="private" :value="this.prof_mail.private" @change="user.contact.private=$event"></v-switch></v-col>
                             </v-row>
                             <v-row>
                                 <!-- <v-col cols="4"><v-text-field label="Facebook" v-model="facebook.value" :readonly='!update' prepend-icon="fab fa-facebook-square"></v-text-field></v-col>
@@ -98,32 +98,10 @@
                                 <v-col class="d-flex justify-end pr-11" cols="5" v-if="update"><v-switch label="private" v-model="instagram.private"></v-switch></v-col> -->
                             
                         </v-card-text>
-                            <v-card-title>Skill Set</v-card-title>
-                        <v-card-text  style="">
-
-
-                            <v-flex v-if="update!=true" style="height:200px; overflow: auto;">
-                                <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
-                            </v-flex>
-                            <v-card v-else>
-                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
-                                </v-autocomplete>
-                                <v-card flat>
-                                    <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
-                                    v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">
-                                        {{skill}}
-                                    </v-chip>
-                                </v-card>
-                                <!-- <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn v-if="!isEmpty(skill_list.list)" small text class="pink--text" v-on:click="skill_list.list = EmptyList()">clear</v-btn>
-                                </v-card-actions> -->
-                                    <v-chip class="ma-1" v-for="skill in skill_list.list" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(skill_list.list,skill)">{{skill}}</v-chip>
-                            </v-card>
-                        </v-card-text>
-                    </v-card>
+                    </v-card>                    
                 </v-col>
             </v-row>
+            
         </v-col>
         <v-col cols="2">
             <v-img :src="pr_img_right"></v-img>
@@ -144,38 +122,47 @@ export default({
             first_name: 'firstName',
             last_name: 'lastName',
             birthdate: 'birthday',
-            birth_month: null,
-            birth_year: null,
+            // birth_month: ,
+            // birth_year: null,
             telephone: 'phoneNum',
             country: 'country',
             per_mail: 'perEmail',
             prof_mail: 'profEmail',
-            facebook: 'country',
-            instagram: {value: null, private: false},
-            linkedin: {value: null, private: false},
-            website: {value: null, private: false},
+            // facebook: 'country',
+            // instagram: {value: null, private: false},
+            // linkedin: {value: null, private: false},
+            // website: {value: null, private: false},
             skill_list: 'skills',
             allSkills: 'allSkills'
-        })
+        }),
     },
     data() {
         return {
-            user: {
-                    firstName: this.first_name,
-                    lastName: this.last_name,
-                    image: this.image,
-                    birthday: this.birth_day,
-                    country: this.country,
 
-                    phoneNum: this.telephone,
-                    perEmain: this.per_mail,
-                    profEmail: this.prof_mail,
-                    resume: this.resume,
-                    professions: this.profession,
-                    workplace: this.workplace,
-                    skill_list: this.skill_list
+            user: {
+                personal:{
+                    firstName: '',
+                    lastName: '',
+                    image: '',
+                    birthday: {value: '', private: null },
+                    country: {value: '', private: null }
+
+                },
+                contact: {
+                    phoneNum: {value: '', private: null},
+                    perEmail: {value: '', private: null},
+                    profEmail: {value: '', private: null}
+                },
+                attrs: {
+                    resume: {value: '', private: null},
+                    professions:  {value: '', private: null},
+                    workplace:  {value: '', private: null},
+                    skill_list:  {value: '', private: null}
+                }
             },
             catlist: [],
+            // user.contact.perEmail.value
+            
             pr_img_left: require('../illustrations/12.svg'),
             pr_img_right: require('../illustrations/70.svg'),
             profile_photo: require('../images/usagi_1.png'),
@@ -200,7 +187,7 @@ export default({
                 {number: 12, name: "December"}
             ],
             days: [],
-            years: []
+            years: [],
         }
     },
     methods: {
@@ -259,7 +246,12 @@ export default({
             return 0;
         },
         submit() {
+            console.log('user: ', this.user)
+            // this.updateUserProfile(user)
             this.updateUserProfile(this.user);
+        },
+        mpla(event){
+            console.log('eve: ', event)
         }
     }
 })

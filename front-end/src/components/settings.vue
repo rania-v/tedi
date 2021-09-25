@@ -14,8 +14,8 @@
                         <v-col class="d-flex justify-end align-start flex-wrap" cols="2">Login E-mail</v-col>
                         <v-divider vertical></v-divider>
                         <v-col cols="3">
-                            <v-text-field v-if="!update" label="login email" v-model="login_email" :readonly="!update"></v-text-field>
-                            <v-text-field v-if="update" label="type new login email" v-model="new_email" ></v-text-field>
+                            <v-text-field v-if="!update" label="login email" v-model="this.login_email.value" :readonly="!update"></v-text-field>
+                            <v-text-field v-if="update" label="type new login email" v-model="form.new_email" ></v-text-field>
                         </v-col>
                         <v-spacer></v-spacer>
                     </v-row>
@@ -25,8 +25,8 @@
                         <v-divider vertical></v-divider>
                         <v-col cols="3">
                             <v-text-field v-if="!update" label="password" type='password' readonly v-model="password"></v-text-field>
-                            <v-text-field v-if="update" label="type old password" type='password' v-model="pass_for_check"></v-text-field>
-                            <v-text-field v-if="update" label="type new password" type='password' v-model="new_pass"></v-text-field>
+                            <v-text-field v-if="update" label="type old password" type='password' v-model="form.pass_for_check"></v-text-field>
+                            <v-text-field v-if="update" label="type new password" type='password' v-model="form.new_pass"></v-text-field>
                         </v-col>
                         <v-spacer></v-spacer>
                     </v-row>
@@ -41,7 +41,7 @@
                 <v-btn outlined color="pink">log out</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn v-if="!update" v-on:click="update=true" text style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
-                <v-btn v-if="update" v-on:click="this.updateUserSettings(this.form)" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
+                <v-btn v-if="update" v-on:click="store()" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
             </v-card-actions>
         </v-card>
         </v-col>
@@ -53,7 +53,7 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default ({
     name: 'Settings',
@@ -61,11 +61,10 @@ export default ({
         return {
             sett_img_left: require('../illustrations/190.svg'),
             sett_img_right: require('../illustrations/196.svg'),
-            login_email: 'lala@la.org',
             password: '123456789',
-            pass_for_check: null,
-            new_pass: null,
-            new_email: null,
+            // pass_for_check: null,
+            // new_pass: null,
+            // new_email: null,
             update: false,
             save: null,
 
@@ -74,11 +73,17 @@ export default ({
                 //  !! XWRIS TO 'PERSONAL' px:
                 // email: ...
                 // pass: ...
+                new_email: null,
+                pass_for_check: null,
+                new_pass: null,
             }
         }
     },
     methods: {
         ...mapActions(['updateUserSettings']),
+        store(){
+            this.updateUserSettings(this.form)
+        },
         update_login_email() {
 
         },
@@ -91,6 +96,11 @@ export default ({
             this.password = this.new_pass;
             this.login_email = this.new_email;
         }
+    },
+    computed:{
+        ...mapGetters({
+            login_email: 'profEmail'
+        })
     }
 })
 </script>

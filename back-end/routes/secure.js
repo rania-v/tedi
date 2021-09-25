@@ -83,7 +83,7 @@ router.post('/update-user-personal', async(req, res) =>{
       targetUser.personal.country = req.body.country;
     }
 
-    // console.log(targetUser.personal);
+    // console.log(targetUser.personal.country);
 
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
     res.json({

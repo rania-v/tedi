@@ -52,7 +52,7 @@ router.post("/", async (req, res)=>{
         targetUser.personal.myJobsAds.list.push(savedJob._id);
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
 
-        res.json({job: savedJob, message: 'Η Αγγελία δημιουργήθηκε !!'});
+        res.json({job: savedJob, message: 'Η Αγγελία δημιουργήθηκε !!', user: targetUser});
     }catch(error){
         res.status(400).json({message: error});
     }
@@ -77,7 +77,7 @@ router.delete("/:jobId", async (req, res)=>{
         console.log(targetUser.personal.myJobsAds);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 
-        res.json({message: 'Η Αγγελία ' + targetJob.title + ' αφαιρέθηκε !!',});
+        res.json({message: 'Η Αγγελία ' + targetJob.title + ' αφαιρέθηκε !!', user:targetUser});
     }catch(error){
         res.status(400).json({message: error});
     }

@@ -101,6 +101,7 @@ export const actions = {
   async createAd(data){
     return requests.createAdRequest(data, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response.message;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -123,9 +124,10 @@ export const actions = {
   },
 
   async updateUserProfile(form){
-    // let mssgs = [];
+    let mssgs = [];
     requests.updatePersonalRequest(form.personal, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       mssgs.push(response)
     })
     .catch(function(error){client = initClient(); throw error})
@@ -133,20 +135,27 @@ export const actions = {
     requests.updateContactRequest(form.contact, client.token.token)
     .then(function(response){
       mssgs.push(response)
+      actions.setClient(response);
     })
     .catch(function(error){client = initClient(); throw error})
   
     return requests.updateAttrsRequest(form.attrs, client.token.token)
     .then(function(response){
       mssgs.push(response)
+      console.log('response: ', mssgs);
+      actions.setClient(response);
       return mssgs;
     })
     .catch(function(error){client = initClient(); throw error})
+    // console.log('response: ', mssgs);
+    // actions.setClient(response);
+      
   },
 
   async updateUserSettings(form){
     return requests.updateSettingsRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -155,6 +164,7 @@ export const actions = {
   async createComment(form){
     return requests.createCommRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -163,6 +173,7 @@ export const actions = {
   async createPost(form){
     return requests.createPostRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -171,6 +182,7 @@ export const actions = {
   async acceptfreq(form){
     return requests.acceptfreqRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -179,6 +191,7 @@ export const actions = {
   async denyfreq(form){
     return requests.denyfreqRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -187,6 +200,7 @@ export const actions = {
   async sendfreq(form){
     return requests.sendfreqRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -195,6 +209,7 @@ export const actions = {
   async removeFriend(form){
     return requests.removeFriendRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -211,6 +226,7 @@ export const actions = {
   async deleteComm(form){
     return requests.deleteCommRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -219,6 +235,7 @@ export const actions = {
   async deletePost(form){
     return requests.deletePostRequest(form, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -243,6 +260,7 @@ export const actions = {
   async sendMssg(data){
     return requests.sendMssgRequest(data, client.token.token)
     .then(function(response){
+      actions.setClient(response);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})

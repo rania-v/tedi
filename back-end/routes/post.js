@@ -47,20 +47,20 @@ router.post("/getPost", async (req, res)=>{
 router.post("/", async (req, res)=>{
     try{
         var targetUser = req.user;
-        console.log(req.body)
+        // console.log(req.body)
         const newPost = new post(req.body);
-        console.log('edw')
         newPost.creator = targetUser._id;
         const savedPost = await newPost.save();
-        console.log('edw')
         
         targetUser.personal.myPosts.list.push(savedPost._id);
-        console.log('edw')
         
         await user.findByIdAndUpdate(targetUser._id, targetUser, {runValidators: true})
-        console.log('edw')
         
-        res.json({post: savedPost, message: 'Η ανάρτηση δημιουργήθηκε !!'});
+        res.json({
+            post: savedPost,
+            message: 'Η ανάρτηση δημιουργήθηκε !!',
+            user: targetUser,
+        });
     }catch(error){
         res.status(400).json({message: error});
     }
@@ -92,7 +92,10 @@ router.post("/delete-post", async (req, res)=>{
         console.log(targetUser.personal.myPosts);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 
-        res.json({message: 'Η ανάρτηση αφαιρέθηκε !!',});
+        res.json({
+            message: 'Η ανάρτηση αφαιρέθηκε !!',
+            user: targetUser
+        });
     }catch(error){
         res.status(400).json({message: error});
     }
@@ -121,7 +124,10 @@ router.post("/addComm", async(req, res) => {
         await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
 
 
-        res.json({message: 'Το σχόλιο δημοσιεύθηκε!'})
+        res.json({
+            message: 'Το σχόλιο δημοσιεύθηκε!',
+            user: targetUser,
+        })
     }catch(err){
         res.status(400).json({message: err});
     }
@@ -213,7 +219,9 @@ router.post("/react1", async(req, res) => {
             await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
         }
 
-        res.json({message: "Η αντίδραση δημοσιεύθηκε!"})
+        res.json({
+            message: "Η αντίδραση δημοσιεύθηκε!"
+        })
 
     }catch(err){
         res.json({message: err});

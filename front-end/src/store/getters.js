@@ -1,6 +1,6 @@
-var testUserm = [
-    {_id: 1, isAdmin: false, firstName: 'mike', lastName: 'vour', profEmail: 'mvour@test.com'},
-];
+// var testUserm = [
+//     {_id: 1, isAdmin: false, firstName: 'mike', lastName: 'vour', profEmail: 'mvour@test.com'},
+// ];
 
 
 // {
@@ -130,9 +130,10 @@ var testSkills = [
     }
 ]
 
+var t = state=>state.friends
+console.log('t: ', t);
 var testing = true;
 
-console.log(testUserm)
 export default{
     isLoading: state => state.isLoading,
     isLogedIn: state => state.isLogedIn,
@@ -145,8 +146,8 @@ export default{
     lastName: state => state.lastName ? state.lastName : null,
     image: state => state.image ? state.image : null,
     birthday: state => state.birthday ? state.birthday : null,
-    country: state => state.country ? state.country : null,
-    friends: state => state.friends ? state.friends : null,
+    country: state => state.country ? state.country : state.country,
+    friends: state => state.friends,
     frequests: state => state.frequests ? state.frequests : null,
     myJobs: state => state.myJobs ? state.myJobs : null,
     myChats: state => state.myChats ? state.myChats : null,

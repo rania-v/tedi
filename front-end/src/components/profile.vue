@@ -20,7 +20,7 @@
                 <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
                     <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                        <v-col cols="3"  v-for="friend in network.slice(0,7)" :key="friend"  >
+                        <v-col cols="3"  v-for="friend in this.buildNetwork().slice(0,7)" :key="friend"  >
                             <v-badge :content=friend.user :value=hover color="deep-purple lighten-1" overlap>
                                 <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend.user} }">
                                     <v-avatar>
@@ -51,7 +51,7 @@ export default ({
             image: require('../images/usagi_1.png'),
             hover: false,
             usr:null,
-            network: this.buildNetwork()
+            network: null,
             // network: [
             //     {
             //         user: 'Haruka Tenou',
@@ -95,7 +95,9 @@ export default ({
             birthday: "birthday",
             image2: "image",
             profession: "profession",
-            friends: "friends"
+            friends: "friends",
+            country: "country",
+            frequests: "frequests"
         }),
     },
     methods: {
@@ -110,11 +112,18 @@ export default ({
             this.name = nam;
             this.$emit('ChangePT', nam);
         },
+
         buildNetwork(){
+            // while(this.friends == undefined){
+                // continue;
+            // }
+            // console.log('country: ', this.country, ' frq: ', this.frequests)
+            // console.log('gett: ', this.lastName, ' , fr: ', this.friends)
             let users = [];
+            console.log('fr: ', this.friends)
             for(let i in this.friends.list){
                 var user = this.getUser(i)
-                users.push({user: user.firstname + ' ' + user.lastName, avatar: user.image})
+                users.push({user: user.personal.firstName + ' ' + user.personal.lastName, avatar: user.personal.image})
             }
             // var user2 = this.getUser('614ccef4f751713c7d415006');
             // users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})

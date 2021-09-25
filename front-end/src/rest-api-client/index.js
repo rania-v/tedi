@@ -39,8 +39,6 @@ function initClient(){
             
             posts: null,
             notifications: [],
-            userStories: [],
-            projects: [],
 
             resume: null,
             workplace: null,

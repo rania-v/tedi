@@ -45,6 +45,7 @@ export default{
       Vue.set(state, "workplace", payload.attrs.firstName);
       Vue.set(state, "skills", payload.attrs.skill_list);
       Vue.set(state, "profession", payload.attrs.profession);
+      console.log('state: ', state)
     },
 
     DELETE_TOKEN(state){

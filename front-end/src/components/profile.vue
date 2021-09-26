@@ -20,7 +20,7 @@
                 <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
                     <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                        <v-col cols="3"  v-for="friend in this.buildNetwork().slice(0,7)" :key="friend"  >
+                        <v-col cols="3"  v-for="friend in this.network.slice(0,7)" :key="friend"  >
                             <v-badge :content=friend.user :value=hover color="deep-purple lighten-1" overlap>
                                 <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend.user} }">
                                     <v-avatar>
@@ -51,7 +51,7 @@ export default ({
             image: require('../images/usagi_1.png'),
             hover: false,
             usr:null,
-            network: null,
+            network: this.buildUp,
             // network: [
             //     {
             //         user: 'Haruka Tenou',
@@ -99,6 +99,12 @@ export default ({
             country: "country",
             frequests: "frequests"
         }),
+        buildUp(){
+            if(this.network == null){
+                return this.buildNetwork();
+            }
+            else return this.network;
+        }
     },
     methods: {
         ...mapActions(['getUser']),
@@ -113,15 +119,17 @@ export default ({
             this.$emit('ChangePT', nam);
         },
 
-        buildNetwork(){
+        async buildNetwork(){
             // while(this.friends == undefined){
                 // continue;
             // }
+            console.log('mesa');
             // console.log('country: ', this.country, ' frq: ', this.frequests)
             // console.log('gett: ', this.lastName, ' , fr: ', this.friends)
             let users = [];
             console.log('fr: ', this.friends)
-            for(let i in this.friends.list){
+            for(let i of this.friends.list){
+                console.log('POLY MESAAAAA: ', i);
                 var user = this.getUser(i)
                 users.push({user: user.personal.firstName + ' ' + user.personal.lastName, avatar: user.personal.image})
             }

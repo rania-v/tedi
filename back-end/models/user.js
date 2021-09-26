@@ -11,7 +11,6 @@ const UserSchema = new mongoose.Schema({
         firstName:{
             type: String,
             required: true,
-            unique: true,
             minLength: 1
         },
         lastName:{
@@ -104,6 +103,10 @@ const UserSchema = new mongoose.Schema({
         }
     },
 })
+
+
+// Create text indexes for model user to perform search
+UserSchema.index({'personal.fristName': 'text', 'personal.lastName': 'text'});
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Frined Request Schema
 const friendRequestSchema = new mongoose.Schema({

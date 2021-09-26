@@ -26,17 +26,21 @@ mongoose.connect(
 // ~~~~~~~~~~~~~~~~~~~~~ SIGN UP middleware
 passport.use('register', new localStrategy(
     {
-    usernameField: 'contact[profEmail]',
-    passwordField: 'personal[password]',
-    passReqToCallback: true
-    }, async(req, username, password, done) =>{
+      usernameField: 'contact[profEmail[value]]',
+      passwordField: 'personal[password]',
+      passReqToCallback: true
+    }, async(req, email, password, done) =>{
         try{
-            const user = new User(req.body);
-            const saved = await user.save();
-            done(null, user);
+          console.log('REQ: ', req.body)
+          const user = new User(req.body);
+          console.log('edw')
+          await user.save();
+          console.log('edw')
+          return done(null, user, {message: 'Επιτυχής Εγγραφή'});
         }
         catch(error){
-            done(error);
+          console.log('aaaa')
+          return done(error, null , {message: 'Σφάλμα'});
         }
     }
 ));

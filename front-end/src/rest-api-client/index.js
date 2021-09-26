@@ -74,6 +74,29 @@ export const actions = {
     .catch(function(error) {client = initClient(); throw error })
   },
 
+  async register(newUser) {
+    return requests.registerRequest(newUser)
+    .then(function(response) {
+      // Set client object
+      console.log('response: ', response);
+      // actions.setClient(response);
+      return response.message;
+    })
+    .catch(function(error) {client = initClient(); throw error })
+  },
+
+  async searchUsers(val){
+    return requests.searchUsersRequest(val, client.token.token)
+    .then(response => {
+      console.log(response);
+      return response;
+    })
+    .catch(err=>{
+      console.log(err)
+      throw err;
+    })
+  },
+
   async logout() {
     return requests.logoutRequest(client.token.token)
     .then(function(response) {

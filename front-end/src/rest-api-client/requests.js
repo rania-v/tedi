@@ -20,6 +20,24 @@ export const logoutRequest = async (token) =>{
   .catch(function(error) { throw error })
 }
 
+export const registerRequest = async (newUser) =>{
+  console.log('user: ', newUser);
+  return restAPI.send('POST', 'user/register', newUser)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const searchUsersRequest = async (val, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    val: val,
+  }
+  return restAPI.send('POST', 'secure/searchUsers', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+
 export const postRequest = async (postId, token) =>{
   let headers = { "Authorization": `${token}` };
   let data = {

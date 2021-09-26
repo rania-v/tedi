@@ -22,25 +22,25 @@
                                 <v-col cols="3">
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Personal</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex justify-start align-start white--text">
-                                            {{other_user.personal.country.value}}<br/>
-                                            {{other_user.personal.birthday.value}}<br/>
+                                            {{user.personal.country.value}}<br/>
+                                            {{user.personal.birthday.value}}<br/>
                                         </v-card-text>
                                         <v-card-title id="myFont" class="ml-3 pl-2 pt-1 pb-0 d-flex justify-start align-start white--text">Contact</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            {{other_user.contact.phoneNum.value}}<br/>
-                                            {{other_user.contact.perEmail.value}}<br/>
-                                            {{other_user.contact.profEmail.value}}<br/>
+                                            {{user.contact.phoneNum.value}}<br/>
+                                            {{user.contact.perEmail.value}}<br/>
+                                            {{user.contact.profEmail.value}}<br/>
                                         </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
                                 <v-col cols="3">
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Resume</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            <v-btn small outlined color="white">{{other_user.attrs.resume.filename}}</v-btn>
+                                            <v-btn small outlined color="white">{{user.attrs.resume.filename}}</v-btn>
                                     </v-card-text>
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Ads</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            <v-btn small outlined color="white">see {{other_user.personal.firstName}}'s ads</v-btn>
+                                            <v-btn small outlined color="white">see {{user.personal.firstName}}'s ads</v-btn>
                                     </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
                                     <v-card color="deep-purple" v-on:click="openNetwork = true">
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Network</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                                            <v-col cols="3"  v-for="friend in other_user.personal.friendsList.slice(0,7)" :key="friend">
+                                            <v-col cols="3"  v-for="friend in user.personal.friendsList.slice(0,7)" :key="friend">
                                                 <v-badge :content=friend :value=hover color="deep-purple lighten-1" overlap>
                                                     <!-- <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend.user} }">
                                                         <v-avatar>
@@ -60,7 +60,7 @@
                                         </v-card-text>
                                         <v-dialog v-model="openNetwork" width="800px">
                                             <v-card>
-                                                <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{other_user.personal.firstName}}'s Network</h2>
+                                                <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{user.personal.firstName}}'s Network</h2>
                                             </v-card>
                                         </v-dialog>
                                     </v-card>

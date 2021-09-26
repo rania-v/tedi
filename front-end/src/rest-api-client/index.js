@@ -36,9 +36,9 @@ function initClient(){
             profEmail: null,
             perEmail: null,
             image: null,
-            
+
             posts: null,
-            notifications: [],
+            notifications: {frequests:[],reacts:[],comments:[],chats:[]},
 
             resume: null,
             profession: null,

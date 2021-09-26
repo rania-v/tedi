@@ -8,8 +8,8 @@
                 <v-btn v-if="show_requests" plain v-on:click="show_requests=false"><i class="fas fa-chevron-up"></i></v-btn>
             </v-card-title>
             <v-card-text class="ma-0 pa-0" v-if="show_requests">
-                <v-slide-group v-if="notifications.frequests.length!=0">
-                    <v-slide-item v-for="i in notifications.frequests" :key="i">
+                <v-slide-group v-if="this.notifications.frequests.length!=0">
+                    <v-slide-item v-for="i in this.notifications.frequests" :key="i">
                         <Request :id='i'/>
                     </v-slide-item>
                 </v-slide-group>

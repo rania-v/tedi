@@ -40,7 +40,7 @@
         </v-row>
         <v-row>
             <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
-            <CommentsComp/>
+            <CommentsComp :comm_list="this.post.comments"/>
         </v-row>
     </v-card>
 </template>
@@ -73,14 +73,19 @@ export default ({
         id: String,
     },
     methods: {
-        ...mapActions(["getPost","getUser"]),
+        ...mapActions(["getPost","getUser", 'createComment']),
         post_new_comm() {
-            let new_comment = {
-                user_avatar: this.user_avatar,
-                user: this.user,
-                comment_text: this.new_comm
+            // let new_comment = {
+            //     user_avatar: this.user_avatar,
+            //     user: this.user,
+            //     comment_text: this.new_comm
+            // }
+            // CommentsComp.comment_array.push(new_comment)
+            let a = {
+                postId: this.id,
+                form: {content: this.new_comm}
             }
-            CommentsComp.comment_array.push(new_comment)
+            this.createComment(a)
         },
         Hide_new_comm() {
             if (this.comm == true)

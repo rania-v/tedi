@@ -110,7 +110,7 @@ router.post("/delete-post", async (req, res)=>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Add a Comment
 router.post("/addComm", async(req, res) => {
     try{
-
+        console.log('req: ', req.body)
         const targetPost = await post.findById(req.body.postId);
         const targetUser = req.user;
 

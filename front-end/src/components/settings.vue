@@ -38,7 +38,7 @@
                     </v-row>
             </v-card-text>
             <v-card-actions class="d-">
-                <v-btn outlined @click="logout()" color="pink">log out</v-btn>
+                <v-btn outlined @click="exit()" color="pink">log out</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn v-if="!update" v-on:click="update=true" text style="color:teal"><v-icon class="fas fa-edit" left></v-icon>Update</v-btn>
                 <v-btn v-if="update" v-on:click="store()" text style="color:teal"><v-icon class="fas fa-save" left></v-icon>Save</v-btn>
@@ -62,17 +62,10 @@ export default ({
             sett_img_left: require('../illustrations/190.svg'),
             sett_img_right: require('../illustrations/196.svg'),
             password: '123456789',
-            // pass_for_check: null,
-            // new_pass: null,
-            // new_email: null,
             update: false,
             save: null,
 
-            /// !!!!!!! FORMA
             form:{
-                //  !! XWRIS TO 'PERSONAL' px:
-                // email: ...
-                // pass: ...
                 new_email: null,
                 pass_for_check: null,
                 new_pass: null,
@@ -80,7 +73,7 @@ export default ({
         }
     },
     methods: {
-        ...mapActions(['updateUserSettings','']),
+        ...mapActions(['updateUserSettings','logout']),
         store(){
             this.updateUserSettings(this.form)
         },
@@ -95,6 +88,14 @@ export default ({
             this.update = false;
             this.password = this.new_pass;
             this.login_email = this.new_email;
+        },
+        exit(){
+            console.log('mphke')
+            this.logout()
+            .then(response=>{
+                console.log(response);
+                this.$router.push({name:"wlcm"})
+            })
         }
     },
     computed:{

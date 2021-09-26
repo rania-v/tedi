@@ -71,5 +71,34 @@ export default{
 
     DELETE_TOKEN(state){
         Vue.set(state, "token", null);
-    }
+    },
+
+    DELETE_CLIENT(state){
+      // console.log('payload: ', payload);
+
+      Vue.set(state, "_id", null)
+      Vue.set(state, "isAdmin", null);
+
+      Vue.set(state, "firstName", null);
+      Vue.set(state, "lastName", null);
+      Vue.set(state, "image", null);
+      Vue.set(state, "birthday", null);
+      Vue.set(state, "country", null);
+      Vue.set(state, "friends", null);
+      Vue.set(state, "frequests", null);
+      Vue.set(state, "myJobs", null);
+      Vue.set(state, "myChats", null);
+      Vue.set(state, "posts", null);
+      Vue.set(state, "notifications", null);
+
+      Vue.set(state, "phoneNum", null);
+      Vue.set(state, "profEmail", null);
+      Vue.set(state, "perEmail", null);
+
+      Vue.set(state, "resume", null);
+      Vue.set(state, "workplace", null);
+      Vue.set(state, "skills", null);
+      Vue.set(state, "profession", null);
+      // console.log('state: ', state)
+    },
 }

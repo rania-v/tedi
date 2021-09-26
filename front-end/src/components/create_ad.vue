@@ -93,8 +93,8 @@
             </v-card-text>
         </v-card>
 
+        <v-textarea clearable v-model="form.more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
-        <v-textarea clearable v-model="more_info" :clear-icon="cl_icon" label="Write some more info about this job (Optional)" rows="3" :color="form_text_color"></v-textarea>
 
         <v-btn v-if="!posted" :color="form_text_color" v-on:click="validate_and_submit()" style="color:white" :disabled="!valid">Post Ad!</v-btn>
         <v-alert v-else color="success " dense text>your ad is posted!</v-alert>
@@ -226,7 +226,9 @@ export default ({
         validate_and_submit () {
             this.valid = this.$refs.form.validate()
             if( this.valid == true  )
-            {    this.createAd(this.form);
+            {
+                console.log('form: ', this.form)
+                this.createAd(this.form);
                 this.posted = true;}
         }
     }

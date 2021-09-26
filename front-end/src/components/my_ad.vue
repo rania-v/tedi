@@ -1,10 +1,11 @@
 <template>
-<div>
+<div >
   <v-container v-if="!this.isLoading">
     <v-card class="mt-1">
+      {{id}}
         <v-img :src="image ? image : image"></v-img>
       <v-badge top  overlap color="red accent-2" icon="fas fa-plus" bordered>
-        <v-card-title class="pb-1">{{ad.title}}</v-card-title>
+        <v-card-title class="pb-1">{{title}}</v-card-title>
       </v-badge>
         <v-card-actions  class="justify-space-between pt-0">
           <v-btn icon @click="show = !show" >
@@ -12,7 +13,7 @@
             <v-icon v-show="show==true">fas fa-caret-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>        
-          <v-btn color="teal lighten-2" text  @click="openmyad" :to="{name: 'OpenMyAd', params: {id: this.id}}">
+          <v-btn color="teal lighten-2" text :to="{name: 'OpenMyAd', params: {id: this.id, ad: this.ad}}">
             View Info
           </v-btn>
         </v-card-actions>
@@ -38,7 +39,11 @@ export default ({
     name: 'Ad',
     data() {
         return {
-          ad: this.loadAd(),
+          // promise: this.getAd(this.id),
+          title: 'lalal',
+          // ad: this.promise.then(res => {this.title = res.title}),
+          loading_ad: this.loadAd(),
+          ad: null,
           image: require('../images/3.jpg'),
           namechip:false,
           show: false
@@ -51,10 +56,11 @@ export default ({
       ...mapActions(['getAd']),
       openmyad() {
         // this.$emit('open_my_ad', '');
-      },
-      async loadAd(){
-        let a = await this.getAd(this.id);
-        console.log('a: ', a);
+      }
+      ,
+       async loadAd(){
+        let a = await this.getAd(this.id)
+          .then(res => {this.title = res.title; this.ad = res;})
         return a;
       }
       
@@ -64,12 +70,6 @@ export default ({
         isLoading:'isLoading'
       })
       // aa: function (){return this.getAd(this.id)}
-    },
-    created(){
-      // this.ad = this.getAd(this.id)
-      // this.$forceUpdate();
-      // console.log('NA SOIU PE8ANEI')
-      // console.log('ad: ', this.ad)
     }
 })
 </script>

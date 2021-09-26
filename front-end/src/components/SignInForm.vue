@@ -48,7 +48,7 @@ export default {
             this.login({email: this.email, password: this.password})
             .then( response => {
                 console.log(response);
-                this.$router.push({name:"Home"})
+                this.$router.push({name:"JobAds"})
             })
             .catch( error => { 
                 this.error = true;

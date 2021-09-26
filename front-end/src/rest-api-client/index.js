@@ -103,10 +103,10 @@ export const actions = {
 
   async getAd(adId){
     return requests.adRequest(adId, client.token.token)
-    .then(function(response){
+    .then(response=>{
       return response;
     })
-    .catch(function(error){client = initClient(); throw error})
+    .catch(error=>{client = initClient(); throw error})
   },
 
   async createAd(data){

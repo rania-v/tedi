@@ -3,7 +3,7 @@
         <v-row >
             <v-col cols="7">
                 <!-- <v-container class="overflow-hidden deep-purple lighten-4 rounded pt-4 pb-4 pr-2 pl-2" :style="{'max-height': height}"> -->
-                    <OpenAd :open="open"/>
+                    <OpenAd :open="open" :id="id" :ad="ad"/>
                 <!-- </v-container> -->
             </v-col>
             <v-col cols="5">
@@ -51,6 +51,10 @@ export default ({
     components: {
         OpenAd,
         UserCard,
+    },
+    props: {
+        id:String,
+        ad: Object
     },
     data() {
         return{

@@ -10,7 +10,7 @@
                         <v-text-field label="e-mail" v-model="email" ></v-text-field>
                         <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
                         <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
-                        <span v-if="conf_password==false">password not the same</span>
+                        <v-alert v-if="password!='' && conf_password!='' && !checkPass()" color="error" dense text>password not the same</v-alert>
                     </v-col>
                     <v-col id="tf">
                         <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
@@ -76,6 +76,11 @@ export default {
         ShowImg() {
             this.photo= URL.createObjectURL(this.photo)
         },
+        checkPass() {
+            if(this.password === this.conf_password)
+                return true;
+            else return false;
+        }
     }
 }
 

@@ -3,6 +3,8 @@
             <!-- <v-img :src="banner_back" max-height="120px" min-width="101%" style="top: 0; right: 0; z-index:1 !important"></v-img> -->
             <v-img :src="banner_img" max-height="120px" max-width="200px" contain aspect-ratio="1" style="z-index:3"></v-img>
             <h1 id="myFont" class="pa-5 d-flex align-center" style="color: white;">FaceIn</h1>
+            <v-spacer></v-spacer>
+            <h4 id="myFont" class="pa-5 d-flex align-end" style="color: white;">{{firstName}} {{lastName}}</h4>
     </v-container>
 </template>
 
@@ -28,6 +30,7 @@ export default({
     computed:{
         ...mapGetters({
             firstName: "firstName",
+            lastName: "lastName",
         }),  
     },
 })

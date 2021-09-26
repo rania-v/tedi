@@ -154,7 +154,7 @@ export default{
     myJobs: state => state.myJobs ? state.myJobs : null,
     myChats: state => state.myChats ? state.myChats : null,
     posts: state => state.posts ? state.posts : null,
-    notifications: state => state.notifications ? state.notifications : null,
+    notifications: state => state.notifications ? state.notifications : state.notifications,
 
     phoneNum: state => state.phoneNum ? state.phoneNum : null,
     profEmail: state => state.profEmail ? state.profEmail : null,

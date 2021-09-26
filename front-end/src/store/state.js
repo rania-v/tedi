@@ -24,7 +24,7 @@ export default {
 	image: null,
 	
 	posts: null,
-	notifications: [],
+    notifications: {frequests:[],reacts:[],comments:[],chats:[]},
 
     resume: null,
     profession: null,

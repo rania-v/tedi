@@ -9,6 +9,7 @@
                         <v-row>{{this.firstName + ' ' + this.lastName}}</v-row>
                         <v-row>{{this.birthday.value}}</v-row>
                         <v-row>{{this.profession.value}}</v-row>
+                        <!-- <v-row>{{this.friends.list}}</v-row> -->
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -20,9 +21,10 @@
                 <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
                     <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                        <v-col cols="3"  v-for="friend in this.network.slice(0,7)" :key="friend"  >
-                            <v-badge :content=friend.user :value=hover color="deep-purple lighten-1" overlap>
-                                <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend.user} }">
+                        <v-col cols="3"  v-for="friend in this.network" :key="friend">
+                            <!-- {{friend}} -->
+                            <v-badge :content=friend.name :value=hover color="deep-purple lighten-1" overlap>
+                                <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend._id} }">
                                     <v-avatar>
                                         <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
                                     </v-avatar>
@@ -51,41 +53,8 @@ export default ({
             image: require('../images/usagi_1.png'),
             hover: false,
             usr:null,
-            network: this.buildUp,
-            // network: [
-            //     {
-            //         user: 'Haruka Tenou',
-            //         avatar: require('../icons/avatars/haruka.jpg')
-            //     },
-            //     {
-            //         user: 'Mizuno Ami',
-            //         avatar: require('../icons/avatars/ami.jpg')
-            //     },
-            //     {
-            //         user: 'Hino Rei',
-            //         avatar: require('../icons/avatars/rei.png')
-            //     },
-            //     {
-            //         user: 'Minako Aino',
-            //         avatar: require('../icons/avatars/aino.jpg')
-            //     },
-            //     {
-            //         user: 'Makoto Kino',
-            //         avatar: require('../icons/avatars/makoto.jpg')
-            //     },
-            //     {
-            //         user: 'Setsuna Meioh',
-            //         avatar: require('../icons/avatars/meioh.png')
-            //     },
-            //     {
-            //         user: 'Michiru Kaioh',
-            //         avatar: require('../icons/avatars/michiru.jpg')
-            //     },
-            //     {
-            //         user: 'Hotaru Tomoe',
-            //         avatar: require('../icons/avatars/tomoe.jpeg')
-            //     }
-            // ]
+            network: [],
+            loading_list: this.buildNetwork(),
        }
     },
     computed:{
@@ -99,15 +68,9 @@ export default ({
             country: "country",
             frequests: "frequests"
         }),
-        buildUp(){
-            if(this.network == null){
-                return this.buildNetwork();
-            }
-            else return this.network;
-        }
     },
     methods: {
-        ...mapActions(['getUser']),
+        ...mapActions(['getUser', 'getFriends']),
         Open_Network() {
             // let p = this.$parent;
             // if(p.$options.name == 'Home')
@@ -120,23 +83,9 @@ export default ({
         },
 
         async buildNetwork(){
-            // while(this.friends == undefined){
-                // continue;
-            // }
-            console.log('mesa');
-            // console.log('country: ', this.country, ' frq: ', this.frequests)
-            // console.log('gett: ', this.lastName, ' , fr: ', this.friends)
             let users = [];
-            console.log('fr: ', this.friends)
-            for(let i of this.friends.list){
-                console.log('POLY MESAAAAA: ', i);
-                var user = this.getUser(i)
-                users.push({user: user.personal.firstName + ' ' + user.personal.lastName, avatar: user.personal.image})
-            }
-            // var user2 = this.getUser('614ccef4f751713c7d415006');
-            // users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})
-            // console.log(user2)
-
+            users = await this.getFriends()
+                .then(res => {this.network = res;})
             return users;
         }
     }

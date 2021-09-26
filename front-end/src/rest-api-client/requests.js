@@ -50,11 +50,12 @@ export const postRequest = async (postId, token) =>{
 
 export const userRequest = async (userId, token) =>{
   let headers = { "Authorization": `${token}` };
+  console.log('req id: ', userId)
   let data = {
     userId: userId,
   }
   return restAPI.send('POST', 'user', data, headers)
-  .then(function(response) { return response })
+  .then(function(response) {console.log('req res: ', response); return response })
   .catch(function(error) { throw error })
 }
 

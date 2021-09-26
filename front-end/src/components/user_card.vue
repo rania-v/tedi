@@ -2,7 +2,7 @@
 <!-- <v-container> -->
 
     <v-card width="100%" class="mt-2 pb-2" max-height="300px" @mouseover.native="overlay=true" @mouseleave="overlay=false">
-        <v-img :src="user.personal.image ? user.personal.image : require('../icons/avatars/user1.png') ">
+        <v-img :src="user.image ? user.image : require('../icons/avatars/user1.png') ">
             <v-overlay absolute :value="overlay" color="white" >
                 <v-responsive :aspect-ratio="13/4">
 
@@ -13,7 +13,7 @@
             </v-overlay>
         </v-img>
         <v-card-title>
-            <v-row class="d-flex justify-center" style="word-break: break-word;">{{user.personal.firstname + ' ' + user.personal.lastName}}</v-row>
+            <v-row class="d-flex justify-center" style="word-break: break-word;">{{user.name}}</v-row>
         </v-card-title>
         <v-card-text>
             <v-row class="d-flex justify-center">{{user.attrs.profession}}</v-row>
@@ -29,18 +29,17 @@ export default ({
     data() {
       return {
           overlay: false,
-                            user: Object,
+                            // user: Object,
                         //   user: {
                         //         photo: require('../icons/avatars/sailormoon.jpeg'),
                         //         name: 'Chaka Khan',
                         //         profession: 'Singer',
                         //         workplace: 'Vietnam Singing Bar'
                         //     }
-                    
         }
     },
     props:{
-        id: String,
+        user: Object,
     },
 })
 </script>

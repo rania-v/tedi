@@ -85,6 +85,17 @@ export const actions = {
     .catch(function(error) {client = initClient(); throw error })
   },
 
+  async searchUsers(val){
+    return requests.searchUsersRequest(val, client.token.token)
+    .then(response => {
+      console.log(response);
+      return response;
+    })
+    .catch(err=>{
+      console.log(err)
+      throw err;
+    })
+  },
 
   async logout() {
     return requests.logoutRequest(client.token.token)

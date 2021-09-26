@@ -21,6 +21,42 @@ router.post('/logout', async(req, res) => {
     }
   });
 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Search in Users
+router.post('/searchUsers', async(req, res) =>{
+  try{
+    let val = req.body.val;
+    console.log('val: ', val);
+    // let searched = await user.find({$text: {$search: val}}, {score:{$meta: "textScore"}})
+    //    .limit(10).sort({score:{$meta: "textScore"}}).exec()
+    // console.log('searched: ', searched);
+    // let final = [];
+    // for(let i of searched){
+    //   console.log(i)
+    //   final.push({name: i.personal.firstName + ' ' + i.personal.lastName, _id:i._id});
+    // }
+    // console.log('final: ', final);
+
+    let searched = await user.find({});
+    console.log('searched: ', searched);
+
+    let final = [];
+    for(i of searched){
+      if(i.personal.firstName.includes(val) || i.personal.lastName.includes(val)){
+          final.push({name: i.personal.firstName + ' ' + i.personal.lastName, _id:i._id});
+      }
+    }
+
+    console.log('final: ', final)
+
+    res.json({
+      list: final
+    })
+  }catch(err){
+    console.log('skata')
+    res.json({message: err});
+  }
+})
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Settings
 router.post('/update-user-settings', async(req, res) =>{

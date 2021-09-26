@@ -27,6 +27,17 @@ export const registerRequest = async (newUser) =>{
   .catch(function(error) { throw error })
 }
 
+export const searchUsersRequest = async (val, token) =>{
+  let headers = { "Authorization": `${token}` };
+  let data = {
+    val: val,
+  }
+  return restAPI.send('POST', 'secure/searchUsers', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+
 export const postRequest = async (postId, token) =>{
   let headers = { "Authorization": `${token}` };
   let data = {

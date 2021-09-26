@@ -49,11 +49,28 @@ export default{
 			console.log('payload: ', payload)
 			this.login(payload.contact.profEmail, payload.personal.password)
 			commit("SET_LOADING", false);
+			return response;
 		})
 		.catch(error=>{
 			console.log(error);
 			commit("SET_LOADING", false);
 			throw error;
+		})
+	},
+
+	async searchUsers({commit}, payload){
+		console.log('mphkeeeeeeeeee')
+		commit("SET_LOADING", true);
+		return actions.searchUsers(payload)
+		.then(response=>{
+			console.log("res: ", response);
+			commit("SET_LOADING", false);
+			return response;
+		})
+		.catch(err=>{
+			console.log(err);
+			commit("SET_LOADING", false);
+			throw err;
 		})
 	},
 

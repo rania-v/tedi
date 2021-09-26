@@ -10,19 +10,19 @@
                 </v-btn>
         </v-row>
         <!-- <div style=""> -->
-            <v-container v-show="show==true" style="overflow:auto; max-height:170px">
-                <v-row v-for="cmnt in comment_array" :key="cmnt.user">
+            <v-container v-if="comment_array.lenght>0" v-show="show==true" style="overflow:auto; max-height:170px">
+                <v-row v-for="cmnt in comment_array" :key="cmnt._id">
                     <v-card class="rounded-pill pa-2 mb-1 d-flex" flat width="100%" height="50px" id="comment" color="grey lighten-4">
                         <v-card-text class="d-flex justify-start pa-0 pb-0 align-content-end">
-                                <v-avatar size="36">
+                                <!-- <v-avatar size="36">
                                     <v-img v-bind:src=cmnt.user_avatar></v-img>
-                                </v-avatar>
+                                </v-avatar> -->
                                 <v-col  class="text-left pa-1">
                                     <v-row class="pt-1 pb-1 pl-1">
-                                        <strong id="user_name" v-html=cmnt.user  style="color:teal"></strong>
+                                        <strong id="user_name" v-html=cmnt.creator  style="color:teal"></strong>
                                     </v-row >
                                     <v-row class="ma-1">
-                                        <p id="comm_text">{{cmnt.comment_text}}</p>
+                                        <p id="comm_text">{{cmnt.content}}</p>
                                     </v-row>
                                 </v-col>
                                 <v-col class="justify-end">

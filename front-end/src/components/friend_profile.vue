@@ -15,7 +15,7 @@
                                 <v-spacer></v-spacer>
                                 <v-col class="ma-3 pa-2 d-flex">
                                     <!-- <v-btn class="ma-1" small>send friend request</v-btn> -->
-                                    <v-btn v-if="!isfriend" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
+                                    <v-btn v-if="is_friend==false" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
                                     <v-btn v-else class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
                                 </v-col>
                             </v-row>
@@ -106,7 +106,7 @@ export default ({
                 from_id: '_id',
                 f_list: 'friends'
             }),
-            isfriend: this.isFriend(),
+            is_friend: this.isFriend(),
             id: this.$route.params.id,
             openNetwork: false,
                     image: require("../banner/banner_img.svg"),
@@ -133,7 +133,7 @@ export default ({
             }
             this.sendfreq(a);
         },
-        isFriend() {
+        async isFriend() {
             return this.f_list.includes(this.id)
         },
         delFriend() {

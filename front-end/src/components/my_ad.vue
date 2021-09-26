@@ -2,7 +2,6 @@
 <div >
   <v-container v-if="!this.isLoading">
     <v-card class="mt-1">
-      {{id}}
         <v-img :src="image ? image : image"></v-img>
       <v-badge top  overlap color="red accent-2" icon="fas fa-plus" bordered>
         <v-card-title class="pb-1">{{title}}</v-card-title>

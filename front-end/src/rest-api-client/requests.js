@@ -43,7 +43,8 @@ export const postRequest = async (postId, token) =>{
   let data = {
     postId: postId,
   }
-  return restAPI.send('POST', 'post', data, headers)
+  console.log('req id: ', postId)
+  return restAPI.send('POST', 'post/getPost', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

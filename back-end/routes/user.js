@@ -27,7 +27,7 @@ router.post("/", async (req, res)=>{
     // console.log
       let targetUser = await user.findById(req.body.userId);
       targetUser = await serUser(targetUser);
-      console.log('targ: ', targetUser)
+      // console.log('targ: ', targetUser)
       res.json({
           user:targetUser
       });

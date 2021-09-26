@@ -25,7 +25,7 @@ router.post('/logout', async(req, res) => {
 router.post('/searchUsers', async(req, res) =>{
   try{
     let val = req.body.val;
-    console.log('val: ', val);
+    // console.log('val: ', val);
     // let searched = await user.find({$text: {$search: val}}, {score:{$meta: "textScore"}})
     //    .limit(10).sort({score:{$meta: "textScore"}}).exec()
     // console.log('searched: ', searched);
@@ -37,7 +37,7 @@ router.post('/searchUsers', async(req, res) =>{
     // console.log('final: ', final);
 
     let searched = await user.find({});
-    console.log('searched: ', searched);
+    // console.log('searched: ', searched);
 
     let final = [];
     for(i of searched){

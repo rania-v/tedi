@@ -32,19 +32,24 @@ export default{
       Vue.set(state, "country", payload.personal.country);
       Vue.set(state, "friends", payload.personal.friendsList);
       Vue.set(state, "frequests", payload.personal.frequests);
-      Vue.set(state, "myJobs", payload.personal.myJobsAds);
+      Vue.set(state, "myJobs", payload.personal.myJobs);
       Vue.set(state, "myChats", payload.personal.myChats);
       Vue.set(state, "posts", payload.personal.myPosts);
-      Vue.set(state, "notifications", payload.personal.myNotifications);
+      Vue.set(state, "notifications", payload.personal.notifications);
 
       Vue.set(state, "phoneNum", payload.contact.phoneNum);
       Vue.set(state, "profEmail", payload.contact.profEmail);
-      Vue.set(state, "perEmail", payload.contact.perEmail);
+      Vue.set(state, "perEmail", payload.contact.rEmail);
 
       Vue.set(state, "resume", payload.attrs.resume);
-      Vue.set(state, "workplace", payload.attrs.firstName);
-      Vue.set(state, "skills", payload.attrs.skill_list);
+      Vue.set(state, "workplace", payload.attrs.workplace);
+      Vue.set(state, "skills", payload.attrs.skills);
       Vue.set(state, "profession", payload.attrs.profession);
+
+
+      Vue.set(state, "postsToSee", payload.postsToSee);
+      Vue.set(state, "jobsToSee", payload.jobsToSee);
+
       console.log('state: ', state)
     },
 

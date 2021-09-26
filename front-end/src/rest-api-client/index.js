@@ -270,6 +270,9 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
+  // async createXml(data) {
+    
+  // }
 }
 
 export var client = initClient();

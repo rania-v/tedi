@@ -29,6 +29,7 @@ export default ({
     data() {
       return {
           overlay: false,
+                            user: Object,
                         //   user: {
                         //         photo: require('../icons/avatars/sailormoon.jpeg'),
                         //         name: 'Chaka Khan',
@@ -39,7 +40,7 @@ export default ({
         }
     },
     props:{
-        user: Object,
+        id: String,
     },
 })
 </script>

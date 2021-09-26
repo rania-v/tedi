@@ -14,6 +14,7 @@
                         </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
+                <v-alert v-if="error" color="error" dense text>Password or e-mail wrong</v-alert>
                 <v-btn id="valid" type="submit" dark @click="submit" >Sign In</v-btn>
             </v-form>
         </v-card-text>
@@ -29,6 +30,7 @@ export default {
     name: 'SignInForm',
     data() {
         return {
+            error: false
             // name:'',
             // last_name:'',
             // phone_number: null,
@@ -49,6 +51,7 @@ export default {
                 this.$router.push({name:"Home"})
             })
             .catch( error => { 
+                this.error = true;
                 console.log(error);
                 // this.badAllert = true;
                 // this.badAllertMessage = error.message

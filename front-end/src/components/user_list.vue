@@ -24,13 +24,13 @@
                 </v-col>
             </v-row>
             <v-card-text class="d-flex justify-center flex-wrap">
-                <v-card v-for="i in user_list" :key="i" class="ma-2" :max-width="cust_size" outlined>
+                <v-card v-for="user in user_list" :key="user" class="ma-2" :max-width="cust_size" outlined>
                     <v-card-actions style="max-height:40px" v-if="pick_to_extract">
                         <v-spacer></v-spacer>
-                        <v-checkbox v-model="extract_list" :value="i" color="teal"></v-checkbox>
+                        <v-checkbox v-model="extract_list" :value="user" color="teal"></v-checkbox>
                     </v-card-actions>
                     <v-card-text class="d-flex justify-center pt-0">
-                        <UserCard/>
+                        <UserCard :user='user'/>
                     </v-card-text>
                 </v-card>
                 {{extract_list}}
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import UserCard from './user_card.vue'
 
 export default ({
@@ -91,6 +92,7 @@ export default ({
       }  
     },
     methods: {
+        ...mapActions('getUser'),
         close_pick() {
             this.extract_list = [];
             this.pick_to_extract = false;
@@ -100,7 +102,13 @@ export default ({
         },
         clear() {
             this.extract_list = '';
-        }
+        },
+        // export_xml(userid_list) {
+        //     var user;
+        //     for (id of userid_list) {
+        //         user = getUser(id);
+        //     }
+        // }
     }
 })
 </script>

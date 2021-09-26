@@ -362,4 +362,20 @@ export default{
 			throw error;
 		})
 	},
+
+	// async createXml({commit}, user_id) {
+	// 	commit("SET_LOADING", true);
+
+	// 	return actions.createXml(payload)
+	// 	.then(response => {
+	// 		commit("SET_LOADING", false)
+	// 		commit("STORE_CLIENT", client.user)
+	// 		return response
+	// 	})
+	// 	.catch(error => {
+	// 		console.log(error);
+	// 		commit("SET_LOADING", false)
+	// 		throw error;
+	// 	})
+	// }
 }

@@ -8,7 +8,7 @@ const { user, frequest} = require("../models/user");
 const { chat } = require("../models/chat");
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log out
-router.get('/logout', async(req, res) => {
+router.post('/logout', async(req, res) => {
     try {
         // save token to invalid tokens schema until it expires
       const token = new invalidToken({ value: utils.extractToken(req) });

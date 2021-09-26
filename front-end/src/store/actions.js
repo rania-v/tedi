@@ -27,15 +27,10 @@ export default{
 	async logout({commit}, payload){
         console.log(payload);
         commit("SET_LOADING", true)
-        return actions.logout(payload.email, payload.password)
+        return actions.logout()
 		.then( response => {
-			console.log()
-			console.log('responsesss: ', response);
-            console.log(client);
-			// commit("STORE_CLIENT", client.user)
-			commit("STORE_TOKEN", client.token.token)
-			commit("STORE_CLIENT", client.user)
-			commit("SET_LOGEDIN", true)
+			commit("DELETE_TOKEN")
+			commit("DELETE_CLIENT")
 			commit("SET_LOADING", false)
 			return response
 		})

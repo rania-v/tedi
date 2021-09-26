@@ -74,6 +74,17 @@ export const actions = {
     .catch(function(error) {client = initClient(); throw error })
   },
 
+  async logout() {
+    return requests.logoutRequest(client.token.token)
+    .then(function(response) {
+      // Set client object
+      console.log('response: ', response);
+      client = initClient();
+      return response.message;
+    })
+    .catch(function(error) {client = initClient(); throw error })
+  },
+
   async getPost(postId){
     return requests.postRequest(postId, client.token.token)
     .then(function(response){

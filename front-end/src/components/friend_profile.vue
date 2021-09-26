@@ -81,7 +81,9 @@
                     </v-col> -->
                     <v-spacer></v-spacer>
                 </v-row>
-                <PostComp/>
+                <v-card v-for="item in this.user.posts" :key="item" class="pa-3 ma-3" elevation="0">
+                    <PostComp :id="item"/>
+                </v-card>
             </v-col>
             <v-spacer></v-spacer>
         </v-row>
@@ -106,7 +108,7 @@ export default ({
                 from_id: '_id',
                 f_list: 'friends'
             }),
-            isfriend: this.isFriend(),
+            isfriend: this.isFriend,
             id: this.$route.params.id,
             openNetwork: false,
                     image: require("../banner/banner_img.svg"),

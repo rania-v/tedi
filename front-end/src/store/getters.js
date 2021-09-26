@@ -139,6 +139,8 @@ export default{
     isLogedIn: state => state.isLogedIn,
     isAdmin: state => state.isAdmin ? state.isAdmin : testing ? false : false ,
 
+    _id: state => state._id ? state._id : state._id,
+    
     allSkills: state => state.allSkills ? testSkills : testSkills,
     countrie_list: state => state.countrie_list ? countrie_list : countrie_list,
 

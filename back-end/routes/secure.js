@@ -309,9 +309,9 @@ router.delete('/deny-frequest', async(req, res) => {
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Remove a friend
-router.delete('/remove-friend', async(req, res) => {
+router.post('/remove-friend', async(req, res) => {
   try{
-
+    console.log('rec: ', req.body)
     const user1 = req.user;
     const user2 = await user.findById(req.body.exfriend);
     if(!user2)

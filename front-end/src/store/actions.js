@@ -58,6 +58,20 @@ export default{
 		})
 	},
 
+	async getFriends({commit, state}){
+		commit("SET_LOADING", true);
+		let fr = [];
+		for(let f of state.friends.list){
+			actions.getUser(f)
+			.then(response=>{
+				console.log('res: ', response)
+				let user = response.user;
+				fr.push(user)
+			})
+		}
+		return fr;
+	},
+
 	async searchUsers({commit}, payload){
 		console.log('mphkeeeeeeeeee')
 		commit("SET_LOADING", true);
@@ -94,9 +108,10 @@ export default{
 
 	async getUser({commit}, payload){
 		commit("SET_LOADING", true);
-		// console.log(payload)
+		console.log('action: ',payload)
 		return actions.getUser(payload)
 		.then( response => {
+			console.log('user: ', response);
 			commit("SET_LOADING", false);
 			return response;
 		})

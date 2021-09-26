@@ -134,7 +134,7 @@ export default({
     name: 'PersonalInfo',
     computed: {
         ...mapGetters({
-            id: '',
+            id: '_id',
             countries: 'countrie_list',
             first_name: 'firstName',
             last_name: 'lastName',

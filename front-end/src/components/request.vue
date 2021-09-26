@@ -14,7 +14,7 @@
     </v-dialog>
         <v-template >
 
-    <v-card width="100%" class="ma-2 pb-2">
+    <v-card width="20%" class="ma-2 pb-2">
         <v-img :src="user.photo"></v-img>
         <v-card-title>
             <v-row class="d-flex justify-center">{{user.name}}</v-row>
@@ -25,7 +25,7 @@
         </v-card-text>
         <v-card-actions class="d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
-            <v-btn color="teal" style="color:white" v-on:click="acceptfreq(id)">Accept</v-btn>
+            <v-btn color="teal" style="color:white" v-on:click="this.acceptfreq(this.id)">Accept</v-btn>
         </v-card-actions>
     </v-card>
         </v-template>

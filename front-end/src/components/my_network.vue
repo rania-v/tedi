@@ -14,6 +14,7 @@
             <div class="d-flex justify-center flex-wrap" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
                 <v-card v-for="i in network" :key="i._id" class="ma-2" max-width="16%" elevation="0">
                     <UserCard :user="i"/>
+                    i
                 </v-card>
             </div>
         </v-card>
@@ -41,51 +42,26 @@ name: 'Network',
         return {
             net_search: true,
             focus: 'net',
-            network: this.buildNetwork(),
+            load_network: this.buildNetwork(),
+            network: null,
         }
     },
     computed:{
         ...mapGetters({
-            friends: "friendsList",
+            friends: "friends",
         }),
     },
     methods:{
-        ...mapActions(['getUser']),
-        buildNetwork(){
-            let users = [];
-            for(let i in this.friends){
-                var user = this.getUser(i)
-                users.push(user);
-            }
+        ...mapActions(['getUser', 'getFriends']),
+        async buildNetwork(){
+            let users = await this.getFriends()
+                .then(res=>{
+                    this.network=res;
+                })
             // var user2 = this.getUser('614ccef4f751713c7d415006');
-            users.push(
-                {
-                        _id: '12234erqewc45536457iuds',
-                        personal:{image:null, firstName:'sddswmi', lastName:'Msdsdo'},
-                        attrs:{
-                            profession: 'Sports car racing',
-                            workplace: 'F1',
-                        },
-                },
-                {
-                        _id: '1223sdwe445536457iuds',
-                        personal:{image:null, firstName:'Ami', lastName:'Mizuno'},
-                        attrs:{
-                            profession: 'Sports car racing',
-                            workplace: 'F1',
-                        },
-                },
-                {
-                        _id: '1asew223445536457iuds',
-                        personal:{image:null, firstName:'Ami', lastName:'Minako'},
-                        attrs:{
-                            profession: 'Sports car racing',
-                            workplace: 'F1',
-                        },
-                },
-            )
             // users.push({user: user2.firstname + ' ' + user2.lastName, avatar: user2.image})
             // console.log(user2)
+            
 
             return users;
         }

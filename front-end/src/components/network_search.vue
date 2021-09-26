@@ -20,29 +20,43 @@
                         hide-details
                         label="Find People"
                         :search-input.sync="search"
+                        v-model="sid"
+                        @select="found=true"
                         >
                     </v-autocomplete>
                 </v-toolbar>
             </v-card-actions>
+            <v-card v-if="sid!=null">
+                lalalal
+                {{sid}}
+                lalal
+            </v-card>
         </v-card>
     </v-container>
 </template>
 
 <script>
 
-import {mapActions, mapGetters} from 'vuex';
-
+import {mapActions, mapGetters} from 'vuex'
 export default ({
     name: 'NetworkSearch',
     data() {
         return {
+            user:null,
+            suser: this.loadUser(),
+            sid:null,
             search: null,
             searched: []
         }
     },
     methods:{
-        ...mapActions(['searchUsers']),
+        ...mapActions(['searchUsers', 'getUser']),
         buildFrList(){return []},
+        async loadUser() {
+            let a = await this.getUser(this.sid)
+                .then(res => {this.user = res;})
+            return a;
+        }
     },
     computed:{
         ...mapGetters({
@@ -62,7 +76,14 @@ export default ({
             this.people.searched = [];
             let a = await this.searchUsers(val);
             this.searched = a.list
+        },
+        sid(val) {
+            if(val != null)
+            {
+                this.$router.push({name: 'Friend_Profile', params:{id: val}})
+            }
         }
+
     }
 })
 </script>

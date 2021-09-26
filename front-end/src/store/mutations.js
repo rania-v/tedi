@@ -35,11 +35,11 @@ export default{
       Vue.set(state, "myJobs", payload.personal.myJobs);
       Vue.set(state, "myChats", payload.personal.myChats);
       Vue.set(state, "posts", payload.personal.myPosts);
-      Vue.set(state, "notifications", payload.personal.notifications);
+      Vue.set(state, "notifications", payload.personal.myNotifications);
 
       Vue.set(state, "phoneNum", payload.contact.phoneNum);
       Vue.set(state, "profEmail", payload.contact.profEmail);
-      Vue.set(state, "perEmail", payload.contact.rEmail);
+      Vue.set(state, "perEmail", payload.contact.perEmail);
 
       Vue.set(state, "resume", payload.attrs.resume);
       Vue.set(state, "workplace", payload.attrs.workplace);

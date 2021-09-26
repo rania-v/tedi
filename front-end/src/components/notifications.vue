@@ -23,9 +23,9 @@
             <v-card-title>See what your friends have been up to</v-card-title>
             <v-card-text class="ma-0 pa-0">
                 <Notification
-                    :reacts='notifications.reacts'
-                    :comments='notifications.comments'
-                    :chats='notifications.chats'
+                    :reacts='this.notifications.reacts'
+                    :comments='this.notifications.comments'
+                    :chats='this.notifications.chats'
                 />
             </v-card-text>
         </v-container>

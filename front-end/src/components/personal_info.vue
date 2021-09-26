@@ -96,7 +96,7 @@
                             </v-card-text>
                             <v-card-title>Skill Set</v-card-title>
                         <v-card-text  style="">
-                            <v-flex v-if="update!=true" style="height:200px; overflow: auto;">
+                            <v-flex v-if="update!=true" style="max-height:200px; overflow: auto;">
                                 <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
                             </v-flex>
                             <v-card v-else>

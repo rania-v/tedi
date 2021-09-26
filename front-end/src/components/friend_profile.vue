@@ -112,35 +112,10 @@ export default ({
                 {action: 'Friend', icon: 'fas fa-user-friends'}
             ],
             user:this.getUser(this.id),
-            // user:this.mpla(),
                         other_user: {
                             personal:{
-                                firstName: 'Zoro',
-                                lastName: 'Name',
                                 image: require("../banner/banner_img.svg"),
-                                birthday: {value:'IT', private:0},
-                                country: {value:'IT', private:0},
-                                friendsList:[  'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user' ],
-                                // frequests:[ { type: mongoose.Schema.Types.ObjectId, ref: 'frequests' } ],
-                                myJobsAds:[  'Ad1', 'Ad2', 'Ad3'  ],
-                                // myChats:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
-                                myPosts:[  'Post1', 'Post2', 'Post3' ],
-                            },
-                            contact:{
-                                phoneNum: {value:'IT', private:0},
-                                perEmail: {value:'IT', private:0},
-                                profEmail: {value:'IT', private:0}
-                            },
-                            attrs:{
-                                resume:{
-                                    file: {type: Buffer},
-                                    filename: 'My Cool Juicy Resume',
-                                    mimetype: { type: String}
-                                },
-                                profession: {value:'Software Engineer', private:0} ,
-                                workplace: {value:'IT', private:0},
-                                skill_list: [ 'workahiolic bitch']
-                            },    
+                            }
                         }
 
         };

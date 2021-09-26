@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import UserCard from './user_card.vue'
 
 export default ({
@@ -68,7 +68,9 @@ export default ({
     },
     data() {
       return {
-            user_list:[1,2,3,4,5,6,7,8,10],
+          ...mapGetters({
+              user_list: 'friends'
+          }),
             pick_to_extract: false,
             popup: false,
             extract: false,

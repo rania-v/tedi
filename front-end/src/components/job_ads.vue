@@ -24,13 +24,6 @@
                     <router-view></router-view>
                 </v-card>
             </div>
-
-            <!-- <v-div v-if="open_ad">
-                <OpenAd :open="true"/>
-            </v-div>
-            <v-div v-if="open_my_ad">
-                <OpenMyAd/>
-            </v-div> -->
         </v-col>
         <v-col cols="2" class="align-self-end">
             <v-img :src="jad_img_right"></v-img>
@@ -39,9 +32,6 @@
 </template>
 
 <script>
-// import CreateAd from './create_ad.vue'
-// import OpenAd from './open_ad.vue'
-// import OpenMyAd from './open_my_ad.vue'
 
 export default ({
     name: 'JobAds',

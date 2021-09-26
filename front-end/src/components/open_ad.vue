@@ -6,17 +6,27 @@
         </v-card-actions>
         <v-row>
             <v-spacer></v-spacer>
-            <v-col><v-subheader class="teal--text justify-end">{{ad.date}}</v-subheader> </v-col>
+            <v-col><v-subheader class="teal--text justify-end">{{ad.date}} -ad id: {{id}}</v-subheader> </v-col>
         </v-row>
         <v-row>
             <v-col cols="6">
                 <v-card-title id="title_wrap">{{ad.title}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
-                    <v-row v-for="i in ad.basic_info" :key="i" id="basic_info">
-                        <v-col cols="4" id="field">{{i.field}}</v-col>
-                        <v-divider vertical></v-divider>
-                        <v-col cols="8" id="value">{{i.value}}</v-col>
+                    <v-row>
+                        <v-col cols="5" id="field">Job Title</v-col>
+                         <v-divider vertical></v-divider>
+                        <v-col id="value">{{ad.basic_info.job_title}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Compmany Name</v-col>
+                         <v-divider vertical></v-divider>
+                        <v-col id="value">{{ad.basic_info.company_name}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Location</v-col>
+                         <v-divider vertical></v-divider>
+                        <v-col id="value">{{ad.basic_info.location}}</v-col>
                     </v-row>
                 </v-card-text>
             </v-col>
@@ -33,10 +43,10 @@
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text v-if="open_q">
-                    <v-row v-for="i in ad.qualifications" :key="i" id="basic_info">
-                        <v-col cols="3" id="field">{{i.field}}</v-col>
+                    <v-row>
+                        <v-col cols="5" id="field">key_qualifications</v-col>
                         <v-divider vertical></v-divider>
-                        <v-col cols="9" id="value">{{i.value}}</v-col>
+                        <v-col><v-card-text id="value">{{ad.qualifications.key_qualifications}}</v-card-text></v-col>
                     </v-row>
                 </v-card-text>
                 <v-card-title id="title_wrap">Benefits
@@ -49,13 +59,9 @@
                     <v-row  id="basic_info">
                         <v-col cols="3" id="field">Salary: </v-col>
                         <v-divider vertical></v-divider>
-                        <v-col cols="9" id="value">{{ad.benefits.salary.min}} - {{ad.benefits.salary.max}}</v-col>
+                        <v-col cols="9" id="value">min:{{ad.benefits.salary.min}} - max:{{ad.benefits.salary.max}}</v-col>
                     </v-row>
-                    <v-row v-for="i in ad.benefits" :key="i" id="basic_info">
-                        <v-col cols="3" id="field">{{i.field}}</v-col>
-                        <v-divider vertical></v-divider>
-                        <v-col cols="9" id="value">{{i.value}}</v-col>
-                    </v-row>
+                    
                 </v-card-text>
             </v-col>
             <v-col cols="6">
@@ -66,36 +72,59 @@
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text v-if="open_jd">
-                    <v-row v-for="i in ad.job_description" :key="i" id="basic_info">
-                        <v-col cols="4" id="field">{{i.field}}</v-col>
+                    <v-row>
+                        <v-col cols="5" id="field">Position Duties</v-col>
                         <v-divider vertical></v-divider>
-                        <v-col cols="8" id="value">{{i.value}}</v-col>
+                        <v-col id="value">{{ad.job_Description.pos_duties}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Work Enviroment</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col>{{ad.job_Description.work_env}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Remote Work</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col id="value"><div v-if="ad.job_Description.remote == true">Yes</div><div v-else>No</div></v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Job Description</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col id="value">{{ad.job_Description.job_desc}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Position Duties</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col id="value">{{ad.job_Description.pos_duties}}</v-col>
                     </v-row>
                 </v-card-text>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-card-title id="title_wrap">
+                <v-card-title id="title_wrap" class="pt-0 pb-1" >
                     <v-spacer></v-spacer>
                     How to Apply
                     <v-spacer></v-spacer>
                     <v-btn v-if="!open_apl" plain v-on:click="open_apl=true" rounded><i class="fas fa-chevron-down"></i></v-btn>
                     <v-btn v-if="open_apl" plain v-on:click="open_apl=false" rounded><i class="fas fa-chevron-up"></i></v-btn>
                 </v-card-title>
-                <v-divider></v-divider>
+                    <v-divider></v-divider>
                 <v-card-text v-if="open_apl">
-                    <v-row v-for="i in ad.apply" :key="i" id="basic_info">
-                        <v-col cols="5" id="field">{{i.field}}</v-col>
+                    <v-row>
+                        <v-col cols="5" id="field">Link</v-col>
                         <v-divider vertical></v-divider>
-                        <v-col cols="7" id="value">{{i.value}}</v-col>
+                        <v-col cols="5" id="value">{{ad.apply.link}}</v-col>
                     </v-row>
                     <v-row>
-                        <v-col cols="5" id="field">{{ad.apply.link.field}}</v-col>
+                        <v-col cols="5" id="field">Email</v-col>
                         <v-divider vertical></v-divider>
-                        <v-col cols="7" id="value">
-                            <a href="url">{{ad.apply.link.value}}</a>
-                        </v-col>
+                        <v-col cols="5" id="value">{{ad.apply.email}}</v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="5" id="field">Email link</v-col>
+                        <v-divider vertical></v-divider>
+                        <v-col cols="5" id="value">{{ad.apply.site_link}}</v-col>
                     </v-row>
                 </v-card-text>
             </v-col>
@@ -104,10 +133,16 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
+// import { ref } from 'vue'
 
 export default ({
     name: 'OpenAd',
-    props: ['open'],
+    props: {
+        id: String,
+        open: Boolean,
+        ad: Object
+    },
     data() {
         return {
             open_q: this.open,
@@ -119,44 +154,14 @@ export default ({
             star_icon: 'far fa-star',
             fullstar: 'fas fa-star',
             emptystar: 'far fa-star',
-            ad: {
-                date: '1/1/2021',
-                title: 'Amazing Platform Software Engineer',
-                image: require('../images/5.jpg'),
-                basic_info:{
-                    job_title: {field: 'Job title', value: 'Platform Software Engineer'},
-                    company_name: {field: 'Company', value: 'HireVue'},
-                    location: {field: 'Location', value: 'Dublin'},
-                },
-                qualifications: {
-                    key_qualifications: {field: 'Key Qualifications', value: 'Proven working experience in software engineering,\n BS degree in Computer Science or Engineering,\n Experience in hands-on development and troubleshooting on embedded targets,\n Solid programming experience in C or C++,\n Proven experience in embedded systems design with preemptive,\n multitasking real-time operating systems,\n Familiarity with software configuration management tools,\n defect tracking tools,\n and peer review,\n Excellent knowledge of OS coding techniques,\n IP protocols,\n interfaces and hardware subsystems,\n Adequate knowledge of reading schematics and data sheets for components,\n Strong documentation and writing skills'},
-                    req_experience: {field: 'Required Experience', value: '..........'},
-                },
-                job_description: {
-                    pos_duties: {field: 'Position Duties', value: "Design and implement software of embedded devices and systems from requirements to production and commercial deployment, Design, develop, code, test and debug system software, Review code and design, Analyze and enhance efficiency, stability and scalability of system resources ,Integrate and validate new product designs, Support software QA and optimize I/O performance, Provide post production support, Interface with hardware design and development, Assess third party and open source software"},
-                    work_env: {field: 'Work Enviroment', value: '.Design and implement software of embedded devices and systems from requirements to production and commercial deployment, Design, develop, code, test and debug system software, Review code and design, Analyze and enhance efficiency, stability and scalability of system resources ,Integrate and validate new product designs, Support software QA and optimize I/O performance, Provide post production support, Interface with hardware design and development, Assess third party and open source software.....'},
-                    job_desc: {field: 'Job Description', value: '......'},
-                    remote_work:{fiels: 'Remote Work', value: true},
-                    employment_type: {field: 'Employment Type', value: '......'},
-                },
-                benefits: {
-                    salary:{
-                        min: '300$',
-                        max: '500$',
-                    },
-                    // !!!!!!!!!!!!!!!!! VGALE TO '$' APO TO STRING KAI VALE TO HARDCODED STO TEMPLATE
-                    pos_benefits: {field: 'Position Benefits', value: '......'},
-                },
-                apply: {
-                    link: {field: 'Apply link', value: 'www.amazingjobcompany.com'},
-                    email: {field: 'email', value: 'applyto@amazingjobcompany.com'},
-                    site_link: {field: 'site', value: '......'},
-                },
-                more_job_info: '...'
-            }
         }
     },
     methods: {
+        ...mapActions(['getAd']),
+        // async setUp() {
+            // this.ad = ref(await this.getAd(this.id));
+        // // return ad;
+        // },
         addtoFavAds() {
             if(!this.fav)
             {

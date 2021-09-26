@@ -142,6 +142,7 @@ export default{
 		commit("SET_LOADING", true);
 		return actions.createAd(payload)
 		.then(response => {
+			commit("STORE_CLIENT", client.user);
 			commit("SET_LOADING", false)
 			return response
 		})

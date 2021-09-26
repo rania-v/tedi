@@ -92,6 +92,7 @@ const routes = [
                                 path: '/JobAds/my-ads/my-ads-list',
                                 name: 'MyAdsList',
                                 component: MyAdsList,
+                                props: true,
                                 children: [
                                     // {
                                     //     path: '/JobAds/my-ads/my-ads',
@@ -103,7 +104,8 @@ const routes = [
                             {
                                 path: '/JobAds/my-ads/my-ad-id-:id',
                                 name: 'OpenMyAd',
-                                component: OpenMyAd
+                                component: OpenMyAd,
+                                props: true
                             }
                         ]
                     },

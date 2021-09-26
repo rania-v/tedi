@@ -52,6 +52,9 @@ export default ({
             hover: false,
             usr:null,
             network: this.buildUp,
+
+
+            
             // network: [
             //     {
             //         user: 'Haruka Tenou',

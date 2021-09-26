@@ -8,13 +8,13 @@
                     </v-avatar>
                     <strong id="user_name" v-html=user></strong>
                 </v-col>
-                <v-col id="time" class=text-right >{{time}}</v-col>
+                <v-col id="time" class=text-right >{{this.post.Date}}</v-col>
             </v-row>
         </v-card-title>
         <v-img :src="post_photo" max-height="200px" contain></v-img>
         <v-card-text>
             <v-row>
-                <v-card-text>{{text}}</v-card-text>
+                <v-card-text>{{this.post.content}}</v-card-text>
             </v-row>
         </v-card-text>
         <v-row>
@@ -57,6 +57,8 @@ export default ({
     },
     data() {
         return {
+            post: null,
+            creator: null,
             user: '',
             user_avatar: require('../icons/avatars/haruka.jpg'),
             post_photo: require('../icons/avatars/haruka.jpg'),
@@ -71,7 +73,7 @@ export default ({
         id: String,
     },
     methods: {
-        ...mapActions(["getPost",]),
+        ...mapActions(["getPost","getUser"]),
         post_new_comm() {
             let new_comment = {
                 user_avatar: this.user_avatar,
@@ -91,9 +93,17 @@ export default ({
         }
     },
     
-    beforeMount(){
-        var post = this.getPost();
-        console.log(post);
+    async beforeMount(){
+        console.log('id: ', this.id)
+        await this.getPost(this.id)
+            .then(res=>{
+                this.post=res.post;
+            })
+        await this.getUser(this.post.creator)
+        .then(res=>{
+            this.creator = res;
+        })
+        // console.log('post: ', this.post);
     }
 })
 </script>

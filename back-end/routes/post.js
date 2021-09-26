@@ -33,11 +33,16 @@ router.get("/", async (req, res)=>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Post
 router.post("/getPost", async (req, res)=>{
     try{
-        const post = await post.findById(req.body.postId);
+        const id = req.body.postId
+        // console.log('id: ', id)
+        const targetPost = await post.findById(id);
+        // console.log('mphke: ')
+        // console.log(targetPost)
         res.json({
-            post:post
+            post:targetPost
         });
     }catch(error){
+        console.log('err: ', error)
         res.status(400).json({message: error});
     }
 })

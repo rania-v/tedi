@@ -24,13 +24,13 @@ function initClient(){
             // userName: null,
             firstName: null,
             lastName: null,
-            profession: null,
             country: null,
             birthday: null,
             friends: null,
             frequests: null,
             myJobs: null,
             myChats: [],
+            myPosts: [],
 
             phoneNum: null,
             profEmail: null,
@@ -41,8 +41,12 @@ function initClient(){
             notifications: [],
 
             resume: null,
+            profession: null,
             workplace: null,
             skills: [],
+
+            postsToSee:[],
+            jobsToSee:[],
         },
         token:{
             token: null,
@@ -110,10 +114,10 @@ export const actions = {
 
   async getPost(postId){
     return requests.postRequest(postId, client.token.token)
-    .then(function(response){
+    .then(response=>{
       return response;
     })
-    .cathc(function(error){client = initClient(); throw error})
+    .catch(function(error){client = initClient(); throw error})
   },
 
   async getUser(userId){
@@ -135,10 +139,11 @@ export const actions = {
   async createAd(data){
     return requests.createAdRequest(data, client.token.token)
     .then(function(response){
-      console.log(client.myJobs);
+      // console.log(client.myJobs);
       if(client.user.myJobs == undefined)
         client.user.myJobs={list: [], private: false}
       client.user.myJobs.list.push(response.job._id);
+      // console.log('l: ', client.user.jobsToSee);
       actions.setClient(response);
       return response.message;
     })
@@ -211,7 +216,11 @@ export const actions = {
   async createPost(form){
     return requests.createPostRequest(form, client.token.token)
     .then(function(response){
-      actions.setClient(response);
+      console.log('res: ', response)
+      if(client.user.postsToSee == undefined)
+        client.user.postsToSee = [];
+      client.user.postsToSee.push(response.post._id);
+      console.log('posts: ', client.user.postsToSee)
       return response;
     })
     .catch(function(error){client = initClient(); throw error})

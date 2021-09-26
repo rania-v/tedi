@@ -94,7 +94,8 @@ export default{
 
 	async getPost({commit}, payload){
 		commit("SET_LOADING", true);
-		return actions.getPost(payload.id)
+		// console.log('pay: ', payload)
+		return actions.getPost(payload)
 		.then( response => {
 			commit("SET_LOADING", false);
 			return response;
@@ -111,7 +112,7 @@ export default{
 		console.log('action: ',payload)
 		return actions.getUser(payload)
 		.then( response => {
-			console.log('user: ', response);
+			// console.log('user: ', response);
 			commit("SET_LOADING", false);
 			return response;
 		})
@@ -237,6 +238,7 @@ export default{
 		return actions.createPost(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
+			console.log('client: ', client.user)
 			commit("STORE_CLIENT", client.user)
 			return response
 		})

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const passport = require("passport");
 const utils = require('../auth/utils');
-
+const {serUser} = require('../serializer');
 
 // const User_module;
 const { user, frequest} = require("../models/user");
@@ -24,7 +24,10 @@ mongoose.connect(
 router.post("/", async (req, res)=>{
   try{
     console.log(req.body)
-      const targetUser = await user.findById(req.body.userId);
+    // console.log
+      let targetUser = await user.findById(req.body.userId);
+      targetUser = await serUser(targetUser);
+      console.log('targ: ', targetUser)
       res.json({
           user:targetUser
       });

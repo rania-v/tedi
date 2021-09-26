@@ -35,15 +35,35 @@ router.post("/", async (req, res)=>{
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Register new User
-router.post("/register",
-    passport.authenticate('register', {session: false}),
-    async (req, res)=>{
-        console.log('mpla');
-        res.json({
+router.post("/register", async(req, res, next) =>{
+    passport.authenticate('register',{session:false},
+    async (err, user, info)=>{
+      try{
+        if(err || !user){
+          // console.log('user: ', user, " err: ", err, ' info: ', info);
+          return res.status(500).json({message: 'Σφάλμα'})
+        }
+        console.log('req: ', req);
+        return res.json({
             message: 'Επιτυχής Εγγραφή !!',
-            user: req.user
+            user: user,
+            // user: req.user
         });
+      }
+      catch(err){
+        console.log("err: ", err);
+        return next({message: err});
+      }
+    })(req, res, next);
 })
+
+// router.post("/register", async (req, res)=>{
+//         console.log('mpla');
+//         res.json({
+//             message: 'Επιτυχής Εγγραφή !!',
+//             user: req.user
+//         });
+// })
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log in
 router.post('/login', async (req, res, next) => {

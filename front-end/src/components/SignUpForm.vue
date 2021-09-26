@@ -5,15 +5,15 @@
             <v-form @submit.prevent="handleSubmit(onSubmit)">
                 <v-row justify="space-between" align="center">
                     <v-col id="tf">
-                        <v-text-field label="First Name" required v-model="name"></v-text-field>
-                        <v-text-field label="phone number" type="text" @keypress="phone_check" v-model="phone_number" :maxlength="10" required></v-text-field>
-                        <v-text-field label="e-mail" v-model="email" ></v-text-field>
-                        <v-text-field label="password" v-model="password" :type="'password'" required></v-text-field>
+                        <v-text-field label="First Name" required v-model="user.personal.firstName"></v-text-field>
+                        <v-text-field label="phone number" type="text" @keypress="phone_check" v-model="user.contact.phoneNum.value" :maxlength="10" required></v-text-field>
+                        <v-text-field label="e-mail" v-model="user.contact.profEmail.value" ></v-text-field>
+                        <v-text-field label="password" v-model="user.personal.password" :type="'password'" required></v-text-field>
                         <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
                         <span v-if="conf_password==false">password not the same</span>
                     </v-col>
                     <v-col id="tf">
-                        <v-text-field label="Last Name" v-model="last_name" required></v-text-field>
+                        <v-text-field label="Last Name" v-model="user.personal.lastName" required></v-text-field>
                             <!-- <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model='photo'></v-file-input> -->
                             <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="photo" @change="ShowImg" :color="form_text_color"></v-file-input></v-col>
                             <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
@@ -28,7 +28,7 @@
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-card-actions class="">
-                    <v-btn id="valid" type="submit" dark @click="submit" :to="{name: 'GettingStarted', params:{ usr_name: name}}">Sign Up</v-btn>
+                    <v-btn id="valid" type="submit" dark @click="submit()">Sign Up</v-btn>
                 </v-card-actions>
             </v-form>
         </v-card-text>
@@ -36,24 +36,43 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: 'SignUpForm',
     data() {
         return {
-            name:'',
-            last_name:'',
-            phone_number: '',
-            email:'',
-            password:'',
             conf_password: '',
             message: '',
             checked: false,
             valid: true,
             visible: '',
-            photo: require('../icons/avatars/user1.png')
+            photo: require('../icons/avatars/user1.png'),
+            user:{
+                personal:{
+                    firstName: null,
+                    lastName: null,
+                    password: null,
+                    image: null,
+                },
+                contact:{
+                    phoneNum:{value: null},
+                    profEmail:{value: null},
+                }
+            }
         };
     },
     methods: {
+        ...mapActions(['register']),
+        async submit(){
+            await this.register(this.user)
+            .then(response=>{
+                console.log(response)
+                this.$router.push({name:"GettingStarted", params:{usr_name:this.user.personal.firstName}});
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+        },
         close() {
             this.$emit('close_up','');
         },

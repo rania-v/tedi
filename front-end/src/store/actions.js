@@ -41,6 +41,22 @@ export default{
 		})
     },
 
+	async register({commit}, payload){
+		commit("SET_LOADING", true);
+		return actions.register(payload)
+		.then(response=>{
+			console.log("res: ", response);
+			console.log('payload: ', payload)
+			this.login(payload.contact.profEmail, payload.personal.password)
+			commit("SET_LOADING", false);
+		})
+		.catch(error=>{
+			console.log(error);
+			commit("SET_LOADING", false);
+			throw error;
+		})
+	},
+
     async mpla(){
         console.log('mpla')
     },

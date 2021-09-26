@@ -11,7 +11,7 @@ export default{
 			console.log('responsesss: ', response);
             console.log(client);
 			// commit("STORE_CLIENT", client.user)
-			commit("STORE_TOKEN", client.token.token)
+			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)

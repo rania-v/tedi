@@ -15,6 +15,11 @@ const agent = new http.Agent({
 
 axios.defaults.options = agent;
 
+// console.log('loco: ',localStorage)
+// console.log('loco: ',JSON.parse(localStorage.ls).token)
+var localToken = JSON.parse(localStorage.ls).token;
+
+
 function initClient(){
     return {
         user:{
@@ -49,11 +54,12 @@ function initClient(){
             jobsToSee:[],
         },
         token:{
-            token: null,
-            expires: null,
+            token: localToken ? localToken.token : null,
+            expires: localToken ? localToken.exp : null,
         }
     }
 }
+
 
 export const actions = {
     setClient(data) {

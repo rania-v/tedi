@@ -11,6 +11,7 @@ async function serUser(user){
             avatar: user.personal.image,
             country:    user.personal.country.value ? !user.personal.country.private ? user.personal.country.value : null : null,
             birthday:    user.personal.birthday.value ? !user.personal.birthday.private ? user.personal.birthday.value : null : null,
+            myJobs: user.personal.myJobsAds.list.length > 0 ? ( !user.personal.myJobsAds.private ? user.personal.myJobsAds.list : null ): null,
             posts: user.personal.myPosts.list.length > 0 ? ( !user.personal.myPosts.private ? user.personal.myPosts.list : null ): null,
             friends: user.personal.friendsList.list ? !user.personal.friendsList.private ? user.personal.friendsList.list : null : null,
             contact:{

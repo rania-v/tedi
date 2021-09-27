@@ -7,10 +7,10 @@
                     <v-card-text>
                         <!-- <v-subheader style="color:white">Friends</v-subheader> -->
                         <v-list rounded two-line class="overflow-y-auto mt-2" max-height="750px">
-                            <v-list-item-group v-model="selected_convo" color="deep-purple darken-5">
-                                <v-container v-for="friend in ConvosArray()" :key="friend.name">
+                            <v-list-item-group color="deep-purple darken-5">
+                                <v-container v-for="friend in ConvosArray()" :key="friend.name">{{friend}}
                                     <v-divider></v-divider>
-                                    <v-list-item id="myFont" :class="{'d-flex mb-1 mt-1': friend.read, 'not_seen': !friend.read}" @click="conv=friend.name, friend.read=true">
+                                    <v-list-item id="myFont" :class="{'d-flex mb-1 mt-1': friend.read, 'not_seen': !friend.read}" @click="openChat(friend)">
                                         <v-badge :value="!friend.read" left color="teal accent-4" bordered icon="far fa-envelope">
                                             <v-avatar class="justify-start mr-2" size="40"><v-img :src="friend.avatar"></v-img></v-avatar>
                                         </v-badge>
@@ -52,6 +52,7 @@
                     </v-card-actions>
                     <v-card-text class="pt-0 pb-0 mb-0" style="height:100%">
                         <MsgFriend :conv="selected_convo"/>
+                        <!-- {{selected_convo}} -->
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -81,12 +82,12 @@ export default ({
             selected_convo: null,
             selected_name: null,
             convos: [
-                {
-                    name: 'kei',
-                    last_msg: 'lksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvs',
-                    avatar: require('../icons/avatars/rei.png'),
-                    read: false
-                },
+                // {
+                //     name: 'kei',
+                //     last_msg: 'lksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvs',
+                //     avatar: require('../icons/avatars/rei.png'),
+                //     read: false
+                // },
                 
             ],
             tmp: null,
@@ -95,15 +96,20 @@ export default ({
     },
     methods: {
         ...mapActions(['getChat','createChat','getUser']),
-        ConvosArray() {
-            return this.selected_convo ? this.selected_convo : this.convos;
-        },
-        findChat() {
-            let nc;
-            if(this.find_chat!=null) {
-                nc = this.convos.find(o => o.name === this.find_chat);
-                this.tmp.push(nc);
+        openChat(chat){
+            console.log('chat:', chat);
+            this.selected_convo = chat;
+            console.log('selected: ', this.selected_convo)
+            for(let i of this.convos){
+                console.log('i: ', i)
+                if(i.name == chat.name){
+                    //seen mssg??
+                    i.read=true;
+                }
             }
+        },
+        ConvosArray() {
+            return this.convos;
         },
         async fillAll(){
             //load chats
@@ -111,10 +117,10 @@ export default ({
             var module = {chat: null, user: null};
             for(let ch of this.myChats){
                 var temp = null;
-                console.log('edw')
+                // console.log('edw')
                 await this.getChat({id: ch, prev: true})
                 .then(res=>{
-                    console.log('i got: ', res)
+                    // console.log('i got: ', res)
                     module.chat = res.chat;
                     temp = res.user2
                 })
@@ -122,7 +128,7 @@ export default ({
                 .then(res=>{
                     module.user=res.user;
                 })
-                console.log('module: ', module)
+                // console.log('module: ', module)
                 this.convos.push({
                     name: module.user.name,
                     last_msg: module.chat.content ? module.chat.content[0].content : '',
@@ -132,7 +138,7 @@ export default ({
                     chatid: module.chat._id,
                 });
 
-                console.log('convos: ',this.convos)
+                // console.log('convos: ',this.convos)
             }
 
             //load friends list
@@ -146,7 +152,7 @@ export default ({
     },
     async beforeMount(){
         this.fillAll();
-        console.log('f_list: ', this.friends_list)
+        // console.log('f_list: ', this.friends_list)
     },
     watch:{
         async find_chat(val){

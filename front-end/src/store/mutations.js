@@ -32,7 +32,7 @@ export default{
       Vue.set(state, "country", payload.personal.country);
       Vue.set(state, "friends", payload.personal.friendsList);
       Vue.set(state, "frequests", payload.personal.frequests);
-      Vue.set(state, "myJobs", payload.personal.myJobAds);
+      Vue.set(state, "myJobs", payload.personal.myJobsAds);
       Vue.set(state, "myChats", payload.personal.myChats);
       Vue.set(state, "posts", payload.personal.myPosts);
       Vue.set(state, "notifications", payload.personal.myNotifications);

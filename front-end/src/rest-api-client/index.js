@@ -33,7 +33,7 @@ function initClient(){
             birthday: null,
             friends: null,
             frequests: null,
-            myJobAds: [],
+            myJobsAds: [],
             myChats: [],
             myPosts: [],
 
@@ -146,9 +146,9 @@ export const actions = {
     return requests.createAdRequest(data, client.token.token)
     .then(function(response){
       // console.log(client.myJobs);
-      if(client.user.myJobAds == undefined)
-        client.user.myJobAds={list: [], private: false}
-      client.user.myJobAds.list.push(response.job._id);
+      if(client.user.myJobsAds == undefined)
+        client.user.myJobsAds={list: [], private: false}
+      client.user.myJobsAds.list.push(response.job._id);
       // console.log('l: ', client.user.jobsToSee);
       actions.setClient(response);
       return response.message;

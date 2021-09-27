@@ -8,7 +8,7 @@
                         <!-- <v-subheader style="color:white">Friends</v-subheader> -->
                         <v-list rounded two-line class="overflow-y-auto mt-2" max-height="750px">
                             <v-list-item-group color="deep-purple darken-5">
-                                <v-container v-for="friend in ConvosArray()" :key="friend.name">{{friend}}
+                                <v-container v-for="friend in ConvosArray()" :key="friend.name">
                                     <v-divider></v-divider>
                                     <v-list-item id="myFont" :class="{'d-flex mb-1 mt-1': friend.read, 'not_seen': !friend.read}" @click="openChat(friend)">
                                         <v-badge :value="!friend.read" left color="teal accent-4" bordered icon="far fa-envelope">
@@ -46,8 +46,8 @@
                     <!-- <v-card-title class="teal" style="color:white">Chat</v-card-title> -->
                     <v-card-actions class="mr-2 mr-2" v-if="selected_convo!=null">
                         <v-spacer></v-spacer>
-                        <router-link :to="{ name: 'Friend_Profile', params:{ id: selected_convo!=null ? selected_convo.id : '', page_title: 'Δίκτυο'}}">
-                            <v-btn class="pink white--text">open friends profile</v-btn>
+                        <router-link style="text-decoration:none;" :to="{ name: 'Friend_Profile', params:{ id: selected_convo!=null ? selected_convo.id : '', page_title: 'Δίκτυο'}}">
+                            <v-btn class="pink white--text" >open friends profile</v-btn>
                         </router-link>
                     </v-card-actions>
                     <v-card-text class="pt-0 pb-0 mb-0" style="height:100%">

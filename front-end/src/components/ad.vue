@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{id}}
     <div class="d-flex">
       <v-avatar size="32" class="justify-start"><img :src="creator.personal.image ? creator.personal.image : require('../icons/avatars/user1.png')" alt="u1"></v-avatar>
       <strong class=" d-flex align-content-center flex-wrap" style="width:100%">

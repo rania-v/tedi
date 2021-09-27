@@ -53,11 +53,17 @@
 
 <script>
 import MsgFriend from './msgfriend.vue'
-
+import {mapGetters, mapActions} from 'vuex'
 export default ({
     name: 'Chat',
     components: {
         MsgFriend
+    },
+    computed: {
+        ...mapGetters({
+            friends: 'friends',
+            
+        })
     },
     data() {
         return {
@@ -157,6 +163,9 @@ export default ({
         }
     },
     methods: {
+        ...mapActions({
+
+        }),
         ConvosArray() {
             let nc;
             if(this.find_chat!=null) {

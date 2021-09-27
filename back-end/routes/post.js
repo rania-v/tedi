@@ -132,6 +132,7 @@ router.post("/addComm", async(req, res) => {
         res.json({
             message: 'Το σχόλιο δημοσιεύθηκε!',
             user: targetUser,
+            comm: newComm,
         })
     }catch(err){
         res.status(400).json({message: err});
@@ -142,6 +143,7 @@ router.post("/addComm", async(req, res) => {
 router.post("/getComment", async (req, res)=>{
     try{
         const comm = await comment.findById(req.body.commId);
+        // console.log('comment: ', comm)
         res.json({
             comment: comm,
         });

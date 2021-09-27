@@ -158,6 +158,7 @@ export default{
 		commit("SET_LOADING", true);
 		return actions.getComment(payload)
 		.then(response => {
+			// console.log('EEEEEE: ', response.comment);
 			commit("SET_LOADING", false)
 			return response
 		})

@@ -36,7 +36,6 @@ router.post("/", async (req, res)=>{
   }
 })
 
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Register new User
 router.post("/register", async(req, res, next) =>{
     passport.authenticate('register',{session:false},
@@ -95,6 +94,8 @@ router.post('/login', async (req, res, next) => {
       }
     })(req, res, next);
   });
-  
+
+
+
 
 module.exports = router;

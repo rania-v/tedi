@@ -42,13 +42,13 @@
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Ads</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
                                             <v-btn small outlined color="white" v-on:click="openAds=true">see {{this.user.firstName}}'s ads</v-btn>
-                                            <!-- {{this.user.personal.myJobs}} -->
                                             <v-dialog v-model="openAds" width="800px">
                                             <v-card>
                                                 <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{user.firstName}}'s Network</h2>
-                                                <!-- <v-col cols="3"  v-for="ad of this.user.personal.myJobs" :key="ad">
+                                                <v-col cols="3"  v-for="ad in this.user.myJobs" :key="ad">
                                                     <Ad :id="ad"/>
-                                                </v-col> -->
+                                                    {{ad}}
+                                                </v-col>
                                             </v-card>
                                         </v-dialog>
                                     </v-card-text>
@@ -108,7 +108,7 @@
 // import Profile from './profile.vue'
 import PostComp from './post_comp.vue'
 import UserCard from '../components/user_card.vue'
-// import Ad from '../components/ad.vue'
+import Ad from '../components/ad.vue'
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -118,7 +118,7 @@ export default ({
         // Profile,
         PostComp,
         UserCard,
-        // Ad
+        Ad
     },
     data() {
         return {

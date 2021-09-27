@@ -1,5 +1,6 @@
 <template>
     <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
+        lalal
         <v-container v-for="i in myads.list" :key="i"  style="width:30%;" class="mr-2 ml-2">
             <MyAd :id="i"/>
         </v-container>
@@ -29,14 +30,7 @@ export default ({
         })
     },
     methods: {
-        ...mapActions(['getAd']),
-        openmy_ad() {
-            // this.$router.push({name: 'OpenMyAd', params: 15});
-        // this.$emit('opened_my_ad', '');
-      },
-    //   get(i){
-    //       return this.getAd(i);
-    //   }
+        ...mapActions(['getAd'])
     }
 })
 </script>

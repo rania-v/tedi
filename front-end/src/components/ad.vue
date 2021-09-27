@@ -58,15 +58,6 @@ export default ({
         return {
           ad: null,
           creator: null,
-          // image: require('../images/3.jpg'),
-          // friend_avatar: require('../icons/avatars/homer.png'),
-          // friend_name:'Homer Simpson aljsfnlabcjahbsjhabshjbaksfbasfabksjfhbaksj',
-          // ad_title: 'Network Engineer wanted',
-          // job_title: 'Network Engineer',
-          // location: 'London',
-          // benefits: 'kserw gw',
-          // company: 'riot',
-          // namechip:false,
           show: false
         }
     },

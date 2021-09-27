@@ -1,6 +1,6 @@
 <template>
     <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
-        <v-container v-for="i in myads.list" :key="i"  style="width:30%;" class="mr-2 ml-2">
+        <v-container v-for="i in this.myads.list" :key="i"  style="width:30%;" class="mr-2 ml-2">
             <MyAd :id="i"/>
         </v-container>
     </v-card-text>

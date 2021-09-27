@@ -2,4 +2,6 @@
 /front-end/package-lock.json
 /back-end/node_modules/
 /node_modules/
+/front-end/yarn-error.log
+/front-end/yarn.lock
 .git/

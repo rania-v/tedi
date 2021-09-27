@@ -9,13 +9,13 @@
                         <v-col>
                             <v-row>
                                 <v-col class="ma-0 pa-0" cols="6">
-                                    <h1 id="myFont" class="ma-3 pa-2 d-flex justify-start align-start white--text">{{user.name}}</h1>
+                                    <h1 id="myFont" class="ma-3 pa-2 d-flex justify-start align-start white--text">{{this.user.name}}</h1>
                                     <!-- <v-card-title id="myFont" class="ml-3 mt-0 pl-2 pt-0 pb-0 d-flex justify-start align-start white--text">{{user.attrs.profession.value}}</v-card-title> -->
                                 </v-col>
                                 <v-spacer></v-spacer>
                                 <v-col class="ma-3 pa-2 d-flex">
                                     <!-- <v-btn class="ma-1" small>send friend request</v-btn> -->
-                                    <v-btn v-if="is_friend==false" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
+                                    <v-btn v-if="!this.isFriend(this.f_list)" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
                                     <v-btn v-else class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
                                 </v-col>
                             </v-row>
@@ -23,25 +23,25 @@
                                 <v-col cols="3">
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Personal</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex justify-start align-start white--text">
-                                            {{user.country}}<br/>
-                                            {{user.birthday}}<br/>
+                                            {{this.user.country}}<br/>
+                                            {{this.user.birthday}}<br/>
                                         </v-card-text>
                                         <v-card-title id="myFont" class="ml-3 pl-2 pt-1 pb-0 d-flex justify-start align-start white--text">Contact</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            {{user.contact.phoneNum}}<br/>
-                                            {{user.contact.perEmail}}<br/>
-                                            {{user.contact.profEmail}}<br/>
+                                            {{this.user.contact.phoneNum ? this.user.contact.phoneNum : ''}}<br/>
+                                            {{this.user.contact.perEmail ? this.user.contact.perEmail : ''}}<br/>
+                                            {{this.user.contact.profEmail ? this.user.contact.profEmail : ''}}<br/>
                                         </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
                                 <v-col cols="3">
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Resume</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            <v-btn small outlined color="white">{{user.attrs.resume.filename}}</v-btn>
+                                            <v-btn small outlined color="white">{{this.user.attrs.resume.filename}}</v-btn>
                                     </v-card-text>
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Ads</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            <v-btn small outlined color="white">see {{user.name}}'s ads</v-btn>
+                                            <v-btn small outlined color="white">see {{this.user.name}}'s ads</v-btn>
                                     </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -49,7 +49,7 @@
                                     <v-card color="deep-purple" v-on:click="openNetwork = true">
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Network</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                                            <v-col cols="3"  v-for="friend in user.friends" :key="friend">
+                                            <v-col cols="3"  v-for="friend in this.user.friends" :key="friend">
                                                 <v-badge :content=friend :value=hover color="deep-purple lighten-1" overlap>
                                                     
                                                 </v-badge>
@@ -104,11 +104,7 @@ export default ({
     },
     data() {
         return {
-            ...mapGetters({
-                from_id: '_id',
-                f_list: 'friends'
-            }),
-            isfriend: this.isFriend,
+            // isfriend: this.isFriend(),
             id: this.$route.params.id,
             openNetwork: false,
                     image: require("../banner/banner_img.svg"),
@@ -117,9 +113,21 @@ export default ({
                 {action: 'Conact', icon: 'fas fa-comment'},
                 {action: 'Friend', icon: 'fas fa-user-friends'}
             ],
-            loading_user: this.loadUser(),
-            user: null,
+            // loading_user: this.loadUser(),
+            user: Object,
         };
+    },
+    computed:{
+        ...mapGetters({
+            from_id: '_id',
+            f_list: 'friends'
+        }),
+    },
+    async beforeMount(){
+        let i = this.$route.params.id
+        await this.getUser(i)
+            .then(res => {this.user = res.user})
+        console.log('user: ', this.user)
     },
     methods:{
         ...mapActions(['getUser', 'sendfreq', 'removeFriend']),
@@ -135,9 +143,6 @@ export default ({
             }
             this.sendfreq(a);
         },
-        async isFriend() {
-            return this.f_list.includes(this.id)
-        },
         delFriend() {
             console.log(this.id)
             this.removeFriend(this.id);
@@ -150,7 +155,19 @@ export default ({
                 console.log('a: ', a)
             this.user=a;
             return a;
-        }
+        },
+        isFriend(farray) {
+            console.log('arr: ', farray)
+            if(!farray)
+                return false
+            if(farray.list.includes(this.id))
+                return true
+            return false
+            // console.log('SKATATTATA: ', this.f_list.list)
+            // if(this.f_list.list.length>0)
+                // return this.f_list.list.includes(this.id) ? true : false;
+            // return false;
+        },
     }
 })
 </script>

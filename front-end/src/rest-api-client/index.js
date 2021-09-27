@@ -159,7 +159,8 @@ export const actions = {
   async getComment(commId){
     return requests.getCommentRequest(commId, client.token.token)
     .then(function(response){
-      return response.message;
+      // console.log('dsouudsoi: ', response)
+      return response;
     })
     .catch(function(error){client = initClient(); throw error})
   },
@@ -213,6 +214,7 @@ export const actions = {
   async createComment(form){
     return requests.createCommRequest(form, client.token.token)
     .then(function(response){
+      // console.log('response: ', response);
       actions.setClient(response);
       return response;
     })
@@ -222,11 +224,11 @@ export const actions = {
   async createPost(form){
     return requests.createPostRequest(form, client.token.token)
     .then(function(response){
-      console.log('res: ', response)
+      // console.log('res: ', response)
       if(client.user.postsToSee == undefined)
         client.user.postsToSee = [];
       client.user.postsToSee.push(response.post._id);
-      console.log('posts: ', client.user.postsToSee)
+      // console.log('posts: ', client.user.postsToSee)
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -236,6 +238,7 @@ export const actions = {
     return requests.acceptfreqRequest(form, client.token.token)
     .then(function(response){
       actions.setClient(response);
+      console.log('accept resp: ', response)
       return response;
     })
     .catch(function(error){client = initClient(); throw error})

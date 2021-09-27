@@ -25,7 +25,7 @@
         </v-card-text>
         <v-card-actions class="d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
-            <v-btn color="teal" style="color:white" v-on:click="this.acceptfreq(this.id)">Accept</v-btn>
+            <v-btn color="teal" style="color:white" v-on:click="acceptfreq(id)">Accept</v-btn>
         </v-card-actions>
     </v-card>
         </v-template>

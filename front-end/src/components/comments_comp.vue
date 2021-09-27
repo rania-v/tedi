@@ -10,7 +10,7 @@
                 </v-btn>
         </v-row>
         <!-- <div style=""> -->
-            <v-container v-if="comment_array.lenght>0" v-show="show==true" style="overflow:auto; max-height:170px">
+            <v-container v-show="show==true" style="overflow:auto; max-height:170px">
                 <v-row v-for="cmnt in comment_array" :key="cmnt._id">
                     <v-card class="rounded-pill pa-2 mb-1 d-flex" flat width="100%" height="50px" id="comment" color="grey lighten-4">
                         <v-card-text class="d-flex justify-start pa-0 pb-0 align-content-end">
@@ -43,29 +43,40 @@ import {mapActions} from 'vuex'
 
 export default({
     name: 'CommentsComp',
-    props: ['comm_list'],
+    props: {comm_list: Array},
     data() {
         return {
             show: false,
             // user_avatar: require('../icons/avatars/sailormoon.jpeg'),
             // user: 'Sailor Moon',
             // comment_text: 'Some comment text',
-            load_coms: this.loadComm(),
+            // load_coms: this.loadComm(),
             comment_array: []
         }
     },
     methods: {
         ...mapActions(['getComment']),
-        async loadComm() {
-            console.log("this com:", this.comm_list)
-            let c;
-            for(let comm of this.comm_list) {
-                 await this.getComment(comm)
-                    .then(res => {c = res;})
-                console.log('com: ', c);
-                this.comment_array.push(c);
-            }
-            return true;
+        // async loadComm() {
+        //     console.log("this com:", this.comm_list)
+        //     let c;
+        //     for(let comm of this.comm_list) {
+        //         console.log('ALOHA: ', comm)
+        //          await this.getComment(comm)
+        //             .then(res => {console.log('gamw: ', res);c = res;})
+        //         console.log('com: ', c);
+        //         this.comment_array.push(c);
+        //     }
+        //     return true;
+        // }
+    },
+    async beforeMount(){
+        let c;
+        console.log('list: ', this.comm_list)
+        for(let comm of this.comm_list) {
+                await this.getComment(comm)
+                .then(res => {c = res.comment;})
+            console.log('com: ', c);
+            this.comment_array.push(c);
         }
     }
 })

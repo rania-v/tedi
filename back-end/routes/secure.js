@@ -266,7 +266,7 @@ router.post('/accept-frequest', async(req, res) => {
     await frequest.remove(request);
 
     res.json({
-      messae: 'Το αίτημα φιλίας έγινε αποδεκτό',
+      message: 'Το αίτημα φιλίας έγινε αποδεκτό',
       user: user1,
     });
   }catch(err){
@@ -275,7 +275,7 @@ router.post('/accept-frequest', async(req, res) => {
 })
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Deny Friend Request
-router.delete('/deny-frequest', async(req, res) => {
+router.post('/deny-frequest', async(req, res) => {
   try{
 
     const user1 = req.user;
@@ -324,12 +324,14 @@ router.post('/remove-friend', async(req, res) => {
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal});
 
     const username = user2.personal.firstName + ' ' + user2.personal.lastName;
-    res.json({message: 'Ο χρήστης ' + username + ' αφαιρέθηκε απο τους φίλους σας!'});
+    res.json({
+      message: 'Ο χρήστης ' + username + ' αφαιρέθηκε απο τους φίλους σας!',
+      user: user1
+    });
 
   }catch(err){
     res.json({
       message: err,
-      user: user1,
     });
   }
 })

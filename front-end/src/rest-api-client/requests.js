@@ -88,15 +88,26 @@ export const getCommentRequest = async (commId, token) =>{
   .catch(function(error) { throw error })
 }
 
-export const getChatRequest = async (chatId, token) =>{
+export const getChatRequest = async (payload, token) =>{
   let headers = { "Authorization": `${token}` };
   let data = {
-    chatId: chatId,
+    chatId: payload.id,
+    prev: payload.prev
   }
+  console.log('data: ', data)
   return restAPI.send('POST', 'secure/getChat', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }
+
+export const createChatRequest = async (payload, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/createChat', payload, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
 
 export const updatePersonalRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
@@ -149,7 +160,7 @@ export const createPostRequest = async (form, token) =>{
 export const acceptfreqRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
 
-  return restAPI.send('POST', 'secure/accept-frequest', form, headers)
+  return restAPI.send('POST', 'secure/accept-frequest', {request: form}, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

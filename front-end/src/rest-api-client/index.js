@@ -165,9 +165,19 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
-  async getChat(chatId){
-    return requests.getChatRequest(chatId, client.token.token)
+  async getChat(payload){
+    return requests.getChatRequest(payload, client.token.token)
     .then(function(response){
+      return response;
+    })
+    .catch(function(error){client = initClient(); throw error})
+  },
+
+  async createChat(payload){
+    return requests.createChatRequest(payload, client.token.token)
+    .then(function(response){
+      console.log('create chat: ', response)
+      actions.setClient(response);
       return response.message;
     })
     .catch(function(error){client = initClient(); throw error})

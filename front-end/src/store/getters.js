@@ -129,9 +129,6 @@ var testSkills = [
         ]
     }
 ]
-
-var t = state=>state.friends
-console.log('t: ', t);
 var testing = true;
 
 export default{
@@ -152,7 +149,7 @@ export default{
     friends: state => state.friends,
     frequests: state => state.frequests ? state.frequests : null,
     myJobs: state => state.myJobs ? state.myJobs : null,
-    myChats: state => state.myChats ? state.myChats : null,
+    myChats: state => state.myChats ? state.myChats : [],
     posts: state => state.posts ? state.posts : null,
     notifications: state => state.notifications ? state.notifications : state.notifications,
 

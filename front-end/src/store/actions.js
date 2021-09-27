@@ -183,6 +183,20 @@ export default{
 		})
 	},
 
+	async createChat({commit}, payload){
+		commit("SET_LOADING", true);
+		return actions.createChat(payload)
+		.then(response => {
+			commit("STORE_CLIENT", client.user);
+			commit("SET_LOADING", false);
+			return response
+		})
+		.catch(error => {
+			console.log(error);
+			commit("SET_LOADING", false)
+			throw error;
+		})
+	},
 
 	async updateUserProfile({commit}, payload){
 		commit("SET_LOADING", true);
@@ -252,7 +266,7 @@ export default{
 
 	async acceptfreq({commit}, payload){
 		commit("SET_LOADING", true);
-
+		console.log('payload: ', payload)
 		return actions.acceptfreq(payload)
 		.then(response => {
 			commit("SET_LOADING", false)

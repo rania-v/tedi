@@ -369,13 +369,59 @@ router.get('/getChats', async(req, res) => {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Chat Info
 router.post('/getChat', async(req, res) => {
   try{
-    // console.log(req.body)
-      const targetChat = await user.findById(req.body.chatId);
+    console.log(req.body)
+      const targetChat = await chat.findById(req.body.chatId);
+      var user2 = null;
+      if(req.body.prev){
+        targetChat.content = targetChat.content ? targetChat.content[0] : [];
+      }
+
+      user2 = ((req.user._id == targetChat.users[0]) ? targetChat.users[0] : targetChat.users[1]);
+
+      // console.log('user: ', req.user._id)
+      // console.log('user2: ', user2)
+      // console.log('chat: ', targetChat);
+      // console.log('flag: ', req.user.id==targetChat.users[0])
+
       res.json({
-          chat: targetChat
+          chat: targetChat,
+          user2: user2
       });
   }catch(error){
       res.status(400).json({message: error});
+  }
+})
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Create Chat
+router.post('/createChat', async(req, res)=>{
+  try{
+    console.log('AAAAAAAAAAAAA')
+    var user1 = req.user;
+    const user2ID = req.body.to_user
+    var user2 = await user.findById(user2ID)
+    if(!user2)
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'});
+
+    var targetChat = new chat();
+
+    targetChat.users.push(user1._id)
+    targetChat.users.push(user2._id)
+    await targetChat.save();
+
+    user1.personal.myChats.push(targetChat._id);
+    user2.personal.myChats.push(targetChat._id);
+    await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
+    await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
+
+    return res.json({
+      message: 'Το chat δημιουργήθηκε !',
+      chat: targetChat,
+      user: user1
+    })
+
+  }catch(err){
+    return res.json({message: err})
   }
 })
 

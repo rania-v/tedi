@@ -31,12 +31,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 
 export default ({
     name: 'MsgFriend',
-    props:['conv'],
     data() {
         return {
+            full_conv: null,
             image: require('../images/5.jpg'),
             chat_ill: require('../illustrations/147_teal.svg'),
             color: "pink",
@@ -51,34 +53,14 @@ export default ({
                     status: 'read',
                     msg: 'LALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALA'
                 },
-                {
-                    user: 'u2',
-                    time: '1:11',
-                    status: 'read',
-                    msg: 'LALALALLALA'
-                },
-                {
-                    user: 'u1',
-                    time: '1:11',
-                    status: 'read',
-                    msg: 'LALALALLALA'
-                }, 
-                {
-                    user: 'u1',
-                    time: '1:11',
-                    status: 'read',
-                    msg: 'LALALALLALA'
-                },
-                {
-                    user: 'u2',
-                    time: '1:11',
-                    status: 'read',
-                    msg: 'LALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALA'
-                },
             ]
         } 
     },
+    props:{
+        conv: Object
+    },
     methods: {
+        ...mapActions(['getChat']),
         SendMesage() {
             var element = document.getElementById("chat");
             if(this.nm != null) {
@@ -92,6 +74,18 @@ export default ({
             }
             this.nm = null;
         }
+    },
+    async beforeMoun(){
+        console.log('prop conv: ', this.conv)
+        let data={
+            chatId: this.conv.chatid,
+            prev: false
+        }
+        await this.getChat(data)
+        .then(res=>{
+            this.full_conv = res.chat;
+        })
+        console.log('full conv: ', this.full_conv);
     }
 })
 </script>

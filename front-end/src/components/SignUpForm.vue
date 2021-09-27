@@ -96,7 +96,7 @@ export default {
             this.photo= URL.createObjectURL(this.photo)
         },
         checkPass() {
-            if(this.password === this.conf_password)
+            if(this.user.personal.password === this.conf_password)
                 return true;
             else return false;
         }

@@ -10,8 +10,11 @@
                 </v-btn>
         </v-row>
         <!-- <div style=""> -->
-            <v-container v-if="comment_array.lenght>0" v-show="show==true" style="overflow:auto; max-height:170px">
-                <v-row v-for="cmnt in comment_array" :key="cmnt._id">
+            <v-card v-if="!empty">
+                <v-alert>no cmments</v-alert>
+            </v-card>
+            <v-container v-else v-show="show==true" style="overflow:auto; max-height:170px">
+                <v-row v-for="cmnt in comment_array" :key="cmnt">
                     <v-card class="rounded-pill pa-2 mb-1 d-flex" flat width="100%" height="50px" id="comment" color="grey lighten-4">
                         <v-card-text class="d-flex justify-start pa-0 pb-0 align-content-end">
                                 <!-- <v-avatar size="36">
@@ -46,6 +49,7 @@ export default({
     props: ['comm_list'],
     data() {
         return {
+            empty: true,
             show: false,
             // user_avatar: require('../icons/avatars/sailormoon.jpeg'),
             // user: 'Sailor Moon',
@@ -65,6 +69,8 @@ export default({
                 console.log('com: ', c);
                 this.comment_array.push(c);
             }
+            if(this.comment_array.lenght>0)
+                this.empty = false;
             return true;
         }
     }

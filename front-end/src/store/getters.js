@@ -148,7 +148,7 @@ export default{
     country: state => state.country ? state.country : state.country,
     friends: state => state.friends,
     frequests: state => state.frequests ? state.frequests : null,
-    myJobs: state => state.myJobs ? state.myJobs : null,
+    myJobs: state => state.myJobs,
     myChats: state => state.myChats ? state.myChats : [],
     posts: state => state.posts ? state.posts : null,
     notifications: state => state.notifications ? state.notifications : state.notifications,

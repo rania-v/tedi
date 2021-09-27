@@ -46,13 +46,13 @@ router.post('/searchUsers', async(req, res) =>{
       }
     }
 
-    console.log('final: ', final)
+    // console.log('final: ', final)
 
     res.json({
       list: final
     })
   }catch(err){
-    console.log('skata')
+    // console.log('skata')
     res.json({message: err});
   }
 })
@@ -97,7 +97,7 @@ router.post('/update-user-personal', async(req, res) =>{
     const targetUser = await user.findById(req.user._id);
 
     // console.log(targetUser.personal);
-    console.log(req.body);
+    // console.log(req.body);
     if(req.body.firstName){
       targetUser.personal.firstName = req.body.firstName;
     }
@@ -137,7 +137,7 @@ router.post('/update-user-contact', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
     
-    console.log(targetUser.contact);
+    // console.log(targetUser.contact);
 
     if(req.body.profEmail){
       targetUser.contact.profEmail = req.body.profEmail;
@@ -258,7 +258,7 @@ router.post('/accept-frequest', async(req, res) => {
     // remove frequest from user's 1 list, if still there
     user1.personal.frequests = user1.personal.frequests.filter((reqID) => { return !reqID.equals(request._id) })
 
-    console.log('edw');
+    // console.log('edw');
     await user.findByIdAndUpdate(user1._id, {personal: user1.personal}, {runValidators: true});
 
 
@@ -311,7 +311,7 @@ router.post('/deny-frequest', async(req, res) => {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Remove a friend
 router.post('/remove-friend', async(req, res) => {
   try{
-    console.log('rec: ', req.body)
+    // console.log('rec: ', req.body)
     const user1 = req.user;
     const user2 = await user.findById(req.body.exfriend);
     if(!user2)
@@ -369,7 +369,7 @@ router.get('/getChats', async(req, res) => {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get a Chat Info
 router.post('/getChat', async(req, res) => {
   try{
-    console.log(req.body)
+    // console.log(req.body)
       const targetChat = await chat.findById(req.body.chatId);
       var user2 = null;
       if(req.body.prev){
@@ -396,7 +396,7 @@ router.post('/getChat', async(req, res) => {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Create Chat
 router.post('/createChat', async(req, res)=>{
   try{
-    console.log('AAAAAAAAAAAAA')
+    // console.log('AAAAAAAAAAAAA')
     var user1 = req.user;
     const user2ID = req.body.to_user
     var user2 = await user.findById(user2ID)
@@ -438,7 +438,7 @@ router.post('/sendMssg', async(req, res) => {
     // check if chat already exists
     var targetChat = undefined;
     for(let i in user1.personal.myChats){
-      console.log(i)
+      // console.log(i)
       var tryChat = await chat.findById(user1.personal.myChats[i])
       if(tryChat.users.includes(user1._id) && tryChat.users.includes(user2._id)){
         targetChat = tryChat;
@@ -500,7 +500,7 @@ router.post('/seen-mssg', async(req, res) => {
 
     targetChat.content = targetChat.content.filter((mssg) => {mssg.status = (mssg.creator!=sender) ? 'seen': mssg.status ;return mssg});
 
-    console.log(targetChat.content);
+    // console.log(targetChat.content);
     await chat.findByIdAndUpdate(targetChat._id, {content: targetChat.content}, {runValidators: true});
 
     res.json({

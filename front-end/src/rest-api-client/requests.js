@@ -43,7 +43,6 @@ export const postRequest = async (postId, token) =>{
   let data = {
     postId: postId,
   }
-  console.log('req id: ', postId)
   return restAPI.send('POST', 'post/getPost', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
@@ -51,12 +50,12 @@ export const postRequest = async (postId, token) =>{
 
 export const userRequest = async (userId, token) =>{
   let headers = { "Authorization": `${token}` };
-  console.log('req id: ', userId)
+  // console.log('req id: ', userId)
   let data = {
     userId: userId,
   }
   return restAPI.send('POST', 'user', data, headers)
-  .then(function(response) {console.log('req res: ', response); return response })
+  .then(function(response) {return response })
   .catch(function(error) { throw error })
 }
 
@@ -94,7 +93,7 @@ export const getChatRequest = async (payload, token) =>{
     chatId: payload.id,
     prev: payload.prev
   }
-  console.log('data: ', data)
+  // console.log('data: ', data)
   return restAPI.send('POST', 'secure/getChat', data, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })

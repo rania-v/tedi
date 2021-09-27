@@ -7,8 +7,8 @@ export default{
         commit("SET_LOADING", true)
         return actions.login(payload.email, payload.password)
 		.then( response => {
-			console.log()
-			console.log('responsesss: ', response);
+			// console.log()
+			// console.log('responsesss: ', response);
             console.log(client);
 			// commit("STORE_CLIENT", client.user)
 			commit("STORE_TOKEN", client.token)
@@ -45,8 +45,8 @@ export default{
 		commit("SET_LOADING", true);
 		return actions.register(payload)
 		.then(response=>{
-			console.log("res: ", response);
-			console.log('payload: ', payload)
+			// console.log("res: ", response);
+			// console.log('payload: ', payload)
 			this.login(payload.contact.profEmail, payload.personal.password)
 			commit("SET_LOADING", false);
 			return response;
@@ -64,7 +64,7 @@ export default{
 		for(let f of state.friends.list){
 			actions.getUser(f)
 			.then(response=>{
-				console.log('res: ', response)
+				// console.log('res: ', response)
 				let user = response.user;
 				fr.push(user)
 			})
@@ -73,11 +73,11 @@ export default{
 	},
 
 	async searchUsers({commit}, payload){
-		console.log('mphkeeeeeeeeee')
+		// console.log('mphkeeeeeeeeee')
 		commit("SET_LOADING", true);
 		return actions.searchUsers(payload)
 		.then(response=>{
-			console.log("res: ", response);
+			// console.log("res: ", response);
 			commit("SET_LOADING", false);
 			return response;
 		})
@@ -109,7 +109,7 @@ export default{
 
 	async getUser({commit}, payload){
 		commit("SET_LOADING", true);
-		console.log('action: ',payload)
+		// console.log('action: ',payload)
 		return actions.getUser(payload)
 		.then( response => {
 			// console.log('user: ', response);

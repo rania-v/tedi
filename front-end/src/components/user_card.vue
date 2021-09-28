@@ -29,13 +29,6 @@ export default ({
     data() {
       return {
           overlay: false,
-                            // user: Object,
-                        //   user: {
-                        //         photo: require('../icons/avatars/sailormoon.jpeg'),
-                        //         name: 'Chaka Khan',
-                        //         profession: 'Singer',
-                        //         workplace: 'Vietnam Singing Bar'
-                        //     }
         }
     },
     props:{

@@ -15,8 +15,10 @@
                                 <v-spacer></v-spacer>
                                 <v-col class="ma-3 pa-2 d-flex">
                                     <!-- <v-btn class="ma-1" small>send friend request</v-btn> -->
-                                    <v-btn v-if="!this.isFriend(this.f_list)" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
-                                    <v-btn v-else class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
+                                    <v-btn v-if="!this.isFriend(this.f_list) && !this.pending_req" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
+                                    <v-btn v-if="this.isFriend(this.f_list) && !this.pending_req" class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
+                                    <v-btn v-if="!this.isFriend(this.f_list) && this.pending_req" class="ma-1" small rounded disabled>Pending Friend Request</v-btn>
+                                    <!-- {{this.user.personal.frequests}} -->
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -41,7 +43,18 @@
                                     </v-card-text>
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Ads</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            <v-btn small outlined color="white">see {{this.user.name}}'s ads</v-btn>
+                                            <v-btn small outlined color="white" v-on:click="openAds=true">see {{this.user.firstName}}'s ads</v-btn>
+                                            <v-dialog v-model="openAds" width="1000px">
+                                            <v-card>
+                                                <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{user.firstName}}'s Network</h2>
+                                                <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
+                                                    <v-col cols="4" v-for="ad in this.user.myJobs" :key="ad">
+                                                        <Ad :id="ad"/>
+                                                        {{ad}}
+                                                    </v-col>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-dialog>
                                     </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -49,15 +62,20 @@
                                     <v-card color="deep-purple" v-on:click="openNetwork = true">
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Network</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                                            <v-col cols="3"  v-for="friend in this.user.friends" :key="friend">
-                                                <v-badge :content=friend :value=hover color="deep-purple lighten-1" overlap>
-                                                    
+                                            <v-col cols="3"  v-for="friend in user_list" :key="friend._id">
+                                                <v-badge :content=friend.name :value=hover color="deep-purple lighten-1" overlap>
+                                                    <v-avatar>
+                                                        <v-img :src="image" ></v-img>
+                                                    </v-avatar>
                                                 </v-badge>
                                             </v-col>
                                         </v-card-text>
                                         <v-dialog v-model="openNetwork" width="800px">
                                             <v-card>
                                                 <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{user.firstName}}'s Network</h2>
+                                                <v-col cols="3"  v-for="friend in user_list" :key="friend._id">
+                                                    <UserCard :user="friend"/>
+                                                </v-col>
                                             </v-card>
                                         </v-dialog>
                                     </v-card>
@@ -93,6 +111,8 @@
 <script>
 // import Profile from './profile.vue'
 import PostComp from './post_comp.vue'
+import UserCard from '../components/user_card.vue'
+import Ad from '../components/ad.vue'
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -100,19 +120,25 @@ export default ({
     name:"FriendProfile",
     components: {
         // Profile,
-        PostComp
+        PostComp,
+        UserCard,
+        Ad
     },
     data() {
         return {
             // isfriend: this.isFriend(),
             id: this.$route.params.id,
             openNetwork: false,
+            openAds: false,
                     image: require("../banner/banner_img.svg"),
             show: "Posts",
             actions: [
                 {action: 'Conact', icon: 'fas fa-comment'},
                 {action: 'Friend', icon: 'fas fa-user-friends'}
             ],
+            user_list: [],
+            ads_list: [],
+            pending_req: false,
             // loading_user: this.loadUser(),
             user: Object,
         };
@@ -120,17 +146,34 @@ export default ({
     computed:{
         ...mapGetters({
             from_id: '_id',
-            f_list: 'friends'
+            f_list: 'friends',
         }),
     },
     async beforeMount(){
         let i = this.$route.params.id
         await this.getUser(i)
             .then(res => {this.user = res.user})
-        console.log('user: ', this.user)
+            console.log('user: ', this.user)
+        let f;
+        for(let friend of this.user.friends) {
+                await this.getUser(friend)
+                    .then(res => { f = res.user});
+                this.user_list.push(f);
+        }
+        // if(this.user.frequests.includes(this.from_id) == true)
+        //         this.pending_req = true;
+        // console.log("arr:", this.user.frequests, "id:", this.from_id)
+
+        // let ad;
+        // for(let a of this.user.myJobsAds) {
+        //         await this.getAd(a)
+        //             .then(res => { ad = res});
+        //             // console.log('fri: ', f);
+        //         this.ads_list.push(ad);
+        // }
     },
     methods:{
-        ...mapActions(['getUser', 'sendfreq', 'removeFriend']),
+        ...mapActions(['getUser', 'sendfreq', 'removeFriend', 'getAd']),
         mpla(){
             console.log('id: ',this.$route.params.id);
             return null;
@@ -142,19 +185,14 @@ export default ({
                 to_user: t,
             }
             this.sendfreq(a);
+            this.pending_req = true;
+            this.$forceUpdate();
         },
         delFriend() {
             console.log(this.id)
             this.removeFriend(this.id);
             this.isfriend = this.isFriend();
-        },
-        async loadUser() {
-            let i = this.$route.params.id
-            let a = await this.getUser(i)
-                .then(res => {return res.user})
-                console.log('a: ', a)
-            this.user=a;
-            return a;
+            this.$forceUpdate();
         },
         isFriend(farray) {
             console.log('arr: ', farray)
@@ -163,11 +201,7 @@ export default ({
             if(farray.list.includes(this.id))
                 return true
             return false
-            // console.log('SKATATTATA: ', this.f_list.list)
-            // if(this.f_list.list.length>0)
-                // return this.f_list.list.includes(this.id) ? true : false;
-            // return false;
-        },
+        }
     }
 })
 </script>

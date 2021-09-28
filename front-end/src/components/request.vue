@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default ({
     name: 'Request',
@@ -52,7 +52,7 @@ export default ({
         }    
     },
     methods: {
-        ...mapActions(['acceptfreq', 'denyfreq']),
+        ...mapActions(['acceptfreq', 'denyfreq', 'getUser']),
     }
 })
 </script>

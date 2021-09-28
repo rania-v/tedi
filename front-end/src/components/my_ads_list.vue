@@ -29,14 +29,7 @@ export default ({
         })
     },
     methods: {
-        ...mapActions(['getAd']),
-        openmy_ad() {
-            // this.$router.push({name: 'OpenMyAd', params: 15});
-        // this.$emit('opened_my_ad', '');
-      },
-    //   get(i){
-    //       return this.getAd(i);
-    //   }
+        ...mapActions(['getAd'])
     }
 })
 </script>

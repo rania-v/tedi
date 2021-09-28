@@ -92,6 +92,7 @@ export default ({
             ],
             tmp: null,
             friends_list:[],
+            timeVar:null,
         }
     },
     methods: {
@@ -111,16 +112,12 @@ export default ({
         ConvosArray() {
             return this.convos;
         },
-        async fillAll(){
-            //load chats
-
+        async fillChats(){
             var module = {chat: null, user: null};
             for(let ch of this.myChats){
                 var temp = null;
-                // console.log('edw')
                 await this.getChat({id: ch, prev: true})
                 .then(res=>{
-                    // console.log('i got: ', res)
                     module.chat = res.chat;
                     temp = res.user2
                 })
@@ -128,7 +125,9 @@ export default ({
                 .then(res=>{
                     module.user=res.user;
                 })
-                // console.log('module: ', module)
+
+                if(this.timeVar!=null)
+                    this.convos=[]
                 this.convos.push({
                     name: module.user.name,
                     last_msg: module.chat.content ? module.chat.content[0].content : '',
@@ -137,22 +136,26 @@ export default ({
                     id: module.user._id,
                     chatid: module.chat._id,
                 });
-
-                // console.log('convos: ',this.convos)
             }
-
-            //load friends list
+            this.timeVar = setTimeout(this.fillChats, 6000)
+        },
+        async fillAll(){
             for(let i of this.friends.list){
                 await this.getUser(i)
                 .then(res=>{
                     this.friends_list.push(res.user);
                 })
             }
+            //load chats
+            await this.fillChats();
+
         }
     },
     async beforeMount(){
         this.fillAll();
-        // console.log('f_list: ', this.friends_list)
+    },
+    beforeDestroy(){
+        clearTimeout(this.timeVar)
     },
     watch:{
         async find_chat(val){
@@ -178,8 +181,6 @@ export default ({
                 }
                 console.log(this.selected_convo)
             })
-            // newChat();
-            // this.selected_convo=
             this.fillAll();
             return;
         }

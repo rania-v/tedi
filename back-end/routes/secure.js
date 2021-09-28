@@ -371,12 +371,21 @@ router.post('/getChat', async(req, res) => {
   try{
     // console.log(req.body)
       const targetChat = await chat.findById(req.body.chatId);
-      var user2 = null;
+      let user2 = '';
       if(req.body.prev){
         targetChat.content = targetChat.content ? targetChat.content[0] : [];
       }
 
-      user2 = ((req.user._id == targetChat.users[0]) ? targetChat.users[0] : targetChat.users[1]);
+      // let user2=null;
+      let maybe = JSON.stringify(req.user._id)
+      let maybe2 = JSON.stringify(targetChat.users[0])
+      
+      if(maybe == maybe2)
+        user2 = targetChat.users[1]
+      else
+        user2 = targetChat.users[0]
+// console.log('user2: ', user2)
+      // user2 = ((req.user._id == targetChat.users[0]) ? targetChat.users[0] : targetChat.users[1]);
 
       // console.log('user: ', req.user._id)
       // console.log('user2: ', user2)

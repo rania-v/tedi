@@ -72,6 +72,13 @@ export default{
 		return fr;
 	},
 
+	async getSenderByReqId({commit}, payload) {
+		commit("SET_LOADING", true);
+		return actions.getSenderRequest(payload)
+			.then(res => {commit("SET_LOADING", false);console.log('res: ', res); return res.fromUser;})
+			.catch(err => {commit('SET_LOADING', false); throw err;})
+	},
+
 	async searchUsers({commit}, payload){
 		// console.log('mphkeeeeeeeeee')
 		commit("SET_LOADING", true);

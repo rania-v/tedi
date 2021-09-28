@@ -90,7 +90,13 @@
         <v-row>
             <v-spacer></v-spacer>
             <v-col cols="2">
-                <!-- <Profile/> -->
+                <v-card flat>
+                    <v-card-title id="myFont">Skill Set</v-card-title>
+                    <v-chip class="pink pink--text small ma-2"
+                    v-for="skill in this.user.attrs.skill_list" :key="skill" outlined large>
+                        {{skill}}
+                    </v-chip>
+                </v-card>
             </v-col>
             <v-col cols="6" class="">
                 <v-row>

@@ -81,15 +81,7 @@ export default ({
             conv:false,
             selected_convo: null,
             selected_name: null,
-            convos: [
-                // {
-                //     name: 'kei',
-                //     last_msg: 'lksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvslksdpksdjsdv sivj odn voij sov sdlvs',
-                //     avatar: require('../icons/avatars/rei.png'),
-                //     read: false
-                // },
-                
-            ],
+            convos: [],
             tmp: null,
             friends_list:[],
             timeVar:null,
@@ -113,6 +105,9 @@ export default ({
             return this.convos;
         },
         async fillChats(){
+
+            if(this.timeVar!=null)
+                this.convos=[]
             var module = {chat: null, user: null};
             for(let ch of this.myChats){
                 var temp = null;
@@ -126,8 +121,6 @@ export default ({
                     module.user=res.user;
                 })
 
-                if(this.timeVar!=null)
-                    this.convos=[]
                 this.convos.push({
                     name: module.user.name,
                     last_msg: module.chat.content ? module.chat.content[0].content : '',
@@ -167,6 +160,7 @@ export default ({
                     return;
                 }
             }
+            this.find_chat = ''
             console.log('val: ',val)
             // not existing chat with that friend
             await this.createChat({to_user:val})
@@ -179,7 +173,7 @@ export default ({
                     id: val,
                     chatid: res.chat._id,
                 }
-                console.log(this.selected_convo)
+                console.log('myChats: ', this.mnyChats)
             })
             this.fillAll();
             return;

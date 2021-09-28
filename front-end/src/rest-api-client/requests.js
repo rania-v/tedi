@@ -13,6 +13,13 @@ export const loginRequest = async (email, password) => {
     .catch(function(error) { throw error })
 }
 
+export const refreshUserRequest = async (token) =>{
+  let headers = { "Authorization": `${token}` };
+  return restAPI.send('POST', 'secure/refreshUser', null, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
 export const logoutRequest = async (token) =>{
   let headers = { "Authorization": `${token}` };
   return restAPI.send('POST', 'secure/logout', null, headers)

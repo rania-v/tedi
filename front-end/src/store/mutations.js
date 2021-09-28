@@ -72,6 +72,7 @@ export default{
 
     DELETE_TOKEN(state){
         Vue.set(state, "token", null);
+        localStorage.ls='';
     },
 
     DELETE_CLIENT(state){

@@ -25,7 +25,7 @@ import PostComp from './post_comp.vue'
 import PostCreate from './create_post_comp.vue'
 import Profile from './profile.vue'
 import MyPost from './my_post.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 
 export default ({
@@ -37,9 +37,11 @@ export default ({
         MyPost
     },
     data() {
-       return {
-        msg: "lala",
-        new_post_txt: null,
+        return {
+            msg: "lala",
+            new_post_txt: null,
+            time: null,
+            timer: 10000,
         }
     },
     computed:{
@@ -48,6 +50,7 @@ export default ({
         })
     },
     methods: {
+        ...mapActions(['refreshUser']),
         openNet() {
         },
         ChangePT(pt) {
@@ -55,7 +58,17 @@ export default ({
         },
         show_new_post(e) {
             this.new_post_txt = e;
+        },
+        async refresh(){
+            await this.refreshUser()
+            this.time = setTimeout(this.refresh, this.timer)
         }
+    },
+    async mounted(){
+        this.time = setTimeout(this.refresh, this.timer)
+    },
+    async beforeDestroy(){
+        clearTimeout(this.time)
     }
 })
 </script>

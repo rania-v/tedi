@@ -22,7 +22,23 @@ router.post('/logout', async(req, res) => {
     }
   });
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Search in Users
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Refresh User
+router.post('/refreshUser', async(req,res)=>{
+  try{
+    const ref = await user.findById(req.user._id)
+
+    res.json({
+      message: 'User refreshed!',
+      user: ref
+    })
+
+  }catch(err){
+    res.json({message: err})
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Search in Users
 router.post('/searchUsers', async(req, res) =>{
   try{
     let val = req.body.val;

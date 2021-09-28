@@ -8,14 +8,14 @@
         <!-- <v-card-title class="justify-center text-h4">Chat</v-card-title> -->
         <v-card-text v-if="full_conv.content.length>0">
                 <div>
-                    <v-row v-for="message in full_conv.content" :key="message" class="ma-0" :class="{'justify-end ma-0': message.creator==this._id}">
-                        <div :class="{m_you: message.creator==this._id, m_friend: message.creator!=this._id}">
-                            <v-row :class="{'justify-end justify-flow-reverse ma-0': message.creator==this._id}">
+                    <v-row v-for="message in full_conv.content" :key="message.Date" class="ma-0" :class="{'justify-end ma-0': message.creator==_id}">
+                        <div :class="{m_you: message.creator==_id, m_friend: message.creator!=_id}">
+                            <v-row :class="{'justify-end justify-flow-reverse ma-0': message.creator==_id}">
                                 <v-avatar><img :src=image alt="u1"></v-avatar>
                                 <v-card-title >{{message.creator}}</v-card-title>
                             </v-row>
                             <v-card-text class="rounded-pill pb-1 pt-2"
-                                :class="{'teal lighten-4': message.creator==this._id, 'grey lighten-3': message.creator!=this._id}">
+                                :class="{'teal lighten-4': message.creator==_id, 'grey lighten-3': message.creator!=_id}">
                                     {{ message.content}}
                             </v-card-text>
                         </div>
@@ -32,7 +32,8 @@
         <v-spacer></v-spacer>
         <v-col cols="11">
             <v-card-actions>
-                <v-text-field label="Message" v-model="nm" class="rounded-pill teal lighten-4 pb-0 pt-4 pr-5 pl-5 justify-flow-reverse" color="deep-purple darken-4" @keyup.enter.prevent="SendMesage"></v-text-field>
+                <v-text-field label="Message" v-model="nm" class="rounded-pill teal lighten-4 pb-0 pt-4 pr-5 pl-5 justify-flow-reverse" color="deep-purple darken-4"
+                @keyup.enter.prevent="sendNew()"></v-text-field>
             </v-card-actions>
         </v-col>
         <v-spacer></v-spacer>
@@ -56,14 +57,6 @@ export default ({
             friend: 'u2',
             chatb: require('../images/ch6.jpg'),
             nm: null,
-            messages: [
-                {
-                    user: 'u1',
-                    time: '1:11',
-                    status: 'read',
-                    msg: 'LALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALA'
-                },
-            ]
         } 
     },
     props:{
@@ -75,7 +68,7 @@ export default ({
         }),
     },
     methods: {
-        ...mapActions(['getChat']),
+        ...mapActions(['getChat','sendMssg']),
         SendMesage() {
             var element = document.getElementById("chat");
             if(this.nm != null) {
@@ -88,20 +81,45 @@ export default ({
                 element.scrollTop = element.scrollHeight + 100;
             }
             this.nm = null;
+        },
+        async sendNew(){
+            let frid = ''
+            if(this._id == this.full_conv.users[0])
+                frid = this.full_conv.users[1]
+            else
+                frid = this.full_conv.users[0]
+
+            let m = this.nm;
+            this.nm = '';
+            // console.log('frid: ', frid)
+            // console.log('myid: ', this._id)
+            await this.sendMssg({
+                to_user: frid,
+                content: m
+            })
+            .then(res=>{
+                console.log('res Mssg: ', res)
+            })
+            await this.getChat({id:this.conv.chatid, prev: false})
+            .then(res=>{
+                this.full_conv = res.chat;
+            })
+        },
+        async refresh(){
+            await this.getChat({id:this.conv.chatid, prev: false})
+            .then(res=>{
+                this.full_conv = res.chat;
+            })
         }
     },
     watch:{
         async conv(conv){
             if(conv==null)
                 return
-            let data={
-                id: this.conv.chatid,
-                prev: false
-            }
-            await this.getChat(data)
-            .then(res=>{
-                this.full_conv = res.chat;
-            })
+            await this.refresh();
+            // while(conv!=null){
+                // setTimeout(this.refresh, 10000)
+            // }
         }
     }
 })

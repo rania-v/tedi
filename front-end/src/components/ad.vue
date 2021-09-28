@@ -23,7 +23,7 @@
             <v-icon v-show="show==true" v-bind="size" >fas fa-caret-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>      
-          <v-btn color="teal lighten-2" text x-small  :to="{name: 'OpenAd', params:{ open:'open'}}" v-bind="size">
+          <v-btn color="teal lighten-2" text x-small  :to="{name: 'OpenAd', params:{ open:'open', id: this.id, ad: this.ad}}" v-bind="size">
             Open Ad
           </v-btn>
           <v-btn color="teal lighten-2" outlined v-bind="size">

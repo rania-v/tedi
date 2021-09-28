@@ -14,6 +14,7 @@ async function serUser(user){
             myJobs: user.personal.myJobsAds.list.length > 0 ? ( !user.personal.myJobsAds.private ? user.personal.myJobsAds.list : null ): null,
             posts: user.personal.myPosts.list.length > 0 ? ( !user.personal.myPosts.private ? user.personal.myPosts.list : null ): null,
             friends: user.personal.friendsList.list ? !user.personal.friendsList.private ? user.personal.friendsList.list : null : null,
+            frequests: user.personal.frequests,
             contact:{
                 phoneNum: user.contact.phoneNum.value ? !user.contact.phoneNum.private ? user.contact.phoneNum.value : null : null,
                 profEmail: user.contact.profEmail.value ? !user.contact.profEmail.private ? user.contact.profEmail.value : null : null,

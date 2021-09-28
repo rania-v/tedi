@@ -15,8 +15,10 @@
                                 <v-spacer></v-spacer>
                                 <v-col class="ma-3 pa-2 d-flex">
                                     <!-- <v-btn class="ma-1" small>send friend request</v-btn> -->
-                                    <v-btn v-if="!this.isFriend(this.f_list)" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
-                                    <v-btn v-else class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
+                                    <v-btn v-if="!this.isFriend(this.f_list) && !this.pending_req" class="ma-1" small rounded v-on:click="sendReq(from_id, id)">send friend request</v-btn>
+                                    <v-btn v-if="this.isFriend(this.f_list) && !this.pending_req" class="ma-1" small rounded v-on:click="delFriend()">Delete Friend</v-btn>
+                                    <v-btn v-if="!this.isFriend(this.f_list) && this.pending_req" class="ma-1" small rounded disabled>Pending Friend Request</v-btn>
+                                    <!-- {{this.user.personal.frequests}} -->
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -136,6 +138,7 @@ export default ({
             ],
             user_list: [],
             ads_list: [],
+            pending_req: false,
             // loading_user: this.loadUser(),
             user: Object,
         };
@@ -143,19 +146,24 @@ export default ({
     computed:{
         ...mapGetters({
             from_id: '_id',
-            f_list: 'friends'
+            f_list: 'friends',
         }),
     },
     async beforeMount(){
         let i = this.$route.params.id
         await this.getUser(i)
             .then(res => {this.user = res.user})
+            console.log('user: ', this.user)
         let f;
         for(let friend of this.user.friends) {
                 await this.getUser(friend)
                     .then(res => { f = res.user});
                 this.user_list.push(f);
         }
+        // if(this.user.frequests.includes(this.from_id) == true)
+        //         this.pending_req = true;
+        // console.log("arr:", this.user.frequests, "id:", this.from_id)
+
         // let ad;
         // for(let a of this.user.myJobsAds) {
         //         await this.getAd(a)
@@ -163,7 +171,6 @@ export default ({
         //             // console.log('fri: ', f);
         //         this.ads_list.push(ad);
         // }
-        console.log('user: ', this.user)
     },
     methods:{
         ...mapActions(['getUser', 'sendfreq', 'removeFriend', 'getAd']),
@@ -178,11 +185,14 @@ export default ({
                 to_user: t,
             }
             this.sendfreq(a);
+            this.pending_req = true;
+            this.$forceUpdate();
         },
         delFriend() {
             console.log(this.id)
             this.removeFriend(this.id);
             this.isfriend = this.isFriend();
+            this.$forceUpdate();
         },
         isFriend(farray) {
             console.log('arr: ', farray)
@@ -191,10 +201,6 @@ export default ({
             if(farray.list.includes(this.id))
                 return true
             return false
-            // console.log('SKATATTATA: ', this.f_list.list)
-            // if(this.f_list.list.length>0)
-                // return this.f_list.list.includes(this.id) ? true : false;
-            // return false;
         }
     }
 })

@@ -57,6 +57,7 @@ export default ({
             friend: 'u2',
             chatb: require('../images/ch6.jpg'),
             nm: null,
+            timeVar:null,
         } 
     },
     props:{
@@ -97,19 +98,19 @@ export default ({
                 to_user: frid,
                 content: m
             })
-            .then(res=>{
-                console.log('res Mssg: ', res)
-            })
             await this.getChat({id:this.conv.chatid, prev: false})
             .then(res=>{
                 this.full_conv = res.chat;
             })
         },
         async refresh(){
+            console.log('REFRESH !!')
             await this.getChat({id:this.conv.chatid, prev: false})
             .then(res=>{
                 this.full_conv = res.chat;
             })
+
+            this.timeVar = setTimeout(this.refresh, 5000)
         }
     },
     watch:{
@@ -117,10 +118,10 @@ export default ({
             if(conv==null)
                 return
             await this.refresh();
-            // while(conv!=null){
-                // setTimeout(this.refresh, 10000)
-            // }
         }
+    },
+    beforeDestroy () {  // stop refreshing
+        clearTimeout(this.timeVar)
     }
 })
 </script>

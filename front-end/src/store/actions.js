@@ -2,6 +2,19 @@ import {client, actions} from '../rest-api-client/index.js'
 
 
 export default{
+
+	async refreshUser(){
+		return actions.refreshUser()
+		.then(res=>{
+			// console.log(res)
+			return res;
+		})
+		.catch(err=>{
+			// console.log(err)
+			return err;
+		})
+	},
+
     async login({commit}, payload){
         console.log(payload);
         commit("SET_LOADING", true)
@@ -15,7 +28,7 @@ export default{
 			commit("STORE_CLIENT", client.user)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)
-			return response
+			return response;
 		})
 		.catch( error => { 
 			console.log(error);
@@ -24,8 +37,7 @@ export default{
 		})
     },
 
-	async logout({commit}, payload){
-        console.log(payload);
+	async logout({commit}){
         commit("SET_LOADING", true)
         return actions.logout()
 		.then( response => {

@@ -60,17 +60,30 @@ function initClient(){
     }
 }
 
-
 export const actions = {
-    setClient(data) {
-        if(data.user)
-          // client.user = data.user;
-          client.user = JSON.parse(JSON.stringify(data.user));
     
-        if(data.token)
-          // client.tokenObject = data.token;
-          client.token = JSON.parse(JSON.stringify(data.token));
-    },
+  async refreshUser(){
+    return requests.refreshUserRequest(client.token.token)
+      .then(res=>{
+        actions.setClient(res)
+        return res;
+      })
+      .catch(err=>{
+        client = initClient()
+        throw err
+      })
+  },
+  
+
+  setClient(data) {
+      if(data.user)
+        // client.user = data.user;
+        client.user = JSON.parse(JSON.stringify(data.user));
+  
+      if(data.token)
+        // client.tokenObject = data.token;
+        client.token = JSON.parse(JSON.stringify(data.token));
+  },
 
       // Login user
   async login(email, password) {

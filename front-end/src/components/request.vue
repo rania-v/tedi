@@ -27,8 +27,8 @@
         </v-tooltip>
         </v-card-title>
         <v-card-text style="height: 15%;">
-            <v-row class="mt-1 d-flex justify-center">lalalallalalaa</v-row>
-            <v-row class="d-flex justify-center">lalallalalalla</v-row>
+            <v-row class="mt-1 d-flex justify-center">{{user.profession}}</v-row>
+            <v-row class="d-flex justify-center">{{user.workplace}}</v-row>
         </v-card-text>
         <v-card-actions class="mb-1 d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>

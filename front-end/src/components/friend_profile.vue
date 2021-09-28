@@ -42,13 +42,15 @@
                                     <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Ads</v-card-title>
                                     <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
                                             <v-btn small outlined color="white" v-on:click="openAds=true">see {{this.user.firstName}}'s ads</v-btn>
-                                            <v-dialog v-model="openAds" width="800px">
+                                            <v-dialog v-model="openAds" width="1000px">
                                             <v-card>
                                                 <h2 id="myFont" class="pa-2 d-flex justify-start align-start deep-purple--text">{{user.firstName}}'s Network</h2>
-                                                <v-col cols="3"  v-for="ad in this.user.myJobs" :key="ad">
-                                                    <Ad :id="ad"/>
-                                                    {{ad}}
-                                                </v-col>
+                                                <v-card-text style="display:flex; flex-wrap: wrap;  justify-content: center;">
+                                                    <v-col cols="4" v-for="ad in this.user.myJobs" :key="ad">
+                                                        <Ad :id="ad"/>
+                                                        {{ad}}
+                                                    </v-col>
+                                                </v-card-text>
                                             </v-card>
                                         </v-dialog>
                                     </v-card-text>

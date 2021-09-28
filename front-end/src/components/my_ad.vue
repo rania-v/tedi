@@ -35,7 +35,7 @@
 import { mapActions, mapGetters } from "vuex"
 
 export default ({
-    name: 'Ad',
+    name: 'MyAd',
     data() {
         return {
           // promise: this.getAd(this.id),

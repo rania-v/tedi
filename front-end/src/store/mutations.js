@@ -2,10 +2,6 @@ import Vue from "vue"
 
 
 export default{
-    TEST(state, payload){
-        console.log('all good ', payload)
-    },
-
     SET_LOADING(state, payload){
       Vue.set(state, "isLoading", payload)
     },

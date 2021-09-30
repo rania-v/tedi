@@ -40,7 +40,7 @@
         </v-row>
         <v-row>
             <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
-            <CommentsComp :comm_list="this.post.comments"/>
+            <CommentsComp :comm_list="this.post.comments" :key="this.reload_comments"/>
         </v-row>
     </v-card>
 </template>
@@ -66,7 +66,9 @@ export default ({
             text: '',
             reacts: null,
             comm: false,
-            new_comm: null
+            new_comm: null,
+            reload_comments: false,
+            date: this.parseDate()
         }
     },
     props:{
@@ -75,17 +77,16 @@ export default ({
     methods: {
         ...mapActions(["getPost","getUser", 'createComment']),
         post_new_comm() {
-            // let new_comment = {
-            //     user_avatar: this.user_avatar,
-            //     user: this.user,
-            //     comment_text: this.new_comm
-            // }
-            // CommentsComp.comment_array.push(new_comment)
             let a = {
                 postId: this.id,
                 form: {content: this.new_comm}
             }
-            this.createComment(a)
+            this.createComment(a);
+            // |
+            // |
+            // V its not working <3 because its dumb <3
+            // this.reload_commnets = !this.reload_comments;
+            this.$forceUpdate();
         },
         Hide_new_comm() {
             if (this.comm == true)
@@ -95,6 +96,9 @@ export default ({
             // search react list of comment and if not already there add 
             this.reacts++;
             // else reacts -- and remove from react list
+        },
+        parseDate() {
+            return this.post.Date.substring(0, 10);
         }
     },
     

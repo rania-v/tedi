@@ -29,7 +29,7 @@ export default {
     resume: null,
     profession: null,
     workplace: null,
-	skills: [],
+	skills: null,
 
     postsToSee: [],
     jobsToSee: [],

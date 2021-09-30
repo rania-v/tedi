@@ -14,16 +14,23 @@
     </v-dialog>
         <v-template >
 
-    <v-card width="20%" class="ma-2 pb-2">
-        <v-img :src="user.photo"></v-img>
-        <v-card-title>
-            <v-row class="d-flex justify-center">{{user.name}}</v-row>
+    <v-card width="20%" height="320px" class="ma-2 pb-2">
+        <v-img :src="img" height="60%"></v-img>
+        <v-card-title class="mb-0 pa-0">
+            <v-tooltip class="mt-0" top>
+          <template v-slot:activator="{on, attrs}">
+          <div id="user_name" style="width:calc(100%)" v-bind="attrs" v-on="on">{{user.name}}</div>
+          </template>
+          <span>
+              <div>{{user.name}}</div>
+          </span>
+        </v-tooltip>
         </v-card-title>
-        <v-card-text>
-            <v-row class="d-flex justify-center">{{user.profession}}</v-row>
-            <v-row class="d-flex justify-center">{{user.workplace}}</v-row>
+        <v-card-text style="height: 15%;">
+            <v-row class="mt-1 d-flex justify-center">lalalallalalaa</v-row>
+            <v-row class="d-flex justify-center">lalallalalalla</v-row>
         </v-card-text>
-        <v-card-actions class="d-flex justify-center">
+        <v-card-actions class="mb-1 d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
             <v-btn color="teal" style="color:white" v-on:click="acceptfreq(id)">Accept</v-btn>
         </v-card-actions>
@@ -42,17 +49,25 @@ export default ({
     },
     data() {
         return {
+            user: Object,
             popup: false,
-            user: {
-                photo: require('../icons/avatars/sailormoon.jpeg'),
-                name: 'Chaka Khan',
-                profession: 'Singer',
-                workplace: 'Vietnam Singing Bar'
-            }
+            img: require("../images/7.jpg"),
         }    
     },
+    computed: { 
+    },
     methods: {
-        ...mapActions(['acceptfreq', 'denyfreq', 'getUser']),
+        ...mapActions(['acceptfreq', 'denyfreq', 'getSenderByReqId', 'getUser']),
+    },
+    async beforeMount() {
+        let c
+
+        await this.getSenderByReqId(this.id)
+            .then(res => {c = res})
+
+        await this.getUser(c)
+            .then(res => {console.log('res:', res); this.user = res.user})
+        console.log("result user", this.user)
     }
 })
 </script>

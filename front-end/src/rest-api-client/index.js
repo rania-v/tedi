@@ -53,14 +53,15 @@ function initClient(){
             resume: null,
             profession: null,
             workplace: null,
-            skills: [],
-
-            postsToSee:[],
-            jobsToSee:[],
+            skill_list: null,
         },
         token:{
             token: localToken ? localToken.token : null,
             expires: localToken ? localToken.exp : null,
+        },
+        feed:{
+          postsToSee:[],
+          jobsToSee:[],
         }
     }
 }
@@ -95,8 +96,10 @@ export const actions = {
     return requests.loginRequest(email, password)
     .then(function(response) {
       // Set client object
-      console.log('response: ', response);
+      // console.log('response: ', response);
       actions.setClient(response);
+      console.log('cli_feed: ', client.feed)
+      client.feed.postsToSee = response.myPosts;
       return response.message;
     })
     .catch(function(error) {client = initClient(); throw error })
@@ -288,6 +291,12 @@ export const actions = {
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
+  },
+
+  async getSenderRequest(form) {
+    return requests.getSenderRequest(form, client.token.token)
+      .then(res => {return res})
+      .catch(err =>{ client = initClient(); throw err;})
   },
 
   async denyfreq(form){

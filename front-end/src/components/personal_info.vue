@@ -100,18 +100,15 @@
                                 <v-chip class="ma-1" color="pink white--text" v-for="skill in skill_list.list" :key="skill" >{{skill}}</v-chip>
                             </v-flex>
                             <v-card v-else>
-                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink"  rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
+                                <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink" rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
                                 </v-autocomplete>
+                                {{skill_list.list}}
                                 <v-card flat>
                                     <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
                                     v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">
                                         {{skill}}
                                     </v-chip>
                                 </v-card>
-                                <!-- <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn v-if="!isEmpty(skill_list.list)" small text class="pink--text" v-on:click="skill_list.list = EmptyList()">clear</v-btn>
-                                </v-card-actions> -->
                                     <v-chip class="ma-1" v-for="skill in skill_list.list" :key="skill" color="deep-purple lighten-4" close @click:close="ClickSkill(skill_list.list,skill)">{{skill}}</v-chip>
                             </v-card>
                         </v-card-text>
@@ -177,7 +174,7 @@ export default({
                     skill_list:  {value: '', private: null}
                 }
             },
-            catlist: [],
+            catlist: null,
             // user.contact.perEmail.value
             
             pr_img_left: require('../illustrations/12.svg'),

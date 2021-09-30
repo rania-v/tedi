@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const utils = require('../auth/utils');
+const {serUser} = require('../serializer');
 
 const {invalidToken} = require('../models/token');
 const { user, frequest} = require("../models/user");
@@ -280,6 +281,25 @@ router.post('/update-user-attrs', async(req, res) =>{
     res.json({message: err});
   }
 })
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get Friend Request Sender
+router.post('/getfrequestsender', async(req, res) => {
+  try{
+    var targetreq = await frequest.findById(req.body.gowild);
+    var targetuser = await user.findById(targetreq.from);
+
+    console.log('req: ', targetreq);
+    console.log('user: ', targetuser);
+
+    var sered = await serUser(targetuser);
+    console.log('sered: ', sered)
+    res.json({message: 'found the creepy bastard', fromUser: (targetuser)})
+  }
+  catch(err) {
+    res.json({message: err});
+  }
+})
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Send Friend Request
 router.post('/frequest', async(req, res) => {

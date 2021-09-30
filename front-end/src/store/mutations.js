@@ -39,7 +39,7 @@ export default{
 
       Vue.set(state, "resume", payload.attrs.resume);
       Vue.set(state, "workplace", payload.attrs.workplace);
-      Vue.set(state, "skills", payload.attrs.skills);
+      Vue.set(state, "skills", payload.attrs.skill_list);
       Vue.set(state, "profession", payload.attrs.profession);
 
 

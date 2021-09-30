@@ -193,6 +193,19 @@ export const denyfreqRequest = async (form, token) =>{
   .catch(function(error) { throw error })
 }
 
+export const getSenderRequest = async (freqId, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  let data={
+    gowild: freqId
+  }
+  console.log('requests wild: ', freqId)
+
+  return restAPI.send('POST', 'secure/getfrequestsender', data, headers)
+  .then(function(response) { console.log('requests res: ', response); return response })
+  .catch(function(error) { throw error })
+}
+
 export const sendfreqRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
 

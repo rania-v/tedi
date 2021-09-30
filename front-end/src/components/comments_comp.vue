@@ -1,8 +1,6 @@
 <template>
     <v-container id="comments">
         <v-row justify="end" class="mb-2">
-                         {{comm_list}}                      lalalalalla 
-
             <v-btn v-on:click="show=!show" text>
                 COMMENTS
                 <v-icon v-show="show==false" right>fas fa-caret-down</v-icon>
@@ -22,11 +20,10 @@
                                         <strong id="user_name" v-html=cmnt.creator  style="color:teal"></strong>
                                     </v-row >
                                     <v-row class="ma-1">
-                                        <p id="comm_text">{{cmnt.content}}</p>
+                                        <p id="comm_text">{{cmnt.comm.content}}</p>
                                     </v-row>
                                 </v-col>
                                 <v-col class="justify-end">
-                                    lalalla
                                 </v-col>
                         </v-card-text>
                     </v-card>
@@ -37,9 +34,7 @@
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
 import {mapActions} from 'vuex'
-// import mapGetters from 'vuex'
 
 export default({
     name: 'CommentsComp',
@@ -48,36 +43,25 @@ export default({
         return {
             empty: true,
             show: false,
-            // user_avatar: require('../icons/avatars/sailormoon.jpeg'),
-            // user: 'Sailor Moon',
-            // comment_text: 'Some comment text',
-            // load_coms: this.loadComm(),
             comment_array: []
         }
     },
     methods: {
-        ...mapActions(['getComment']),
-        // async loadComm() {
-        //     console.log("this com:", this.comm_list)
-        //     let c;
-        //     for(let comm of this.comm_list) {
-        //         console.log('ALOHA: ', comm)
-        //          await this.getComment(comm)
-        //             .then(res => {console.log('gamw: ', res);c = res;})
-        //         console.log('com: ', c);
-        //         this.comment_array.push(c);
-        //     }
-        //     return true;
-        // }
+        ...mapActions(['getComment', 'getUser']),
     },
     async beforeMount(){
-        let c;
         console.log('list: ', this.comm_list)
         for(let comm of this.comm_list) {
+            let obj = {};
+            let c, cr ;
                 await this.getComment(comm)
                 .then(res => {c = res.comment;})
-            console.log('com: ', c);
-            this.comment_array.push(c);
+                await this.getUser(c.creator)
+                .then(res => {cr = res.user.name})
+            obj['comm'] = c;
+            obj['creator'] = cr;
+            console.log('obj', obj)
+            this.comment_array.push(obj);
         }
     }
 })

@@ -159,7 +159,7 @@ export default{
     resume: state => state.resume ? state.resume : null,
     profession: state => state.profession ? state.profession : null,
     workplace: state => state.workplace ? state.workplace : null,
-    skills: state => state.skills ? state.skills : [],
+    skills: state => state.skills,
 
     postsToSee: state => state.postsToSee ? state.postsToSee : [],
     jobsToSee: state => state.jobsToSee ? state.jobsToSee : [],

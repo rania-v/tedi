@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const utils = require('../auth/utils');
-const {serUser} = require('../serializer');
 
 const {invalidToken} = require('../models/token');
 const { user, frequest} = require("../models/user");

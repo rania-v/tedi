@@ -136,6 +136,10 @@ router.post('/update-user-personal', async(req, res) =>{
       targetUser.personal.country = req.body.country;
     }
 
+    if(req.body.country){
+      targetUser.personal.country = req.body.country;
+    }
+
     // console.log(targetUser.personal.country);
 
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
@@ -203,9 +207,8 @@ router.post('/update-user-attrs', async(req, res) =>{
     if(req.body.skill_list){
       targetUser.attrs.skill_list = req.body.skill_list;
     }
-    // console.log(targetUser.personal);
 
-    await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
+    await user.findByIdAndUpdate(targetUser._id, {attrs: targetUser.attrs}, {runValidators: true})
     res.json({
       message: 'Οι πληροφορίες επικοινωνίας του χρήστη ενημερώθηκαν',
       user: targetUser,
@@ -409,6 +412,7 @@ router.post('/getChat', async(req, res) => {
       const targetChat = await chat.findById(req.body.chatId);
       let user2 = '';
       if(req.body.prev){
+        // var last = targetChat.content.length - 1;
         targetChat.content = targetChat.content ? targetChat.content[0] : [];
       }
 

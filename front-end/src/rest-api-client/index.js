@@ -93,8 +93,13 @@ export const actions = {
       // Set client object
       // console.log('response: ', response);
       actions.setClient(response);
-      console.log('cli_feed: ', client.feed)
-      client.feed.postsToSee = response.myPosts;
+      console.log('cli_user: ', client)
+      console.log('response: ', response)
+      // if(client.feed.postsToSee == undefined)
+      //   client.feed.postsToSee = [];
+      client.feed.postsToSee = (response.user.personal.myPosts.list);
+      console.log('response: ', client.feed.postsToSee)
+
       return response.message;
     })
     .catch(function(error) {client = initClient(); throw error })
@@ -251,10 +256,10 @@ export const actions = {
     return requests.createPostRequest(form, client.token.token)
     .then(function(response){
       // console.log('res: ', response)
-      if(client.user.postsToSee == undefined)
-        client.user.postsToSee = [];
-      client.user.postsToSee.push(response.post._id);
-      // console.log('posts: ', client.user.postsToSee)
+      // if(client.feed.postsToSee == undefined)
+      //   client.feed.postsToSee = [];
+      client.feed.postsToSee.push(response.post._id);
+      console.log('posts: ', client)
       return response;
     })
     .catch(function(error){client = initClient(); throw error})

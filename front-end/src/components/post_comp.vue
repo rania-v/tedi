@@ -4,17 +4,17 @@
             <v-row justify="space-between">
                 <v-col class=text-left>
                     <v-avatar>
-                    <v-img :src=user_avatar></v-img>
+                    <v-img :src="user_avatar"></v-img>
                     </v-avatar>
-                    <strong id="user_name" v-html=user></strong>
+                    <h5 id="myFont">{{this.creator.name}}</h5>
                 </v-col>
                 <v-col id="time" class=text-right >{{this.post.Date}}</v-col>
             </v-row>
         </v-card-title>
-        <v-img :src="post_photo" max-height="200px" contain></v-img>
+        <v-img :src="this.post_photo" max-height="200px" contain></v-img>
         <v-card-text>
             <v-row>
-                <v-card-text>{{this.post.content}}</v-card-text>
+                <v-card-text>{{post.content}}</v-card-text>
             </v-row>
         </v-card-text>
         <v-row>
@@ -28,7 +28,7 @@
                 <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
             </v-row>
         </v-card-actions>
-        <v-row v-if="comm==true">
+        <v-row v-if="this.comm==true">
             <v-card class="rounded-pill mt-2 pr-4 pl-4 mb-1 d-flex" 
                     flat width="100%" height="60px"
                     style="margin-right:5%; margin-left:5%; margin-top:1% lenght: length:100%;"
@@ -57,21 +57,19 @@ export default ({
     },
     data() {
         return {
-            post: null,
-            creator: null,
-            user: '',
             user_avatar: require('../icons/avatars/haruka.jpg'),
-            post_photo: require('../icons/avatars/haruka.jpg'),
+            post_photo: require('../images/12.jpg'),
             time: '',
             text: '',
             reacts: null,
             comm: false,
             new_comm: null,
             reload_comments: false,
-            date: this.parseDate()
         }
     },
     props:{
+        creator: String,
+        post: Object,
         id: String,
     },
     methods: {
@@ -86,7 +84,7 @@ export default ({
             // |
             // V its not working <3 because its dumb <3
             // this.reload_commnets = !this.reload_comments;
-            this.$forceUpdate();
+            // this.$forceUpdate();
         },
         Hide_new_comm() {
             if (this.comm == true)
@@ -96,9 +94,6 @@ export default ({
             // search react list of comment and if not already there add 
             this.reacts++;
             // else reacts -- and remove from react list
-        },
-        parseDate() {
-            return this.post.Date.substring(0, 10);
         }
     },
     
@@ -106,13 +101,17 @@ export default ({
         console.log('id: ', this.id)
         await this.getPost(this.id)
             .then(res=>{
+        console.log('post: ', res);
+
                 this.post=res.post;
             })
         await this.getUser(this.post.creator)
         .then(res=>{
-            this.creator = res;
+            console.log('res:', res)
+            this.creator = res.user;
         })
-        // console.log('post: ', this.post);
+        console.log('post: ', this.post);
+        console.log('cr: ', this.creator);
     }
 })
 </script>

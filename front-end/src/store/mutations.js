@@ -43,10 +43,14 @@ export default{
       Vue.set(state, "profession", payload.attrs.profession);
 
 
+      // Vue.set(state, "postsToSee", payload.postsToSee);
+      
+      console.log('state: ', state)
+    },
+    
+    STORE_FEED_JOBS(state, payload) {
       Vue.set(state, "postsToSee", payload.postsToSee);
       Vue.set(state, "jobsToSee", payload.jobsToSee);
-
-      console.log('state: ', state)
     },
 
     DELETE_FRIEND(state, payload){
@@ -101,6 +105,8 @@ export default{
       Vue.set(state, "workplace", null);
       Vue.set(state, "skills", null);
       Vue.set(state, "profession", null);
+      Vue.set(state, "postsToSee", null);
+      Vue.set(state, "jobsToSee", null);
       // console.log('state: ', state)
     },
 }

@@ -9,6 +9,9 @@
         </v-row>
         <!-- <div style=""> -->
             <v-container v-show="show==true" style="overflow:auto; max-height:170px">
+                <div  v-if="this.comment_array.length == 0">
+                    This Post has no comments so far...
+                </div>
                 <v-row v-for="cmnt in comment_array" :key="cmnt._id">
                     <v-card class="rounded-pill pa-2 mb-1 d-flex" flat width="100%" height="50px" id="comment" color="grey lighten-4">
                         <v-card-text class="d-flex justify-start pa-0 pb-0 align-content-end">
@@ -29,6 +32,9 @@
                     </v-card>
                 </v-row>
             </v-container>
+            <!-- <div v-else>
+                This Post has no comments so far...
+            </div> -->
         <!-- </div> -->
     </v-container>
 </template>

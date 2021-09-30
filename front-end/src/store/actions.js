@@ -22,10 +22,11 @@ export default{
 		.then( response => {
 			// console.log()
 			// console.log('responsesss: ', response);
-            console.log(client);
 			// commit("STORE_CLIENT", client.user)
+            console.log(client);
 			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
+			commit("STORE_FEED_JOBS", client.feed)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)
 			return response;

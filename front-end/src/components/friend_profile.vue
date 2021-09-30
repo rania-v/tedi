@@ -90,11 +90,10 @@
         <v-row>
             <v-spacer></v-spacer>
             <v-col cols="2">
-                <v-card flat style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2;">
+                <v-card flat style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2; overflow-y: scroll;">
                     <v-card-title id="myFont">Skill Set</v-card-title>
-                    {{this.user.attrs}}
-                    <v-chip class="pink pink--text small ma-2"
-                    v-for="skill in this.user.attrs.skill_list" :key="skill" outlined large>
+                    <v-chip class="pink white--text small ma-2"
+                    v-for="skill in this.user.attrs.skill_list" :key="skill" small>
                         {{skill}}
                     </v-chip>
                 </v-card>
@@ -107,6 +106,7 @@
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-card v-for="item in this.user.posts" :key="item" class="pa-3 ma-3" elevation="0">
+                {{item}}
                     <PostComp :id="item"/>
                 </v-card>
             </v-col>

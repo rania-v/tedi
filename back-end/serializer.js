@@ -24,7 +24,7 @@ async function serUser(user){
                 resume: user.attrs.resume.value ? !user.attrs.resume.private ? user.attrs.resume.value : null : null,
                 profession: user.attrs.profession.value ? !user.attrs.profession.private ? user.attrs.profession.value : null : null,
                 workplace: user.attrs.workplace.value ? !user.attrs.workplace.private ? user.attrs.workplace.value : null : null,
-                skill_list: user.attrs.skill_list.value ? !user.attrs.skill_list.private ? user.attrs.skill_list.value :null : null,
+                skill_list: user.attrs.skill_list.list ? !user.attrs.skill_list.private ? user.attrs.skill_list.list :null : null,
             },
         }
         // console.log('ser: ', seruser);

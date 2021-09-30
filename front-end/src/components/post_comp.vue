@@ -1,5 +1,5 @@
 <template>
-    <v-card elevation="0" v-if="gotPost()" >
+    <v-card elevation="0" v-if="gotPost() && gotCreator()" >
         <v-card-title>
             <v-row justify="space-between">
                 <v-col class=text-left>
@@ -69,12 +69,12 @@ export default ({
             reacts: null,
             comm: false,
             new_comm: null,
-            has_reacted: this.reacted
+            has_reacted: this.reacted,
+            creator: null,
+            post: null,
         }
     },
     props:{
-        creator: String,
-        post: Object,
         id: String,
     },
     methods: {
@@ -95,9 +95,16 @@ export default ({
             .then(res=>{this.post=res.post})
             this.post.Date = this.post.Date.slice(0,10)
             this.reacts = this.post.reacts.length;
+            await this.getUser(this.post.creator)
+            .then(res=>{
+                this.creator = res.user;
+            })
         },
         gotPost(){
             return this.post
+        },
+        gotCreator(){
+            return this.creator
         },
         Hide_new_comm() {
             if (this.comm == true)
@@ -109,15 +116,12 @@ export default ({
             }
                                 // post react
             await this.react({postId: this.post._id, react: 1})
-            // .then(res=>{console.log('res: ', res)})
-            // this.has_reacted=true
 
             await this.loadPost();
             this.reacted();
             // else reacts -- and remove from react list
         },
         reacted(){
-            // console.log('reacts: ', this.post.reacts)
             for(let r of this.post.reacts){
                 if(r.creator == this._id){
                     this.has_reacted=true;
@@ -134,13 +138,8 @@ export default ({
     },
     
     async beforeMount(){
-        console.log('id: ', this.id)
+        // console.log('id: ', this.id)
         await this.loadPost();
-        await this.getUser(this.post.creator)
-        .then(res=>{
-            console.log('res:', res)
-            this.creator = res.user;
-        })
         this.reacted();
         // console.log('post: ', this.post);
     }

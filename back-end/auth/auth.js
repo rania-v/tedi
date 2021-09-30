@@ -31,15 +31,15 @@ passport.use('register', new localStrategy(
       passReqToCallback: true
     }, async(req, email, password, done) =>{
         try{
-          console.log('REQ: ', req.body)
+          // console.log('REQ: ', req.body)
           const user = new User(req.body);
-          console.log('edw')
+          // console.log('edw')
           await user.save();
-          console.log('edw')
+          // console.log('edw')
           return done(null, user, {message: 'Επιτυχής Εγγραφή'});
         }
         catch(error){
-          console.log('aaaa')
+          // console.log('aaaa')
           return done(error, null , {message: 'Σφάλμα'});
         }
     }
@@ -54,8 +54,8 @@ passport.use('login', new localStrategy(
     }, async (email, password, done) => {
     try {
         // Find user in the db
-            console.log('email: ', email)
-            console.log('pass: ', password)
+            // console.log('email: ', email)
+            // console.log('pass: ', password)
         const user = await User.findOne( {"contact.profEmail.value":email });
         // If no such user
         if (!user) {

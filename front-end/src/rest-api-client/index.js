@@ -113,7 +113,7 @@ export const actions = {
     return requests.registerRequest(newUser)
     .then(function(response) {
       // Set client object
-      console.log('response: ', response);
+      // console.log('response: ', response);
       // actions.setClient(response);
       return response.message;
     })
@@ -123,11 +123,11 @@ export const actions = {
   async searchUsers(val){
     return requests.searchUsersRequest(val, client.token.token)
     .then(response => {
-      console.log(response);
+      // console.log(response);
       return response;
     })
     .catch(err=>{
-      console.log(err)
+      // console.log(err)
       throw err;
     })
   },
@@ -245,7 +245,7 @@ export const actions = {
     return requests.updateAttrsRequest(form.attrs, client.token.token)
     .then(function(response){
       mssgs.push(response)
-      console.log('response: ', mssgs);
+      // console.log('response: ', mssgs);
       actions.setClient(response);
       return mssgs;
     })
@@ -287,7 +287,7 @@ export const actions = {
     return requests.acceptfreqRequest(form, client.token.token)
     .then(function(response){
       actions.setClient(response);
-      console.log('accept resp: ', response)
+      // console.log('accept resp: ', response)
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -383,7 +383,7 @@ export var client = initClient();
 
 export const send = async (method, url, data, headers) => {
 
-  console.log("method: ", method, " api url: ", apiUrl, " url: ", url, " data: ", data, " headers: ", headers)
+  // console.log("method: ", method, " api url: ", apiUrl, " url: ", url, " data: ", data, " headers: ", headers)
     switch(method) {
       case('POST'):
         return axios.post(`${apiUrl}/${url}`, data, { headers: headers }, { httpAgent: agent })

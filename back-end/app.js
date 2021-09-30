@@ -5,7 +5,9 @@ const passport = require("passport");
 const authenticate = require("./middlewares/authenticate")
 const app = express();
 const http = require("http");
-const cors = require("cors")
+const https = require("https");
+const cors = require("cors");
+const fs = require('fs');
 
 require("dotenv/config");
 require("./auth/auth");
@@ -44,9 +46,6 @@ const postRoutes = require('./routes/post');
 app.use('/api/post', authenticate, postRoutes);
 
 
-
-
-
 // connect db
 mongoose.connect(
     process.env.DB_CONNECTION,
@@ -62,9 +61,9 @@ mongoose.connect(
 .catch( error => console.log(error.message) );
 
 const options = {
-    // key: fs.readFileSync("./security/localhost+1-key.pem"),
-    // cert: fs.readFileSync("./security/localhost+1.pem"),
-    // ca: fs.readFileSync("./security/mkcert_rootCA.crt"),
+    // key: fs.readFileSync("./secure/key.pem"),
+    // cert: fs.readFileSync("./secure/cert.pem"),
+    // ca: fs.readFileSync("./secure/mkcert_rootCA.crt"),
     requestCert: false,
     rejectUnauthorized: false
 };
@@ -72,9 +71,11 @@ const options = {
 const PORT = process.env.PORT || 3001
 const HOST = process.env.HOST || '127.0.0.1'
 
+// const server = https.createServer(options, app).listen(PORT, function(){
 const server = http.createServer(options, app).listen(PORT, function(){
-    console.log(`Server listening at http://${HOST}:${PORT}/`);
+        console.log(`Server listening at https://${HOST}:${PORT}/`);
 });
+
 
 
 // app.listen(3001, ()=>{

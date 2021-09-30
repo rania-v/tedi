@@ -1,4 +1,6 @@
-
+// const { user } = require("./models/user");
+const { post, comment} = require("./models/post")
+const { job } = require("./models/job")
 
 async function serUser(user){
     try{
@@ -35,4 +37,67 @@ async function serUser(user){
     }
 }
 
+async function selector(user, data){
+    console.log('data: ', data)
+    let select={name:user.personal.firstName + ' ' + user.personal.lastName};
+    if(data.data=='bio' && data.status){
+        
+    }
+
+    for(let d of data){
+        if(d.data=='posts' && d.status){
+            select.posts = []
+            
+            for(let p of user.personal.myPosts.list){
+                console.log('p: ', p)
+                let targetPost = await post.findById(p)
+                console.log('post: ', targetPost)
+                select.posts.push({Post: targetPost.content})
+            }
+        }
+        if(d.data=='ads' && d.status){
+            select.JobAds = []
+            for(let j of user.personal.myJobsAds.list){
+                let targetJob = await job.findById(j)
+                select.JobAds.push({
+                    title: targetJob.title,
+                    company: targetJob.basic_info.company_name,
+                    location: targetJob.basic_info.location
+                })
+            }
+        }
+        if(d.data=='qualifications' && d.status){
+            select.skills = user.attrs.skill_list.list;
+        }
+        if(d.data=='intrests in ads' && d.status){
+            select.applied_to = []
+            
+            for(let appl of user.personal.myJobsAds.list){
+                let targetJob = await job.findById(appl)
+                select.applied_to.push({
+                    title: targetJob.title,
+                    company: targetJob.basic_info.company_name,
+                    location: targetJob.basic_info.location
+                })
+            }
+        }
+        if(d.data=='network' && d.status){
+            select.newtwork = user.personal.friendsList.list;
+        }
+        if(d.data=='comments in posts' && d.status){
+            select.comments = []
+            if(!user.personal.myComments.length) continue;
+
+            for(let comm of user.personal.myComments){
+                let targetComm = await comment.findById(comm)
+                let targetPost = await post.findById(targetComm.post)
+                select.comments.push({comment: targetComm.content, onPost: targetPost.content})
+            }
+        }
+    }
+
+    return select;
+}
+
 module.exports.serUser = serUser;
+module.exports.selector = selector;

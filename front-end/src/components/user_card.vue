@@ -3,7 +3,7 @@
 
     <v-card width="100%" class="mt-2 pb-2" max-height="300px" @mouseover.native="overlay=true" @mouseleave="overlay=false">
         <v-img :src="user.image ? user.image : require('../icons/avatars/user1.png') ">
-            <v-overlay absolute :value="overlay" color="white" >
+            <v-overlay absolute v-if="choices" :value="overlay" color="white" >
                 <v-responsive :aspect-ratio="13/4">
 
             <v-btn width="90%" class="ma-2" color="teal" :to="{ name: 'Friend_Profile', params:{ id: user._id,  page_title : 'Δίκτυο'}}">open profile</v-btn>
@@ -33,6 +33,7 @@ export default ({
     },
     props:{
         user: Object,
+        choices:{type: Boolean, default: true}
     },
 })
 </script>

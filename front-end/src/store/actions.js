@@ -436,6 +436,35 @@ export default{
 		})
 	},
 
+	async extractUsersData({commit}, extract){
+		commit("SET_LOADING", true)
+		console.log('extract: ', extract)
+		return actions.extractUsersData(extract)
+		.then(res=>{
+			commit("SET_LOADING", false);
+			return res;
+		})
+		.catch(err=>{
+			console.log(err)
+			commit("SET_LOADING", false);
+			throw err;
+		})
+	},
+
+	async getAllUsers({commit}){
+		commit("SET_LOADING", true)
+		return actions.getAllUsers()
+		.then(res=>{
+			commit("SET_LOADING", false);
+			return res;
+		})
+		.catch(err=>{
+			console.log(err);
+			commit("SET_LOADING", false);
+			throw err;
+		})
+	},
+
 	// async createXml({commit}, user_id) {
 	// 	commit("SET_LOADING", true);
 

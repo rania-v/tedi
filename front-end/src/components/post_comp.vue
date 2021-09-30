@@ -84,6 +84,7 @@ export default ({
                 postId: this.id,
                 form: {content: this.new_comm}
             }
+            // console.log(a)
             await this.createComment(a)
 
             await this.loadPost()

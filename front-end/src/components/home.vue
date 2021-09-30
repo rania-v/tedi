@@ -6,15 +6,10 @@
             <Profile @Goto_Net="openNet" style="position: -webkit-sticky; position: sticky; top: 120px; z-index: 2;"/>
         </v-col>
         <v-col cols="6">
-            <!-- <v-container> -->
-                <PostCreate @new_post='show_new_post($event)'/>
-                <!-- <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
-                    <MyPost/>
-                </v-card> -->
-                <v-card v-for="item in this.postsToSee" :key="item" class="pa-3 ma-3" elevation="0">
-                    <PostComp :id="item"/>
-                </v-card>
-            <!-- </v-container> -->
+            <PostCreate/>
+            <v-card v-for="item in this.postsToSee" :key="item" class="pa-3 ma-3" elevation="0">
+                <PostComp :id="item"/>
+            </v-card>
         </v-col>
         <v-spacer></v-spacer>
     </v-row>
@@ -55,9 +50,6 @@ export default ({
         },
         ChangePT(pt) {
             this.msg = pt;
-        },
-        show_new_post() {
-            this.$forcedUpdate();
         },
         async refresh(){
             await this.refreshUser()

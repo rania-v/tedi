@@ -3,7 +3,7 @@
         <v-card class="teal lighten-4" elevation="0">
             <v-subheader class="d-flex justify-center">CREATE AN AWESOME POST</v-subheader>
             <v-card-text :class="color">
-                <v-textarea placeholder="Share your thoughts with your network" v-model="newpost.content" v-on:click="focus_rows=3, create=true" v-on:blur="check_post" :rows="focus_rows" color="teal"></v-textarea>
+                <v-textarea placeholder="Share your thoughts with your network" v-model="newpost.content" v-on:click="focus_rows=3, create=true" :rows="focus_rows" color="teal"></v-textarea>
             </v-card-text>
             <v-card-actions>
                 <v-row class="d-flex align-center pa-0">
@@ -40,7 +40,7 @@ export default {
         ...mapActions(['createPost']),
         newPost(){
             console.log('con: ', this.newpost.content);
-            this.createPost(this.newpost);
+            // this.createPost(this.newpost);
         },
         check_post() {
             this.focus_rows=1;
@@ -51,9 +51,6 @@ export default {
             else
                 this.create = true;
                 return true;
-        },
-        post() {
-            this.$emit('new_post', this.newpost)
         },
         skata(){
             console.log('cont: ', this.newpost.content);

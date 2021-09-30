@@ -38,7 +38,7 @@ import {mapActions} from 'vuex'
 
 export default({
     name: 'CommentsComp',
-    props: {comm_list: Array},
+    props: {comm_list: Array,reloadComms: Boolean},
     data() {
         return {
             empty: true,
@@ -48,20 +48,29 @@ export default({
     },
     methods: {
         ...mapActions(['getComment', 'getUser']),
+        async loadComms(){
+            for(let comm of this.comm_list) {
+                let obj = {};
+                let c, cr ;
+                    await this.getComment(comm)
+                    .then(res => {c = res.comment;})
+                    await this.getUser(c.creator)
+                    .then(res => {cr = res.user.name})
+                obj['comm'] = c;
+                obj['creator'] = cr;
+                console.log('obj', obj)
+                this.comment_array.push(obj);
+            }
+        }
     },
     async beforeMount(){
         console.log('list: ', this.comm_list)
-        for(let comm of this.comm_list) {
-            let obj = {};
-            let c, cr ;
-                await this.getComment(comm)
-                .then(res => {c = res.comment;})
-                await this.getUser(c.creator)
-                .then(res => {cr = res.user.name})
-            obj['comm'] = c;
-            obj['creator'] = cr;
-            console.log('obj', obj)
-            this.comment_array.push(obj);
+        this.loadComms()
+    },
+    watch:{
+        async reloadComms(val){
+            if(!val){return;}
+            await this.loadComms();
         }
     }
 })

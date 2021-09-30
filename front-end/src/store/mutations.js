@@ -42,11 +42,12 @@ export default{
       Vue.set(state, "skills", payload.attrs.skill_list);
       Vue.set(state, "profession", payload.attrs.profession);
 
-
-      Vue.set(state, "postsToSee", payload.postsToSee);
-      Vue.set(state, "jobsToSee", payload.jobsToSee);
-
       console.log('state: ', state)
+    },
+
+    STORE_FEED(state, payload){
+      Vue.set(state, "postsToSee", payload.postsToSee)
+      Vue.set(state, "jobsToSee", payload.jobsToSee)
     },
 
     DELETE_FRIEND(state, payload){

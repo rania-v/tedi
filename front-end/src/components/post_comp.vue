@@ -1,5 +1,5 @@
 <template>
-    <v-card elevation="0">
+    <v-card elevation="0" v-if="gotPost()" >
         <v-card-title>
             <v-row justify="space-between">
                 <v-col class=text-left>
@@ -40,7 +40,8 @@
         </v-row>
         <v-row>
             <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
-            <CommentsComp :comm_list="this.post.comments" :key="this.reload_comments"/>
+            <CommentsComp :comm_list="this.post.comments" :reload="this.reload_comments"/>
+            <!-- <CommentsComp :comm_list="this.post.comments" :key="this.reload_comments"/> -->
         </v-row>
     </v-card>
 </template>
@@ -68,7 +69,6 @@ export default ({
             comm: false,
             new_comm: null,
             reload_comments: false,
-            date: this.parseDate()
         }
     },
     props:{
@@ -76,17 +76,27 @@ export default ({
     },
     methods: {
         ...mapActions(["getPost","getUser", 'createComment']),
-        post_new_comm() {
+        async post_new_comm() {
             let a = {
                 postId: this.id,
                 form: {content: this.new_comm}
             }
-            this.createComment(a);
+            await this.createComment(a)
+            .then(res=>{console.log('res:', res)})
+
+            this.new_comm=''
+
+            await this.getPost(this.id)
+            .then(res=>{this.post=res.post})
+            this.post.Date = this.post.Date.slice(0,10)
             // |
             // |
             // V its not working <3 because its dumb <3
-            // this.reload_commnets = !this.reload_comments;
-            this.$forceUpdate();
+            this.reload_commnets = true;
+            // this.$forceUpdate();
+        },
+        gotPost(){
+            return this.post
         },
         Hide_new_comm() {
             if (this.comm == true)
@@ -96,9 +106,6 @@ export default ({
             // search react list of comment and if not already there add 
             this.reacts++;
             // else reacts -- and remove from react list
-        },
-        parseDate() {
-            return this.post.Date.substring(0, 10);
         }
     },
     
@@ -107,6 +114,8 @@ export default ({
         await this.getPost(this.id)
             .then(res=>{
                 this.post=res.post;
+                this.post.Date = this.post.Date.slice(0,10)
+                console.log('post: ', this.post)
             })
         await this.getUser(this.post.creator)
         .then(res=>{

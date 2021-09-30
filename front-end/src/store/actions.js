@@ -20,12 +20,13 @@ export default{
         commit("SET_LOADING", true)
         return actions.login(payload.email, payload.password)
 		.then( response => {
-			// console.log()
-			// console.log('responsesss: ', response);
+			console.log('client: ', client)
+			console.log('responsesss: ', response);
             console.log(client);
 			// commit("STORE_CLIENT", client.user)
 			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
+			commit("STORE_FEED", client.feed)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)
 			return response;

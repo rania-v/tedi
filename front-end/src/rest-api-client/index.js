@@ -99,8 +99,9 @@ export const actions = {
       // console.log('response: ', response);
       actions.setClient(response);
       console.log('cli_feed: ', client.feed)
-      client.feed.postsToSee = response.myPosts;
-      return response.message;
+      client.feed.postsToSee = response.user.personal.myPosts.list;
+
+      return response;
     })
     .catch(function(error) {client = initClient(); throw error })
   },

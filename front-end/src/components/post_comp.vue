@@ -40,7 +40,7 @@
         </v-row>
         <v-row>
             <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
-            <CommentsComp :comm_list="this.post.comments" :reload="this.reload_comments"/>
+            <CommentsComp :comm_list="this.post.comments" />
             <!-- <CommentsComp :comm_list="this.post.comments" :key="this.reload_comments"/> -->
         </v-row>
     </v-card>
@@ -82,7 +82,7 @@ export default ({
                 form: {content: this.new_comm}
             }
             await this.createComment(a)
-            .then(res=>{console.log('res:', res)})
+            // .then(res=>{console.log('res:', res)})
 
             this.new_comm=''
 
@@ -92,7 +92,7 @@ export default ({
             // |
             // |
             // V its not working <3 because its dumb <3
-            this.reload_commnets = true;
+            this.reload_comments = true;
             // this.$forceUpdate();
         },
         gotPost(){

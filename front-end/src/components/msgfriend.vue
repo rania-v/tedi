@@ -92,8 +92,7 @@ export default ({
 
             let m = this.nm;
             this.nm = '';
-            // console.log('frid: ', frid)
-            // console.log('myid: ', this._id)
+
             await this.sendMssg({
                 to_user: frid,
                 content: m

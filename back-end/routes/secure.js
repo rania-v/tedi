@@ -109,7 +109,7 @@ router.post('/extractUsersData', async (req,res)=>{
       return res.json({message:'Only admins can perfom such actions!'})
     }
 
-    console.log('i got: ', req.body)
+    // console.log('i got: ', req.body)
 
     let allData = [];
 
@@ -130,7 +130,7 @@ router.post('/extractUsersData', async (req,res)=>{
     //   }
     // }
 
-    console.log('allData: ', allData)
+    // console.log('allData: ', allData)
     res.json({allData: allData});
   }
   catch(err){

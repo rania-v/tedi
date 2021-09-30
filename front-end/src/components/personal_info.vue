@@ -102,7 +102,6 @@
                             <v-card v-else>
                                 <v-autocomplete clearable shaped filled solo type item-color="pink" color="pink" rounded :items="allSkills" item-text="category" item-value="skill_list" v-model="catlist" label="Hard Skills Categories">
                                 </v-autocomplete>
-                                {{skill_list.list}}
                                 <v-card flat>
                                     <v-chip :class="{'ma-2': checkList(skill_list.list,skill)!=1, 'pink pink--text small ma-2':checkList(skill_list.list,skill)==1}"
                                     v-for="skill in catlist" :key="skill" outlined large v-on:click="ClickSkill(skill_list.list,skill)">

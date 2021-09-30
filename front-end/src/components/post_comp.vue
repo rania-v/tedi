@@ -4,17 +4,17 @@
             <v-row justify="space-between">
                 <v-col class=text-left>
                     <v-avatar>
-                    <v-img :src=user_avatar></v-img>
+                    <v-img :src="user_avatar"></v-img>
                     </v-avatar>
-                    <strong id="user_name" v-html=user></strong>
+                    <h5 id="myFont">{{this.creator.name}}</h5>
                 </v-col>
                 <v-col id="time" class=text-right >{{this.post.Date}}</v-col>
             </v-row>
         </v-card-title>
-        <v-img :src="post_photo" max-height="200px" contain></v-img>
+        <v-img :src="this.post_photo" max-height="200px" contain></v-img>
         <v-card-text>
             <v-row>
-                <v-card-text>{{this.post.content}}</v-card-text>
+                <v-card-text>{{post.content}}</v-card-text>
             </v-row>
         </v-card-text>
         <v-row>
@@ -34,7 +34,7 @@
                 <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
             </v-row>
         </v-card-actions>
-        <v-row v-if="comm==true">
+        <v-row v-if="this.comm==true">
             <v-card class="rounded-pill mt-2 pr-4 pl-4 mb-1 d-flex" 
                     flat width="100%" height="60px"
                     style="margin-right:5%; margin-left:5%; margin-top:1% lenght: length:100%;"
@@ -62,11 +62,8 @@ export default ({
     },
     data() {
         return {
-            post: null,
-            creator: null,
-            user: '',
             user_avatar: require('../icons/avatars/haruka.jpg'),
-            post_photo: require('../icons/avatars/haruka.jpg'),
+            post_photo: require('../images/12.jpg'),
             time: '',
             text: '',
             reacts: null,
@@ -76,6 +73,8 @@ export default ({
         }
     },
     props:{
+        creator: String,
+        post: Object,
         id: String,
     },
     methods: {
@@ -139,7 +138,8 @@ export default ({
         await this.loadPost();
         await this.getUser(this.post.creator)
         .then(res=>{
-            this.creator = res;
+            console.log('res:', res)
+            this.creator = res.user;
         })
         this.reacted();
         // console.log('post: ', this.post);

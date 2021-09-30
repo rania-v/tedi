@@ -50,16 +50,12 @@
                     </v-row>
                     <v-row>
                         <v-col>
-
-                        <!-- <v-col cols="5" id="field">Skills</v-col> -->
                         <div id="field" class="justify-start">Skills</div>
                         <v-divider ></v-divider>
-                        <!-- <v-col cols="7"> -->
                             <v-chip class="ma-1" color="pink white--text" v-for="skill in ad.qualifications.skill_list" :key="skill">
                                 {{skill}}
                             </v-chip>
                         </v-col>
-                        <!-- </v-col> -->
                     </v-row>
                 </v-card-text>
                 <v-card-title id="title_wrap">Benefits

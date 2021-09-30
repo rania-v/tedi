@@ -24,6 +24,7 @@ export default{
 			console.log('responsesss: ', response);
             console.log(client);
 			// commit("STORE_CLIENT", client.user)
+            console.log(client);
 			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
 			commit("STORE_FEED", client.feed)

@@ -273,8 +273,9 @@ export default{
 		return actions.createPost(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
-			console.log('client: ', client.user)
+			console.log('client: ', client)
 			commit("STORE_CLIENT", client.user)
+			commit("STORE_FEED", client.feed)
 			return response
 		})
 		.catch(error => {

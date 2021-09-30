@@ -8,10 +8,10 @@
         <v-col cols="6">
             <!-- <v-container> -->
                 <PostCreate @new_post='show_new_post($event)'/>
-                <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
+                <!-- <v-card  v-if="new_post_txt!=null" class="pa-3 ma-3 teal lighten-5" >
                     <MyPost/>
-                </v-card>
-                <v-card v-for="item in this.postsToSee" :key="item._id" class="pa-3 ma-3" elevation="0">
+                </v-card> -->
+                <v-card v-for="item in this.postsToSee" :key="item" class="pa-3 ma-3" elevation="0">
                     <PostComp :id="item"/>
                 </v-card>
             <!-- </v-container> -->
@@ -24,7 +24,7 @@
 import PostComp from './post_comp.vue'
 import PostCreate from './create_post_comp.vue'
 import Profile from './profile.vue'
-import MyPost from './my_post.vue'
+// import MyPost from './my_post.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 
@@ -34,7 +34,7 @@ export default ({
         PostComp,
         PostCreate,
         Profile,
-        MyPost
+        // MyPost
     },
     data() {
         return {
@@ -56,8 +56,8 @@ export default ({
         ChangePT(pt) {
             this.msg = pt;
         },
-        show_new_post(e) {
-            this.new_post_txt = e;
+        show_new_post() {
+            this.$forcedUpdate();
         },
         async refresh(){
             await this.refreshUser()

@@ -23,7 +23,13 @@
         <v-divider style="margin-right:5%; margin-left:5%"></v-divider>
         <v-card-actions id="actions">
             <v-row>
-                <v-col><v-btn text color="teal" @click="React"><v-icon left>far fa-hand-spock</v-icon>React</v-btn></v-col>
+                <v-col>
+                    <v-btn text color="teal" @click="React">
+                        <v-icon v-if="!has_reacted" left>far fa-hand-spock</v-icon>
+                        <v-icon v-else left>fas fa-hand-spock</v-icon>
+                            React
+                    </v-btn>
+                </v-col>
                 <v-col><v-btn text color="teal" @click="comm = true"><v-icon left>far fa-comment-dots</v-icon>Comment</v-btn></v-col>
                 <v-col><v-btn text style="color:cornflowerblue"><v-icon left>far fa-share-square</v-icon>Share</v-btn></v-col>
             </v-row>
@@ -35,13 +41,11 @@
                     color="teal lighten-5"
                     v-click-outside="Hide_new_comm">
                 <v-text-field v-model="new_comm" label="Write a comment..." color="teal accent-4" v-on:keyup.enter="post_new_comm"></v-text-field>
-                {{new_comm}}
             </v-card>
         </v-row>
         <v-row>
             <v-divider style="margin-right:5%; margin-left:5%; margin-top:1%"></v-divider>
             <CommentsComp :comm_list="this.post.comments" />
-            <!-- <CommentsComp :comm_list="this.post.comments" :key="this.reload_comments"/> -->
         </v-row>
     </v-card>
 </template>
@@ -49,7 +53,7 @@
 <script>
 
 import CommentsComp from './comments_comp.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default ({
     name: 'PostComp',
@@ -68,32 +72,30 @@ export default ({
             reacts: null,
             comm: false,
             new_comm: null,
-            reload_comments: false,
+            has_reacted: this.reacted
         }
     },
     props:{
         id: String,
     },
     methods: {
-        ...mapActions(["getPost","getUser", 'createComment']),
+        ...mapActions(["getPost","getUser",'createComment','react']),
         async post_new_comm() {
             let a = {
                 postId: this.id,
                 form: {content: this.new_comm}
             }
             await this.createComment(a)
-            // .then(res=>{console.log('res:', res)})
+
+            await this.loadPost()
 
             this.new_comm=''
-
+        },
+        async loadPost(){
             await this.getPost(this.id)
             .then(res=>{this.post=res.post})
             this.post.Date = this.post.Date.slice(0,10)
-            // |
-            // |
-            // V its not working <3 because its dumb <3
-            this.reload_comments = true;
-            // this.$forceUpdate();
+            this.reacts = this.post.reacts.length;
         },
         gotPost(){
             return this.post
@@ -102,25 +104,44 @@ export default ({
             if (this.comm == true)
                 this.comm = false;
         },
-        React() {
+        async React() {
             // search react list of comment and if not already there add 
-            this.reacts++;
+            if(this.reacted){   // remove react
+            }
+                                // post react
+            await this.react({postId: this.post._id, react: 1})
+            // .then(res=>{console.log('res: ', res)})
+            // this.has_reacted=true
+
+            await this.loadPost();
+            this.reacted();
             // else reacts -- and remove from react list
-        }
+        },
+        reacted(){
+            // console.log('reacts: ', this.post.reacts)
+            for(let r of this.post.reacts){
+                if(r.creator == this._id){
+                    this.has_reacted=true;
+                    return;
+                }
+            }
+            this.has_reacted=false
+        },
+    },
+    computed:{
+        ...mapGetters({
+            _id: '_id'
+        }),
     },
     
     async beforeMount(){
         console.log('id: ', this.id)
-        await this.getPost(this.id)
-            .then(res=>{
-                this.post=res.post;
-                this.post.Date = this.post.Date.slice(0,10)
-                console.log('post: ', this.post)
-            })
+        await this.loadPost();
         await this.getUser(this.post.creator)
         .then(res=>{
             this.creator = res;
         })
+        this.reacted();
         // console.log('post: ', this.post);
     }
 })

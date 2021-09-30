@@ -81,7 +81,7 @@ export default ({
             check_color: 'teal',
             data_type: [
                 {type: 'XML', status: false},
-                {type: 'JSON', status: false}                
+                {type: 'JSON', status: false}
             ],
             extract_data: [
                 {data:'bio', status: false},
@@ -112,11 +112,9 @@ export default ({
 
             for(let t of this.data_type){
                 if(t.type=='XML' && t.status){
-                    console.log('TO XML !1!!!111111')
                     this.createFile(toXML(allData,{header:false, indent:" "}), 'UsersData.xml')
                 }
                 if(t.type=='JSON' && t.status){
-                    console.log('TO JSON !!!21212121334534!!!!')
                     this.createFile(JSON.stringify(allData), 'UsersData.json')
                 }
             }
@@ -143,7 +141,6 @@ export default ({
             const type = name.split(".").pop();
             a.href = URL.createObjectURL( new Blob([text], { type:`text/${type === "txt" ? "plain" : type}` }) );
             a.download = name;
-            console.log('aaaa')
             a.click();
             a.remove();
         },

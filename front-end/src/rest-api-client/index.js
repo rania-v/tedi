@@ -20,10 +20,9 @@ const agent = new https.Agent({
 
 axios.defaults.options = agent;
 
-// console.log('loco: ',localStorage)
-// console.log('loco: ',JSON.parse(localStorage.ls).token)
 var localToken = localStorage.ls ? JSON.parse(localStorage.ls).token : null;
-
+var localFeedPosts = localStorage.ls ? JSON.parse(localStorage.ls).postsToSee : null;
+var localFeedJobs = localStorage.ls ? JSON.parse(localStorage.ls).jobsToSee : null;
 
 function initClient(){
     return {
@@ -60,8 +59,8 @@ function initClient(){
             expires: localToken ? localToken.exp : null,
         },
         feed:{
-          postsToSee:[],
-          jobsToSee:[],
+          postsToSee:localFeedPosts ? localFeedPosts : [],
+          jobsToSee:localFeedJobs ? localFeedJobs : [],
         }
     }
 }
@@ -85,6 +84,10 @@ export const actions = {
       if(data.user)
         // client.user = data.user;
         client.user = JSON.parse(JSON.stringify(data.user));
+
+      // if(data.user)
+      // client.user = data.user;
+      // client.user = JSON.parse(JSON.stringify(data.user));
   
       if(data.token)
         // client.tokenObject = data.token;
@@ -98,8 +101,8 @@ export const actions = {
       // Set client object
       // console.log('response: ', response);
       actions.setClient(response);
-      console.log('cli_feed: ', client.feed)
-      client.feed.postsToSee = response.user.personal.myPosts.list;
+      // console.log('cli_feed: ', client.feed)
+      client.feed.postsToSee = response.user.personal.myPosts.list.reverse();
 
       return response;
     })
@@ -216,7 +219,7 @@ export const actions = {
   async createChat(payload){
     return requests.createChatRequest(payload, client.token.token)
     .then(function(response){
-      console.log('create chat: ', response)
+      // console.log('create chat: ', response)
       actions.setClient(response);
       return response.message;
     })
@@ -274,11 +277,7 @@ export const actions = {
   async createPost(form){
     return requests.createPostRequest(form, client.token.token)
     .then(function(response){
-      // console.log('res: ', response)
-      if(client.user.postsToSee == undefined)
-        client.user.postsToSee = [];
-      client.user.postsToSee.push(response.post._id);
-      // console.log('posts: ', client.user.postsToSee)
+      client.feed.postsToSee.unshift(response.post._id);
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
@@ -378,9 +377,6 @@ export const actions = {
     .catch(function(error){client = initClient(); throw error})
   },
 
-  // async createXml(data) {
-    
-  // }
 }
 
 export var client = initClient();
@@ -408,3 +404,14 @@ export const send = async (method, url, data, headers) => {
     }
 }
   
+
+if(localToken){
+  requests.refreshUserRequest(client.token.token)
+     .then(res=>{
+       actions.setClient(res)
+     })
+     .catch(err=>{
+       client = initClient()
+       throw err
+     })
+}

@@ -207,11 +207,11 @@ router.post("/react1", async(req, res) => {
         if(!targetPost){
             return res.json({message: "Η δημοσίευση δεν βρέθηκε!"})
         }
-        
+
         const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
 
         targetUser.personal.myReacts.push({reaction: 'intrested', post: targetPost._id})
-        await user.findByIdAndUpdate(targetUser._id,{personal: targetuser.personal});
+        await user.findByIdAndUpdate(targetUser._id,{personal: targetUser.personal});
 
         const reaction = {reaction: 'intrested', creator: targetUser._id};
         const flag = 0;

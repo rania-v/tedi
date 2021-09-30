@@ -129,13 +129,12 @@ var testSkills = [
         ]
     }
 ]
-var testing = true;
+// var testing = true;
 
 export default{
     isLoading: state => state.isLoading,
     isLogedIn: state => state.isLogedIn,
-    isAdmin: state => state.isAdmin ? state.isAdmin : testing ? false : false ,
-
+    isAdmin: state => state.isAdmin,
     _id: state => state._id ? state._id : state._id,
     
     allSkills: state => state.allSkills ? testSkills : testSkills,

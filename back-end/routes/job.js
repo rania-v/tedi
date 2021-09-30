@@ -66,7 +66,7 @@ router.delete("/:jobId", async (req, res)=>{
         const targetUser = req.user;
         const targetJob = await job.findById(req.params.jobId);
         
-        console.log(targetUser.personal.myJobsAds);
+        // console.log(targetUser.personal.myJobsAds);
 
         if(!targetJob){
             return res.status(400).json({message: 'Η αγγελία δεν βρέθηκε'});
@@ -75,7 +75,7 @@ router.delete("/:jobId", async (req, res)=>{
         await job.deleteOne({ _id: targetJob._id });
 
         targetUser.personal.myJobsAds.list = targetUser.personal.myJobsAds.list.filter((jobID) => { return !jobID.equals(targetJob._id) });
-        console.log(targetUser.personal.myJobsAds);
+        // console.log(targetUser.personal.myJobsAds);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 
         res.json({message: 'Η Αγγελία ' + targetJob.title + ' αφαιρέθηκε !!', user:targetUser});

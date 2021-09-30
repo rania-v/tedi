@@ -24,16 +24,15 @@
                 </v-col>
             </v-row>
             <v-card-text class="d-flex justify-center flex-wrap">
-                <v-card v-for="user in user_list" :key="user" class="ma-2" :max-width="cust_size" outlined>
+                <v-card v-for="user in user_list" :key="user._id" class="ma-2" :max-width="cust_size" outlined>
                     <v-card-actions style="max-height:40px" v-if="pick_to_extract">
                         <v-spacer></v-spacer>
-                        <v-checkbox v-model="extract_list" :value="user" color="teal"></v-checkbox>
+                        <v-checkbox v-model="extract_list" :value="user._id" color="teal"></v-checkbox>
                     </v-card-actions>
                     <v-card-text class="d-flex justify-center pt-0">
-                        <UserCard :user='user'/>
+                        <UserCard :user="user" :choices="false"/>
                     </v-card-text>
                 </v-card>
-                {{extract_list}}
             </v-card-text>
         </v-card>
         <v-dialog v-model="popup" width="30%">
@@ -41,11 +40,11 @@
                 <v-card-title>EXTRACT users' data</v-card-title>
                 <v-card-text>
                     <v-row>
-                        <v-col v-for="i in data_type" :key="i"><v-checkbox :color="check_color" :label="i.type" v-model="i.status"></v-checkbox></v-col>
+                        <v-col v-for="i in data_type" :key="i.type"><v-checkbox :color="check_color" :label="i.type" v-model="i.status"></v-checkbox></v-col>
                     </v-row>
                     <v-divider></v-divider>
                     <div style="column-count: 2">
-                        <v-checkbox :color="check_color" v-for="i in extract_data" :key="i" :label="i.data" v-model="i.status"></v-checkbox>
+                        <v-checkbox :color="check_color" v-for="i in extract_data" :key="i.data" :label="i.data" v-model="i.status"></v-checkbox>
                     </div>
                 </v-card-text>
                 <v-card-actions>
@@ -54,12 +53,16 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <div id='UsersDataJSON' style="display:none;"></div>
+        <div id='UsersDataXML' style="display:none;"></div>
     </v-container>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import UserCard from './user_card.vue'
+
+import {toXML} from 'jstoxml'
 
 export default ({
     name: 'UserList',
@@ -68,11 +71,9 @@ export default ({
     },
     data() {
       return {
-          ...mapGetters({
-              user_list: 'friends'
-          }),
             pick_to_extract: false,
             popup: false,
+            user_list: null,
             extract: false,
             extract_list:[],
             cust_size: '20%',
@@ -91,19 +92,60 @@ export default ({
                 {data:'network', status: false},
                 {data:'comments in posts', status: false}
             ]
-      }  
+      }
+    },
+    watch:{
+        async extract(val){
+            if(!val) return;
+            let to_extract = {
+                extract_data: this.extract_data,
+                list: this.extract_list
+            }
+            let allData;
+            await this.extractUsersData(to_extract)
+            .then(res=>{
+                allData = res
+                console.log('to_extract: ', allData)
+            })
+
+            console.log('stringy: ', JSON.stringify(allData))
+
+            for(let t of this.data_type){
+                if(t.type=='XML' && t.status){
+                    console.log('TO XML !1!!!111111')
+                    this.createFile(toXML(allData,{header:false, indent:" "}), 'UsersData.xml')
+                }
+                if(t.type=='JSON' && t.status){
+                    console.log('TO JSON !!!21212121334534!!!!')
+                    this.createFile(JSON.stringify(allData), 'UsersData.json')
+                }
+            }
+
+            this.extract = false
+            this.close_pick();
+            this.popup = false
+        }
     },
     methods: {
-        ...mapActions('getUser'),
+        ...mapActions(['getAllUsers', 'extractUsersData']),
         close_pick() {
             this.extract_list = [];
             this.pick_to_extract = false;
         },
         selectAll() {
-            this.extract_list = this.user_list;
+            this.extract_list = this.user_list.map(user=> user._id);
         },
         clear() {
             this.extract_list = '';
+        },
+        createFile(text, name){
+            const a = document.createElement('a');
+            const type = name.split(".").pop();
+            a.href = URL.createObjectURL( new Blob([text], { type:`text/${type === "txt" ? "plain" : type}` }) );
+            a.download = name;
+            console.log('aaaa')
+            a.click();
+            a.remove();
         },
         // export_xml(userid_list) {
         //     var user;
@@ -111,6 +153,21 @@ export default ({
         //         user = getUser(id);
         //     }
         // }
+    },
+    async beforeMount(){
+        await this.getAllUsers()
+        .then(res=>{
+            this.user_list = res.allUsers;
+            console.log('all: ', res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    },
+    computed:{
+        ...mapGetters({
+            isAdmin: 'isAdmin'
+        }),
     }
 })
 </script>

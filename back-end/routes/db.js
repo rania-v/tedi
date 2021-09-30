@@ -29,7 +29,7 @@ router.post("/empty", function(req, res){
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Empty DB && Create Admins !!
-router.post("/init", async function(req, res){
+router.get("/init", async function(req, res){
     //  DROP ALL && INIT ADMINS
     mongoose.connection.db.dropDatabase();
 

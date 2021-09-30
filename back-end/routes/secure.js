@@ -2,11 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const utils = require('../auth/utils');
-const {serUser} = require('../serializer');
 
 const {invalidToken} = require('../models/token');
 const { user, frequest} = require("../models/user");
 const { chat } = require("../models/chat");
+const {serUser, selector} = require('../serializer');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log out
 router.post('/logout', async(req, res) => {
@@ -73,6 +73,71 @@ router.post('/searchUsers', async(req, res) =>{
     res.json({message: err});
   }
 })
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Get All Users as Admin
+router.post('/getAllUsers', async (req,res)=>{
+  try{
+    const admin = await user.findById(req.user._id);
+    if(!admin.isAdmin){
+      return res.json({message:'Only admins can perfom such actions!'})
+    }
+
+    // let allUsers = await user.find({isAdmin:false}).exec();  // CORRECT CODE !!!
+    let allUsers = await user.find(); // WRONG CODE !!!! TEST DATA HAVE oNLY ADMINS
+
+
+    let final = [];
+    for(u of allUsers){
+      await serUser(u)
+      .then(res=>{final.push(res)})
+      .catch(err=>{return res.json({message: err})})
+    }
+
+    return res.json({allUsers: final})
+  }
+  catch(err){
+    res.json({message:err});
+  }
+})
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Extract Users Data as Admin
+router.post('/extractUsersData', async (req,res)=>{
+  try{
+    const admin = await user.findById(req.user._id);
+    if(!admin.isAdmin){
+      return res.json({message:'Only admins can perfom such actions!'})
+    }
+
+    console.log('i got: ', req.body)
+
+    let allData = [];
+
+    for(let u of req.body.list){
+      let targetUser = await user.findById(u);
+      let userData = await selector(targetUser, req.body.extract_data);
+      allData.push({user:userData});
+    }
+
+
+    // for(let type of req.body.types){
+    //   console.log('type: ', type)
+    //   if(type.type == "XML" && type.status){
+    //     console.log('Selected type: ', type.type)
+    //   }
+    //   if(type.type == "JSON" && type.status){
+    //     console.log('Selected type: ', type.type)
+    //   }
+    // }
+
+    console.log('allData: ', allData)
+    res.json({allData: allData});
+  }
+  catch(err){
+    res.json({message:err});
+  }
+})
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Settings

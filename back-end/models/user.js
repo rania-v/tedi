@@ -52,6 +52,15 @@ const UserSchema = new mongoose.Schema({
             comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'comment' } ],
             chats: [ {type: mongoose.Schema.Types.ObjectId, ref: 'chat'} ],
         },
+        myComments:[
+            {type: mongoose.Schema.Types.ObjectId, ref: 'comment'}
+        ],
+        myReacts:[
+            {reaction: String, post:{type:mongoose.Schema.Types.ObjectId, ref:'post'}}
+        ],
+        applied:[
+            {type: mongoose.Schema.Types.ObjectId, ref: 'job'}
+        ]
     },
     contact:{
         phoneNum:{

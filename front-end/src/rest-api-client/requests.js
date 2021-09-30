@@ -27,6 +27,20 @@ export const logoutRequest = async (token) =>{
   .catch(function(error) { throw error })
 }
 
+export const getAllUsersRequest = async (token) =>{
+  let headers = { "Authorization": `${token}` };
+  return restAPI.send('POST', 'secure/getAllUsers', null, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const extractUsersDataRequest = async (data, token) =>{
+  let headers = { "Authorization": `${token}` };
+  return restAPI.send('POST', 'secure/extractUsersData', data, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
 export const registerRequest = async (newUser) =>{
   console.log('user: ', newUser);
   return restAPI.send('POST', 'user/register', newUser)

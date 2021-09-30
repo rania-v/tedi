@@ -79,7 +79,7 @@ router.post("/delete-post", async (req, res)=>{
         const targetUser = req.user;
         const targetPost = await post.findById(postId);
 
-        console.log(targetUser.personal.myPosts);
+        // console.log(targetUser.personal.myPosts);
 
         if(!targetPost){
             return res.status(400).json({message: 'Η ανάρτηση δεν βρέθηκε'});
@@ -94,7 +94,7 @@ router.post("/delete-post", async (req, res)=>{
         await post.deleteOne({ _id: targetPost._id });
 
         targetUser.personal.myPosts.list = targetUser.personal.myPosts.list.filter((postId) => { return !postId.equals(targetPost._id) });
-        console.log(targetUser.personal.myPosts);
+        // console.log(targetUser.personal.myPosts);
         await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true})
 
         res.json({
@@ -110,9 +110,9 @@ router.post("/delete-post", async (req, res)=>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Add a Comment
 router.post("/addComm", async(req, res) => {
     try{
-        console.log('req: ', req.body)
+        // console.log('req: ', req.body)
         const targetPost = await post.findById(req.body.postId);
-        const targetUser = req.user;
+        let targetUser = req.user;
 
         
         const newComm = new comment(req.body.form);
@@ -127,6 +127,10 @@ router.post("/addComm", async(req, res) => {
         const creator = await user.findById(targetPost.creator);
         creator.personal.myNotifications.comments.push(newComm._id);
         await user.findByIdAndUpdate(creator._id, {personal: creator.personal}, {runValidators: true});
+
+        targetUser = await user.findById(targetUser._id)
+        targetUser.personal.myComments.push(newComm._id)
+        await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal}, {runValidators: true});
 
 
         res.json({
@@ -167,6 +171,10 @@ router.post("/delete-comment", async(req, res) =>{
         // remove comment
         await comment.deleteOne({_id: targetComm._id});
 
+        const targetUser = await user.findById(req.user._id)
+        targetUser.personal.myComments = targetUser.personal.myComments.filter((commentID) => { return !commentID.equals(targetComm._id) });
+        await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal});
+
         res.json({message: 'Το σχόλιο αφαιρέθηκε!'})
 
     }catch(err){
@@ -193,7 +201,7 @@ router.post("/post-edit:postId", async(req, res)=>{
 router.post("/react1", async(req, res) => {
     try{
         const postId = req.body.postId
-        const targetUser = req.user;
+        const targetUser = await user.findById(req.user._id);
         const targetPost = await post.findById(postId);
 
         if(!targetPost){
@@ -202,13 +210,16 @@ router.post("/react1", async(req, res) => {
         
         const reacted = targetPost.reacts.map(function(el) {return el.creator;}).indexOf(targetUser._id);
 
+        targetUser.personal.myReacts.push({reaction: 'intrested', post: targetPost._id})
+        await user.findByIdAndUpdate(targetUser._id,{personal: targetuser.personal});
+
         const reaction = {reaction: 'intrested', creator: targetUser._id};
         const flag = 0;
 
         if(reacted != -1){
             if(targetPost.reacts[reacted].reaction != 'intrested'){
                 targetPost.reacts[reacted].reaction = 'intrested'
-                console.log(targetPost.reacts);
+                // console.log(targetPost.reacts);
                 await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
             }
             else
@@ -255,7 +266,7 @@ router.post("/react2", async(req, res) => {
         if(reacted != -1){
             if(targetPost.reacts[reacted].reaction != 'like'){
                 targetPost.reacts[reacted].reaction = 'like'
-                console.log(targetPost.reacts);
+                // console.log(targetPost.reacts);
                 await post.findByIdAndUpdate(targetPost._id, {reacts: targetPost.reacts}, {runValidators: true});
             }
             else

@@ -1,14 +1,19 @@
-// const https = require('https');
-const http = require('http');
+const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
 const axios = require('axios');
 // const fs = require('fs');
 // require('dotenv').config();
 const requests = require('./requests');
 
 // const apiUrl = `http://${process.env.HOSTNAME}:${process.env.PORT}/api-control`;
+// const apiUrl = 'https://127.0.0.1:3001/api';
 const apiUrl = 'http://127.0.0.1:3001/api';
 
-const agent = new http.Agent({
+const agent = new https.Agent({
+    // key: fs.readFileSync("../../back-end/secure/key.pem"),
+    // cert: fs.readFileSync("../../back-end/secure/cert.pem"),
+    // ca: fs.readFileSync("./secure/mkcert_rootCA.crt"),
   // const agent = new http.Agent({
     rejectUnauthorized: false, // (NOTE: this will disable client verification)
 })
@@ -17,7 +22,7 @@ axios.defaults.options = agent;
 
 // console.log('loco: ',localStorage)
 // console.log('loco: ',JSON.parse(localStorage.ls).token)
-var localToken = JSON.parse(localStorage.ls).token;
+var localToken = localStorage.ls ? JSON.parse(localStorage.ls).token : null;
 
 
 function initClient(){
@@ -93,14 +98,10 @@ export const actions = {
       // Set client object
       // console.log('response: ', response);
       actions.setClient(response);
-      console.log('cli_user: ', client)
-      console.log('response: ', response)
-      // if(client.feed.postsToSee == undefined)
-      //   client.feed.postsToSee = [];
-      client.feed.postsToSee = (response.user.personal.myPosts.list);
-      console.log('response: ', client.feed.postsToSee)
+      console.log('cli_feed: ', client.feed)
+      client.feed.postsToSee = response.user.personal.myPosts.list;
 
-      return response.message;
+      return response;
     })
     .catch(function(error) {client = initClient(); throw error })
   },
@@ -127,6 +128,24 @@ export const actions = {
       throw err;
     })
   },
+
+  async getAllUsers(){
+    return requests.getAllUsersRequest(client.token.token)
+    .then(res=>{
+      return res;
+    })
+    .catch(err=>{throw err;})
+  },
+
+
+  async extractUsersData(payload){
+    return requests.extractUsersDataRequest(payload, client.token.token)
+    .then(res=>{
+      return res;
+    })
+    .catch(err=>{throw err;})
+  },
+
 
   async logout() {
     return requests.logoutRequest(client.token.token)

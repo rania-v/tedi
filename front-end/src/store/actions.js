@@ -20,13 +20,14 @@ export default{
         commit("SET_LOADING", true)
         return actions.login(payload.email, payload.password)
 		.then( response => {
-			// console.log()
-			// console.log('responsesss: ', response);
+			console.log('client: ', client)
+			console.log('responsesss: ', response);
+            console.log(client);
 			// commit("STORE_CLIENT", client.user)
             console.log(client);
 			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
-			commit("STORE_FEED_JOBS", client.feed)
+			commit("STORE_FEED", client.feed)
 			commit("SET_LOGEDIN", true)
 			commit("SET_LOADING", false)
 			return response;
@@ -441,6 +442,35 @@ export default{
 			console.log(error);
 			commit("SET_LOADING", false)
 			throw error;
+		})
+	},
+
+	async extractUsersData({commit}, extract){
+		commit("SET_LOADING", true)
+		console.log('extract: ', extract)
+		return actions.extractUsersData(extract)
+		.then(res=>{
+			commit("SET_LOADING", false);
+			return res;
+		})
+		.catch(err=>{
+			console.log(err)
+			commit("SET_LOADING", false);
+			throw err;
+		})
+	},
+
+	async getAllUsers({commit}){
+		commit("SET_LOADING", true)
+		return actions.getAllUsers()
+		.then(res=>{
+			commit("SET_LOADING", false);
+			return res;
+		})
+		.catch(err=>{
+			console.log(err);
+			commit("SET_LOADING", false);
+			throw err;
 		})
 	},
 

@@ -2,7 +2,7 @@
     <v-card id="card">
         <v-card-title class="pink--text">Be Part of the Community Now</v-card-title>
         <v-card-text>
-            <v-form @submit.prevent="handleSubmit(onSubmit)">
+            <v-form>
                 <v-row justify="space-between" align="center">
                     <v-col id="tf">
                         <v-text-field label="First Name" required v-model="user.personal.firstName"></v-text-field>
@@ -10,12 +10,12 @@
                         <v-text-field label="e-mail" v-model="user.contact.profEmail.value" ></v-text-field>
                         <v-text-field label="password" v-model="user.personal.password" :type="'password'" required></v-text-field>
                         <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
-                        <v-alert v-if="password!='' && conf_password!='' && !checkPass()" color="error" dense text>password not the same</v-alert>
+                        <v-alert v-if="user.personal.password!='' && conf_password!='' && !checkPass()" color="error" dense text>password not the same</v-alert>
                     </v-col>
                     <v-col id="tf">
                         <v-text-field label="Last Name" v-model="user.personal.lastName" required></v-text-field>
                             <!-- <v-file-input label="Photo" accept="image/png, image/jpeg, image/bmp" placeholder="Upload Photo" chips clear-icon v-model='photo'></v-file-input> -->
-                            <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="photo" @change="ShowImg" :color="form_text_color"></v-file-input></v-col>
+                            <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="photo" @change="ShowImg"></v-file-input></v-col>
                             <v-img :src="photo" max-width="auto" aspect-ratio="1"></v-img>
                     
                         <v-img src="../svgs/talking.svg"></v-img>
@@ -49,14 +49,14 @@ export default {
             photo: require('../icons/avatars/user1.png'),
             user:{
                 personal:{
-                    firstName: null,
-                    lastName: null,
-                    password: null,
-                    image: null,
+                    firstName: '',
+                    lastName: '',
+                    password: '',
+                    image: '',
                 },
                 contact:{
-                    phoneNum:{value: null},
-                    profEmail:{value: null},
+                    phoneNum:{value: ''},
+                    profEmail:{value: ''},
                 }
             }
         };

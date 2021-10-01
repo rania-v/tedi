@@ -11,6 +11,7 @@
                         <v-tabs-slider color="teal"></v-tabs-slider>
                         <v-tab v-for="item in items" :key="item.page_name" :to="{ name: item.route_name, params:{ page_title : item.page_name}}">
                             {{ item.page_name }}
+                            <div v-if="item.route_name=='Notifications'&&notify" id='newNotify'></div>
                         </v-tab>
                     </v-tabs>
                 </template>
@@ -24,6 +25,7 @@
 
 <script>
     import Banner from './banner.vue'
+    import {mapGetters} from 'vuex'
 
 export default {
     name: 'HomePage',
@@ -47,6 +49,23 @@ export default {
                 {page_name: 'ADMIN', route_name: 'UserList'}
             ],
         };
+    },
+    computed:{
+        ...mapGetters({
+            notifications:'notifications',
+            isAdmin:'isAdmin'
+        }),
+        notify(){
+            if(this.notifications.frequests.length>0)
+                return true;
+            return false;
+        }
+    },
+    beforeMount(){
+        // if(this.isAdmin)
+            // this.items = [this.items.pop(),this.items.pop()]
+        // else
+            // this.items.pop()
     },
     methods: {
         // Goto(tab_name) {
@@ -77,4 +96,16 @@ export default {
     width: 100%;
 }
 
+#newNotify{
+    /* position:absolute; */
+    height:8px;
+    width:8px;
+    background-color:red;
+    border-radius:50%;
+    display:inline-block;
+    margin-top:-15px;
+    margin-left:5px;
+    /* margin:0 0 auto auto; */
+    border:2px solid red
+}
 </style>

@@ -5,10 +5,13 @@
         <v-img :src="user.image ? user.image : require('../icons/avatars/user1.png') ">
             <v-overlay absolute v-if="choices" :value="overlay" color="white" >
                 <v-responsive :aspect-ratio="13/4">
-
-            <v-btn width="90%" class="ma-2" color="teal" :to="{ name: 'Friend_Profile', params:{ id: user._id,  page_title : 'Δίκτυο'}}">open profile</v-btn>
-            <v-btn width="90%" class="ma-2" color="deep-purple" >send message</v-btn>
-            <v-btn width="90%" class="ma-2" color="red" tlined>delete friend</v-btn>
+                    <v-btn id="ovr-btn" class="ma-2" color="teal" :to="{ name: 'Friend_Profile', params:{ id: user._id,  page_title : 'Δίκτυο'}}">open profile</v-btn>
+                    <v-btn id="ovr-btn" class="ma-2" color="deep-purple" >send message</v-btn>
+                    <v-btn id="ovr-btn" class="ma-2" color="red" tlined>delete friend</v-btn>
+                    
+                    <!-- <v-btn width="90%" class="ma-2" color="teal" :to="{ name: 'Friend_Profile', params:{ id: user._id,  page_title : 'Δίκτυο'}}">open profile</v-btn> -->
+                    <!-- <v-btn width="90%" class="ma-2" color="deep-purple" >send message</v-btn> -->
+                    <!-- <v-btn width="90%" class="ma-2" color="red" tlined>delete friend</v-btn> -->
                 </v-responsive>
             </v-overlay>
         </v-img>
@@ -39,5 +42,8 @@ export default ({
 </script>
 
 <style>
-
+#ovr-btn{
+    width:10%;
+    height:10%;
+}
 </style>

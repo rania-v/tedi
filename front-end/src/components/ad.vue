@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{this.id}}
       <div class="d-flex">
       <v-avatar size="32" class="justify-start"><img :src="image" alt="u1"></v-avatar>
       <strong class=" d-flex align-content-center flex-wrap" style="width:100%">
@@ -15,7 +14,7 @@
       </strong>
     </div>
     <v-card class="mt-1">
-        <!-- <v-img :src="image" ></v-img> -->
+        <v-img :src="image" ></v-img>
         <v-card-title class="pb-1">{{ad.title}}</v-card-title>
         <v-card-actions  class="justify-space-between pt-0" style="overflow-y: hidden;">
           <v-btn icon @click="show = !show" v-bind="size" >
@@ -62,7 +61,7 @@ export default ({
       id: String
     },
     methods: {
-      ...mapActions(['getAd', 'getUser']),
+      ...mapActions(['getAd', 'getUser', 'jobApply']),
       openad() {
         this.$emit('opened_ad', 'this.open');
       },

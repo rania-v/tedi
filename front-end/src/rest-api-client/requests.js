@@ -277,10 +277,26 @@ export const removeReactRequest = async (form, token) =>{
   .catch(function(error) { throw error })
 }
 
+export const jobApplyRequest = async (jobId, token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/jobApply', {jobId: jobId}, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
 export const sendMssgRequest = async (form, token) =>{
   let headers = { "Authorization": `${token}` };
 
   return restAPI.send('POST', 'secure/sendMssg', form, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
+export const fillJobsFeedRequest = async (token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/fillJobFeed', null, headers)
   .then(function(response) { return response })
   .catch(function(error) { throw error })
 }

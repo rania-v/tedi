@@ -1,14 +1,24 @@
 <template>
     <v-card class="pa-0"  elevation="0"  height="700px" style="overflow:scroll; overflow-x:hidden;" >
         <!-- v-if open : add to favs only if not one of my ads -->
-        <v-card-actions class="d-flex justify-end" v-if="open">
-            <v-btn :class="{'teal--text': fav==false, 'white teal--text elevation-2': fav==true }" :outlined="!fav" :fab="fav" small v-on:click="addtoFavAds"><v-icon small >{{star_icon}}</v-icon>{{fav_btn_msg}}</v-btn>
+        <v-card-actions style="margin:10px 15px auto auto;" class="d-flex justify-end" v-if="open">
+            <v-btn style="position:sticky"
+                :class="{
+                    'teal--text pointer-events:none disabled': apply==true,
+                    'teal white--text elevation-15': apply==false
+                }"
+                :outlined="apply"
+                :disabled="apply"
+                large
+                v-on:click="quickApply">
+                    {{!apply? apply_btn_msg : 'Applied !'}}
+            </v-btn>
         </v-card-actions>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-col><v-subheader class="teal--text justify-end">{{ad.date}} -ad id: {{id}}</v-subheader> </v-col>
+        <v-row class="pa-0 ma-0"  style="height:auto;">
+            <!-- <v-spacer></v-spacer> -->
+            <v-subheader class="teal--text justify-start">{{ad.Date.slice(0,10)}}</v-subheader>
         </v-row>
-        <v-row>
+        <v-row style="margin-top:0">
             <v-col cols="6">
                 <v-card-title id="title_wrap">{{ad.title}}</v-card-title>
                 <v-divider></v-divider>
@@ -89,7 +99,7 @@
                     <v-row>
                         <v-col cols="5" id="field">Work Enviroment</v-col>
                         <v-divider vertical></v-divider>
-                        <v-col>{{ad.job_Description.work_env}}</v-col>
+                        <v-col id="value">{{ad.job_Description.work_env}}</v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="5" id="field">Remote Work</v-col>
@@ -142,7 +152,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 // import { ref } from 'vue'
 
 export default ({
@@ -158,32 +168,40 @@ export default ({
             open_jd: this.open,
             open_bn: this.open,
             open_apl: this.open,
-            fav_btn_msg: 'Add to Favourites',
-            fav: false,
+            apply_btn_msg: 'Apply Here !',
+            apply: false,
             star_icon: 'far fa-star',
             fullstar: 'fas fa-star',
             emptystar: 'far fa-star',
         }
     },
+    computed:{
+        ...mapGetters({
+            _id:'_id'
+        })
+    },
     methods: {
-        ...mapActions(['getAd']),
+        ...mapActions(['getAd','jobApply']),
         // async setUp() {
             // this.ad = ref(await this.getAd(this.id));
         // // return ad;
         // },
-        addtoFavAds() {
-            if(!this.fav)
-            {
-                this.star_icon = this.fullstar
-                this.fav_btn_msg = ''
-            }
-            else
-            {
-                this.star_icon = this.emptystar
-                this.fav_btn_msg = 'Add to Favotites'
-            }
-            this.fav = !this.fav;
+        async quickApply() {
+            await this.jobApply(this.ad._id)
+            .then(res=>{
+                console.log(res.message)
+            })
+            await this.getAd(this.ad._id)
+            .then(res=>{
+                this.ad = res
+            })
+            this.apply = true;
+            
         }
+    },
+    beforeMount(){
+        if(this.ad.applicants.includes(this._id))
+            this.apply=true
     }
 })
 </script>

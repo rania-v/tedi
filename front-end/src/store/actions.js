@@ -39,6 +39,36 @@ export default{
 		})
     },
 
+	async fillJobsFeed({commit}){
+		console.log('Gonna catch them all')
+		commit("SET_LOADING", true)
+		return actions.fillJobs()
+		.then(res=>{
+			commit("STORE_FEED", client.feed)
+			commit("SET_LOADING", false)
+			return res;
+		})
+		.catch(err=>{
+			commit("SET_LOADING", false)
+			throw err;
+		})
+	},
+
+	async jobApply({commit}, jobId){
+		console.log('Gonna catch them all')
+		commit("SET_LOADING", true)
+		return actions.jobApply(jobId)
+		.then(res=>{
+			commit("STORE_CLIENT", client.user)
+			commit("SET_LOADING", false)
+			return res;
+		})
+		.catch(err=>{
+			commit("SET_LOADING", false)
+			throw err;
+		})
+	},
+
 	async logout({commit}){
         commit("SET_LOADING", true)
         return actions.logout()
@@ -82,7 +112,13 @@ export default{
 				let user = response.user;
 				fr.push(user)
 			})
+			.catch(err=>{
+				commit("SET_LOADING", false);
+				throw err;
+			})
 		}
+
+		commit("SET_LOADING", false);
 		return fr;
 	},
 
@@ -273,10 +309,10 @@ export default{
 		console.log('payload: ', payload)
 		return actions.createPost(payload)
 		.then(response => {
-			commit("SET_LOADING", false)
 			console.log('client: ', client)
 			commit("STORE_CLIENT", client.user)
 			commit("STORE_FEED", client.feed)
+			commit("SET_LOADING", false)
 			return response
 		})
 		.catch(error => {

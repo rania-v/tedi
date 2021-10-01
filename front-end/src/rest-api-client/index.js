@@ -103,7 +103,6 @@ export const actions = {
       actions.setClient(response);
       // console.log('cli_feed: ', client.feed)
       client.feed.postsToSee = response.user.personal.myPosts.list.reverse();
-
       return response;
     })
     .catch(function(error) {client = initClient(); throw error })
@@ -175,6 +174,24 @@ export const actions = {
       return response;
     })
     .catch(function(error){client = initClient(); throw error})
+  },
+
+  async fillJobs(){
+    return requests.fillJobsFeedRequest(client.token.token)
+      .then(res=>{
+        client.feed.jobsToSee = res.jobsToSee;
+        return res
+      })
+      .catch(err=>{client=initClient();throw err})
+  },
+
+  async jobApply(jobId){
+    return requests.jobApplyRequest(jobId, client.token.token)
+      .then(res=>{
+        actions.setClient(res)
+        return res
+      })
+      .catch(err=>{client=initClient();throw err})
   },
 
   async getAd(adId){

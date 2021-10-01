@@ -7,6 +7,7 @@ const {invalidToken} = require('../models/token');
 const { user, frequest} = require("../models/user");
 const { chat } = require("../models/chat");
 const {serUser, selector} = require('../serializer');
+const {job} = require('../models/job')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Log out
 router.post('/logout', async(req, res) => {
@@ -157,7 +158,7 @@ router.post('/update-user-settings', async(req, res) =>{
       await targetUser.save();
     }
 
-    if(req.body.new_email){
+    if(req.body.new_email.length>0){
       targetUser.contact.profEmail.value = req.body.new_email;
       await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
     }
@@ -197,12 +198,12 @@ router.post('/update-user-personal', async(req, res) =>{
       targetUser.personal.birthday = date;
     }
 
-    if(req.body.country){
-      targetUser.personal.country = req.body.country;
+    if(req.body.country.value){
+      targetUser.personal.country.value = req.body.country.value;
     }
 
-    if(req.body.country){
-      targetUser.personal.country = req.body.country;
+    if(req.body.country.private!=null){
+      targetUser.personal.private = req.body.country.value;
     }
 
     // console.log(targetUser.personal.country);
@@ -225,18 +226,29 @@ router.post('/update-user-contact', async(req, res) =>{
     
     // console.log(targetUser.contact);
 
-    if(req.body.profEmail){
-      targetUser.contact.profEmail = req.body.profEmail;
+    if(req.body.profEmail.value){
+      targetUser.contact.profEmail.value = req.body.profEmail.value;
     }
 
-    if(req.body.perEmail){
-      targetUser.contact.perEmail = req.body.perEmail;
+    if(req.body.profEmail.private!=null){
+      targetUser.contact.profEmail.private = req.body.profEmail.private;
     }
 
-    if(req.body.phoneNum){
-      targetUser.contact.phoneNum = req.body.phoneNum;
+    if(req.body.perEmail.value){
+      targetUser.contact.perEmail.value = req.body.perEmail.value;
     }
 
+    if(req.body.perEmail.private!=null){
+      targetUser.contact.perEmail.private = req.body.perEmail.private;
+    }
+
+    if(req.body.phoneNum.value){
+      targetUser.contact.phoneNum.value = req.body.phoneNum.value;
+    }
+
+    if(req.body.phoneNum.private!=null){
+      targetUser.contact.phoneNum.private = req.body.phoneNum.private;
+    }
     // console.log(targetUser.personal);
 
     await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
@@ -257,20 +269,36 @@ router.post('/update-user-attrs', async(req, res) =>{
 
     // console.log(targetUser.contact);
 
-    if(req.body.resume){
-      targetUser.attrs.resume = req.body.resume;
+    if(req.body.resume.value){
+      targetUser.attrs.resume.value = req.body.resume.value;
     }
 
-    if(req.body.profession){
-      targetUser.attrs.profession = req.body.profession;
+    if(req.body.resume.private!=null){
+      targetUser.attrs.resume.private = req.body.resume.private;
     }
 
-    if(req.body.workplace){
-      targetUser.attrs.workplace = req.body.workplace;
+    if(req.body.profession.value){
+      targetUser.attrs.profession.value = req.body.profession.value;
     }
 
-    if(req.body.skill_list){
-      targetUser.attrs.skill_list = req.body.skill_list;
+    if(req.body.profession.private!=null){
+      targetUser.attrs.profession.private = req.body.profession.private;
+    }
+
+    if(req.body.workplace.value){
+      targetUser.attrs.workplace.value = req.body.value;
+    }
+
+    if(req.body.workplace.priate!=null){
+      targetUser.attrs.workplace.private = req.body.private;
+    }
+
+    if(req.body.skill_list.list){
+      targetUser.attrs.skill_list.list = req.body.skill_list.list;
+    }
+
+    if(req.body.skill_list.private!=null){
+      targetUser.attrs.skill_list.private = req.body.skill_list.private;
     }
 
     await user.findByIdAndUpdate(targetUser._id, {attrs: targetUser.attrs}, {runValidators: true})
@@ -624,6 +652,51 @@ router.post('/seen-mssg', async(req, res) => {
 
   }catch(err){
     res.json({message: err});
+  }
+})
+
+
+router.post('/jobApply', async(req, res)=>{
+  try{
+    let targetUser = await user.findById(req.user._id)
+    let targetJob = await job.findById(req.body.jobId);
+    targetJob.applicants.push(targetUser._id)
+    
+    targetUser.personal.applied.push(targetJob._id)
+    
+    await job.findByIdAndUpdate(targetJob._id, {applicants: targetJob.applicants})
+    await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal})
+
+    res.json({message: 'Applied To JOb !!', user: targetUser})
+
+  }catch(err){
+    res.json({message: err})
+  }
+})
+
+router.post('/fillJobFeed', async(req,res)=>{
+  try{
+    const targetUser = await user.findById(req.user._id)
+    if(!targetUser)
+      return res.json({message: 'Ο χρήστης δεν βρέθηκε!'})
+    
+    let fList = targetUser.personal.friendsList.list;
+    
+    let jobsToSee = [];
+    for(let f of fList){
+      let fr = await user.findById(f);
+      jobsToSee = jobsToSee.concat(fr.personal.myJobsAds.list);
+    }
+    
+    if(!jobsToSee.length)
+    return res.json({message: 'Δεν υπάρχουν διαθέσιμες αγγελίες!'})
+
+    res.json({jobsToSee: jobsToSee})
+
+  }catch(err){
+    res.json({
+      message: err
+    })
   }
 })
 

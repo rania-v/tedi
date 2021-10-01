@@ -24,7 +24,6 @@
         </v-card-text>
     </v-card>
   </v-container>
-  {{this.ad}}
 </div>
 </template>
 

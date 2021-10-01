@@ -8,7 +8,6 @@
                         <!-- <v-subheader style="color:white">Friends</v-subheader> -->
                         <v-list rounded two-line class="overflow-y-auto mt-2" max-height="750px">
                             <v-list-item-group color="deep-purple darken-5">
-                                {{convos}}
                                 <v-container v-for="friend in this.convos" :key="friend.name">
                                     <v-divider></v-divider>
                                     <v-list-item id="myFont" :class="{'d-flex mb-1 mt-1': friend.read, 'not_seen': !friend.read}" @click="openChat(friend)">
@@ -91,9 +90,9 @@ export default ({
     methods: {
         ...mapActions(['getChat','createChat','getUser']),
         openChat(chat){
-            console.log('chat:', chat);
+            // console.log('chat:', chat);
             this.selected_convo = chat;
-            console.log('selected: ', this.selected_convo)
+            // console.log('selected: ', this.selected_convo)
             for(let i of this.convos){
                 console.log('i: ', i)
                 if(i.id == chat.id){
@@ -111,7 +110,7 @@ export default ({
             if(this.timeVar!=null)
                 this.convos=[]
             var module = {chat: null, user: null};
-            console.log('original myChats:', this.myChats);
+            // console.log('original myChats:', this.myChats);
 
             for(let ch of this.myChats){
                 var temp = null;
@@ -156,21 +155,21 @@ export default ({
     },
     watch:{
         async find_chat(val){
-                console.log('mphke:')
+                // console.log('mphke:')
 
             if(!val)
                 return;
-                console.log('convos:', this.convos)
+                // console.log('convos:', this.convos)
             for(let i of this.convos){
-                console.log('lalala i:', i, 'val:', val)
+                // console.log('lalala i:', i, 'val:', val)
                 if(i.id===val){
-                                    console.log('found')
+                    // console.log('found')
                     this.selected_convo=i
                     return;
                 }
             }
             this.find_chat = ''
-            console.log('val: ',val)
+            // console.log('val: ',val)
             // not existing chat with that friend
             await this.createChat({to_user:val})
             .then(res=>{
@@ -182,7 +181,7 @@ export default ({
                     id: val,
                     chatid: res.chat._id,
                 }
-                console.log('myChats: ', this.mnyChats)
+                // console.log('myChats: ', this.mnyChats)
             })
             this.fillAll();
             return;

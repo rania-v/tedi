@@ -141,10 +141,6 @@ export default({
             country: 'country',
             per_mail: 'perEmail',
             prof_mail: 'profEmail',
-            // facebook: 'country',
-            // instagram: {value: null, private: false},
-            // linkedin: {value: null, private: false},
-            // website: {value: null, private: false},
             skill_list: 'skills',
             allSkills: 'allSkills'
         }),
@@ -154,23 +150,22 @@ export default({
 
             user: {
                 personal:{
-                    firstName: '',
-                    lastName: '',
-                    image: '',
-                    birthday: {value: '', private: null },
-                    country: {value: '', private: null }
-
+                    firstName: this.first_name,
+                    lastName: this.lastName,
+                    image: null,
+                    birthday: {value: null, private: null },
+                    country: {value: null, private: null }
                 },
                 contact: {
-                    phoneNum: {value: '', private: null},
-                    perEmail: {value: '', private: null},
-                    profEmail: {value: '', private: null}
+                    phoneNum: {value: null, private: null},
+                    perEmail: {value: null, private: null},
+                    profEmail: {value: null, private: null}
                 },
                 attrs: {
-                    resume: {value: '', private: null},
-                    professions:  {value: '', private: null},
-                    workplace:  {value: '', private: null},
-                    skill_list:  {value: '', private: null}
+                    resume: {value: null, private: null},
+                    professions:  {value: null, private: null},
+                    workplace:  {value: null, private: null},
+                    skill_list:  {value: null, private: null}
                 }
             },
             catlist: null,
@@ -263,7 +258,8 @@ export default({
         submit() {
             console.log('user: ', this.user)
             // this.updateUserProfile(user)
-            this.updateUserProfile(this.user);
+            
+            // this.updateUserProfile(this.user);
         },
         mpla(event){
             console.log('eve: ', event)

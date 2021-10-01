@@ -32,7 +32,7 @@
         </v-card-text>
         <v-card-actions class="mb-1 d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
-            <v-btn color="teal" style="color:white" v-on:click="acceptfreq(id)">Accept</v-btn>
+            <v-btn color="teal" style="color:white" v-on:click="this.accept()">Accept</v-btn>
         </v-card-actions>
     </v-card>
         </v-template>
@@ -57,7 +57,11 @@ export default ({
     computed: { 
     },
     methods: {
-        ...mapActions(['acceptfreq', 'denyfreq', 'getSenderByReqId', 'getUser']),
+        ...mapActions(['acceptfreq', 'denyfreq', 'getSenderByReqId', 'getUser', 'fillJobs']),
+        async accept(){
+            await this.acceptfreq(this.id)
+            await this.fillJobs();
+        }
     },
     async beforeMount() {
         let c

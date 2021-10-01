@@ -43,7 +43,9 @@ const jobSchema = new mongoose.Schema({
         email: [{type: mongoose.SchemaTypes.Email}],
         site_link: {type: String},
     },
-    more_job_info: {type: String,}
+    more_job_info: {type: String,},
+    applicants:[{type: mongoose.Schema.Types.ObjectId, ref:'user'}],
+    views: {type: Number, default: 0}
 })
 
 const job = mongoose.model('Job', jobSchema);

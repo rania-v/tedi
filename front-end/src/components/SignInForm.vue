@@ -43,20 +43,18 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["login",]),
-        log(){
-            this.login({email: this.email, password: this.password})
+        ...mapActions(["login","fillJobsFeed"]),
+        async log(){
+            await this.login({email: this.email, password: this.password})
             .then( response => {
                 console.log(response);
-                this.$router.push({name:"Home"})
             })
             .catch( error => { 
                 this.error = true;
                 console.log(error);
-                // this.badAllert = true;
-                // this.badAllertMessage = error.message
-                
             }) 
+            await this.fillJobsFeed()
+            this.$router.push({name:"Home"})
         },
 
         close() {

@@ -16,8 +16,8 @@
                     </v-card-title>
                     <v-card-text v-if="show_applications" class="pa-0">
                         <v-row class="ma-1"  style="max-height:540px; overflow:scroll; overflow-x:hidden;" >
-                            <v-col cols="4"  v-for="i in [1,2,3,4,5,6,7,7,8,8,8,0,8,8]" :key="i">
-                                <UserCard/>
+                            <v-col cols="4"  v-for="i in this.allAppl" :key="i">
+                                <UserCard :user="i" :choices="true"/>
                             </v-col>                 
                         </v-row>
                     </v-card-text>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import OpenAd from './open_ad.vue'
 import UserCard from './user_card.vue'
 
@@ -62,9 +63,24 @@ export default ({
             height: '100%',
             closed: true,
             show_views: true,
-            show_applications: false
+            show_applications: false,
+            allAppl: null
         }
     },
+    methods:{
+        ...mapActions(['getUser']),
+    },
+    async beforeMount(){
+        let appls=[];
+        console.log('this.ad: ', this.ad)
+        for(let u of this.ad.applicants){
+            await this.getUser(u)
+            .then(res=>{
+                appls.push(res.user)
+            })
+        }
+        this.allAppl=appls
+    }
 })
 </script>
 

@@ -5,9 +5,6 @@
                 <v-spacer></v-spacer>
                 <!-- <v-btn v-if="show_job_ads==true" @click="show_job_ads=null, show_my_ads=null, show_create_ad=null" x-small color="teal" text ><v-icon size="13">fas fa-times</v-icon></v-btn> -->
             </v-card-actions>
-            <v-card-actions>
-                <v-card-title>SEARCH</v-card-title>
-            </v-card-actions>
             <v-card-text v-if="empty(this.job_ads) != 0"  style="display:flex; flex-wrap: wrap;  justify-content: center;" class="pr-5 pl-5">
                 <v-container v-for="i in this.job_ads" :key="i"  style="width:30%;" class="mr-2 ml-2">
                     <Ad :id=i @opened_ad="open_ad=true"/>

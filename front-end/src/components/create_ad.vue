@@ -98,6 +98,7 @@
 
         <v-btn v-if="!posted" :color="form_text_color" v-on:click="validate_and_submit()" style="color:white" :disabled="!valid">Post Ad!</v-btn>
         <v-alert v-else color="success " dense text>your ad is posted!</v-alert>
+        <v-alert class="ma-2" v-if="this.err" color="error " dense text>Check your input, something is wrong!</v-alert>
     </v-form>
 </template>
 
@@ -134,7 +135,7 @@ export default ({
                 },
                 job_Description : {
                     pos_duties : '',
-                    work_env : null,
+                    work_env : '',
                     remoteWork : false,
                     job_desc: '',
                     employmentType : '',
@@ -147,9 +148,9 @@ export default ({
                     pos_benefits : '',
                 },
                 apply : {
-                    link : null,
-                    email : null,
-                    site_link: null,
+                    link : '',
+                    email : '',
+                    site_link: '',
                 },
                 more_job_info : ''
             },
@@ -160,10 +161,11 @@ export default ({
             new_email: null,
             cl_icon: 'fas fa-times',
             employment_types: ['full-time', 'part-time', 'casual employment', 'Internship', 'Commission'],
-            img_prev: null,
+            img_prev: '',
             post: false,
             catlist: null,
             // skill_list:[],
+            err: false,
         }
     },
     methods: {
@@ -229,7 +231,10 @@ export default ({
             {
                 console.log('form: ', this.form)
                 this.createAd(this.form);
+                this.err = false;
                 this.posted = true;}
+            else
+                this.err = true;
         }
     }
 })

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="user != null">
         <v-row>
             <v-spacer></v-spacer>
             <v-col cols="8">
@@ -30,9 +30,9 @@
                                         </v-card-text>
                                         <v-card-title id="myFont" class="ml-3 pl-2 pt-1 pb-0 d-flex justify-start align-start white--text">Contact</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 d-flex justify-start align-start white--text">
-                                            {{this.user.contact.phoneNum ? this.user.contact.phoneNum : ''}}<br/>
                                             {{this.user.contact.perEmail ? this.user.contact.perEmail : ''}}<br/>
                                             {{this.user.contact.profEmail ? this.user.contact.profEmail : ''}}<br/>
+                                            {{this.user.contact.phoneNum ? this.user.contact.phoneNum : ''}}<br/>
                                         </v-card-text>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -147,7 +147,7 @@ export default ({
             ads_list: [],
             pending_req: false,
             // loading_user: this.loadUser(),
-            user: Object,
+            user: null,
         };
     },
     computed:{

@@ -9,6 +9,13 @@
             <v-card-title class="justify-center">Settings</v-card-title>
             <v-subheader class="justify-center">Update Login Information</v-subheader>
             <v-card-text>
+                <v-row>
+                    <v-spacer></v-spacer>
+                    <v-col cols="6">
+                        <v-text-field v-if="update" label="type old password" type='password' v-model="form.pass_for_check"></v-text-field>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                </v-row>
                     <v-row>
                         <v-spacer></v-spacer>
                         <v-col class="d-flex justify-end align-start flex-wrap" cols="2">Login E-mail</v-col>
@@ -25,7 +32,6 @@
                         <v-divider vertical></v-divider>
                         <v-col cols="3">
                             <v-text-field v-if="!update" label="password" type='password' readonly v-model="password"></v-text-field>
-                            <v-text-field v-if="update" label="type old password" type='password' v-model="form.pass_for_check"></v-text-field>
                             <v-text-field v-if="update" label="type new password" type='password' v-model="form.new_pass"></v-text-field>
                         </v-col>
                         <v-spacer></v-spacer>
@@ -34,6 +40,12 @@
                         <v-col>
                             <v-spacer></v-spacer>
                             <v-alert class="ma-2" dense text type="success" color="teal">Your Log In information have been updated successfully</v-alert>
+                        </v-col>
+                    </v-row>
+                    <v-row v-if="err">
+                        <v-col>
+                            <v-spacer></v-spacer>
+                            <v-alert class="ma-2" dense text type="error">PLease, input the correct password in order to update your login information</v-alert>
                         </v-col>
                     </v-row>
             </v-card-text>
@@ -64,7 +76,7 @@ export default ({
             password: '123456789',
             update: false,
             save: null,
-
+            err: false,
             form:{
                 new_email: null,
                 pass_for_check: null,
@@ -75,6 +87,11 @@ export default ({
     methods: {
         ...mapActions(['updateUserSettings','logout']),
         store(){
+            if(this.form.pass_for_check == null) {
+                this.err = true;
+                return false
+            }
+            this.err = false;
             this.updateUserSettings(this.form)
         },
         update_login_email() {

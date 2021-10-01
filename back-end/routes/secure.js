@@ -144,27 +144,35 @@ router.post('/extractUsersData', async (req,res)=>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Settings
 router.post('/update-user-settings', async(req, res) =>{
   try{
-    const targetUser = await user.findById(req.user._id);
+    let targetUser = await user.findById(req.user._id);
 
+    
     if(req.body.pass_for_check){
       const validate = await targetUser.isValidPassword(req.body.pass_for_check);
-
       // If wrong password
       if (!validate) {
-        return res.json({ message: 'Λάθος κωδικός επιβεβαίωσης.' });
+        return res.json({ message: 'Λάθος κωδικός επιβεβαίωσης.', updated: false});
       }
 
-      targetUser.personal.password = req.body.new_pass;
-      await targetUser.save();
+      if(req.body.new_pass){
+        targetUser.personal.password = req.body.new_pass;
+        await targetUser.save();
+      }
     }
 
-    if(req.body.new_email.length>0){
+
+    if(req.body.new_email){
+      let exists = await user.find({'contact.proEmail' : req.body.new_email}).exec();
+      if(exists)
+        return res.json({message: 'Το mail αυτό χρησιμοποιείται ήδη!', updated: false})
       targetUser.contact.profEmail.value = req.body.new_email;
       await user.findByIdAndUpdate(targetUser._id, {contact: targetUser.contact}, {runValidators: true})
     }
-
+    console.log('mphke k edw')
+      
     res.json({
       message: 'Το προφίλ χρήστη ενημερώθηκε',
+      updated: true,
       user: targetUser,
     })
   }catch(err){

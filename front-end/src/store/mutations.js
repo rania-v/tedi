@@ -16,7 +16,7 @@ export default{
     },
 
     STORE_CLIENT(state, payload){
-      console.log('payload: ', payload);
+      // console.log('payload: ', payload);
 
       Vue.set(state, "_id", payload._id)
       Vue.set(state, "isAdmin", payload.isAdmin);

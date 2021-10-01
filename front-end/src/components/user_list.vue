@@ -35,16 +35,23 @@
                 </v-card>
             </v-card-text>
         </v-card>
-        <v-dialog v-model="popup" width="30%">
+        <v-dialog v-model="popup" width="30%" >
             <v-card>
                 <v-card-title>EXTRACT users' data</v-card-title>
+                <v-alert v-if="err_mssg.length"
+                    border="top"
+                    color="red"
+                    dense
+                    text
+                    type="error"
+                >{{err_mssg}}</v-alert>
                 <v-card-text>
                     <v-row>
                         <v-col v-for="i in data_type" :key="i.type"><v-checkbox :color="check_color" :label="i.type" v-model="i.status"></v-checkbox></v-col>
                     </v-row>
                     <v-divider></v-divider>
-                    <div style="column-count: 2">
-                        <v-checkbox :color="check_color" v-for="i in extract_data" :key="i.data" :label="i.data" v-model="i.status"></v-checkbox>
+                    <div style="column-count: 2;min-height:50px;">
+                        <v-checkbox style="margin:10px" :color="check_color" v-for="i in extract_data" :key="i.data" :label="i.data" v-model="i.status"></v-checkbox>
                     </div>
                 </v-card-text>
                 <v-card-actions>
@@ -75,6 +82,7 @@ export default ({
             popup: false,
             user_list: null,
             extract: false,
+            err_mssg:'',
             extract_list:[],
             cust_size: '20%',
             size_icon:'fas fa-ellipsis-h',
@@ -97,6 +105,26 @@ export default ({
     watch:{
         async extract(val){
             if(!val) return;
+            if(!this.data_type[0].status && !this.data_type[1].status){
+                this.err_mssg='Επιλέξτε τουλάχιστον μια μορφή εξαγωγής!'
+                this.extract=false;
+                return;
+            }
+            let pass=0;
+            for(let i in this.extract_data){
+                if(i.status){
+                    pass=1;
+                    break;
+                }
+            }
+            if(pass==0){
+                this.err_mssg='Επιλέξτε τα δεδομένα που επιθυμείτε!'
+                this.extract=false;
+                return;
+            }
+            this.extract_mssg=''
+                
+
             let to_extract = {
                 extract_data: this.extract_data,
                 list: this.extract_list
@@ -105,10 +133,10 @@ export default ({
             await this.extractUsersData(to_extract)
             .then(res=>{
                 allData = res
-                console.log('to_extract: ', allData)
+                // console.log('to_extract: ', allData)
             })
 
-            console.log('stringy: ', JSON.stringify(allData))
+            // console.log('stringy: ', JSON.stringify(allData))
 
             for(let t of this.data_type){
                 if(t.type=='XML' && t.status){
@@ -155,7 +183,7 @@ export default ({
         await this.getAllUsers()
         .then(res=>{
             this.user_list = res.allUsers;
-            console.log('all: ', res)
+            // console.log('all: ', res)
         })
         .catch(err=>{
             console.log(err)

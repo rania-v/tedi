@@ -21,8 +21,7 @@
                 <v-card elevation="1">
                     <v-card-title>Social</v-card-title>
                     <v-card-text class="d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
-                        <v-col cols="3"  v-for="friend in this.network" :key="friend">
-                            <!-- {{friend}} -->
+                        <v-col cols="3"  v-for="friend in this.network" :key="friend._id">
                             <v-badge :content=friend.name :value=hover color="deep-purple lighten-1" overlap>
                                 <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend._id} }">
                                     <v-avatar>

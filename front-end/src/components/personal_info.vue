@@ -14,7 +14,7 @@
                     <v-card id="info_card">
                         <v-card-title>Profile Photo</v-card-title>
                         <v-card-text>
-                            <v-file-input v-model='profile_photo' label="choose a new profile pic" v-if='update'></v-file-input>
+                            <!-- <v-file-input v-model='profile_photo' label="choose a new profile pic" v-if='update'></v-file-input> -->
                             <v-img :src="profile_photo" max-height="187" contain class="teal lighten-5" :class="{'mt-9 mb-9': update == false}"></v-img>      
                         </v-card-text>
                     </v-card>
@@ -165,7 +165,7 @@ export default({
                     resume: {value: null, private: null},
                     professions:  {value: null, private: null},
                     workplace:  {value: null, private: null},
-                    skill_list:  {value: null, private: null}
+                    skill_list:  {list: null, private: null}
                 }
             },
             catlist: null,

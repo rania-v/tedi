@@ -63,7 +63,7 @@
                                         <v-card-title id="myFont" class="ml-3 pl-2 pb-0 d-flex justify-start align-start white--text">Network</v-card-title>
                                         <v-card-text class="ml-3 pl-2 pt-0 pb-1 d-flex flex-wrap" style="max-height:210px; overflow:hidden;">
                                             <v-col cols="3"  v-for="friend in user_list" :key="friend._id">
-                                                <v-badge :content=friend.name :value=hover color="deep-purple lighten-1" overlap>
+                                                <v-badge :content=friend.name color="deep-purple lighten-1" overlap>
                                                     <v-avatar>
                                                         <v-img :src="image" ></v-img>
                                                     </v-avatar>

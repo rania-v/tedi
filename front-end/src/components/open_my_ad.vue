@@ -8,6 +8,13 @@
             </v-col>
             <v-col cols="5">
                 <v-card class="mb-5" elevation="0">
+                    <v-card-title class="teal--text" id="myFont">
+                        Views
+                        <v-spacer></v-spacer>
+                        {{this.ad.views}}
+                    </v-card-title>
+                </v-card>
+                <v-card elevation="0" class="mt-2">
                     <v-card-title class="white--text  deep-purple"  id="myFont">
                         Applications
                         <v-spacer></v-spacer>
@@ -15,27 +22,12 @@
                         <v-btn v-if="show_applications" plain v-on:click="show_applications=false"><i class="fas fa-chevron-up white--text"></i></v-btn>
                     </v-card-title>
                     <v-card-text v-if="show_applications" class="pa-0">
+                        <v-card-text v-if="allAppl.length == 0">No applications yet</v-card-text>
                         <v-row class="ma-1"  style="max-height:540px; overflow:scroll; overflow-x:hidden;" >
-                            <v-col cols="4"  v-for="i in this.allAppl" :key="i">
+                            <v-col cols="4"  v-for="i in allAppl" :key="i">
                                 <UserCard :user="i" :choices="true"/>
                             </v-col>                 
                         </v-row>
-                    </v-card-text>
-                </v-card>
-                <v-card elevation="0" class="mt-2">
-                    <v-card-title class="teal--text" id="myFont">
-                        Views
-                        <v-spacer></v-spacer>
-                        <v-btn v-if="!show_views" plain v-on:click="show_views=true, show_applications=false"><i class="fas fa-chevron-down"></i></v-btn>
-                        <v-btn v-if="show_views" plain v-on:click="show_views=false"><i class="fas fa-chevron-up"></i></v-btn>
-                    </v-card-title>
-                    <v-card-text v-if="show_views" class="pa-0">
-                        <!-- <v-row class="ma-1" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
-                            <v-col cols="4" v-for="i in [1,2,3,4,5,6,7,7,8,8,8,0,8,8]" :key="i">
-                                <UserCard/>
-                            </v-col>                 
-                        </v-row> -->
-                        {{ad.views}}
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -65,7 +57,7 @@ export default ({
             closed: true,
             show_views: true,
             show_applications: false,
-            allAppl: null
+            allAppl: ''
         }
     },
     methods:{

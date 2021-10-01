@@ -267,6 +267,7 @@ router.post('/update-user-attrs', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
 
+      console.log('req b:', req.body);
     // console.log(targetUser.contact);
 
     if(req.body.resume.value){

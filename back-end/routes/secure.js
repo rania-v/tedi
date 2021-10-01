@@ -342,17 +342,18 @@ router.post('/frequest', async(req, res) => {
     }
 
     // check if users are already friends
-    const friends = user2.personal.friendsList.list.indexOf(user2._id);
+    const friends = user2.personal.friendsList.list.includes(user2._id);
     if(friends)
-      res.json({message: 'Είστε ήδη φίλος με αυτόν τον χρήστη!'});
+      return res.json({message: 'Είστε ήδη φίλος με αυτόν τον χρήστη!'});
 
     const invite = new frequest();
     invite.from = user1._id;
     invite.to = user2._id;
     await invite.save();
-
+console.log('edw')
     user2.personal.myNotifications.frequests.push(invite._id);
     user2.personal.frequests.push(invite._id);
+    console.log('edw')
 
     await user.findByIdAndUpdate(user2._id, {personal: user2.personal}, {runValidators: true});
     res.json({message: 'Το αίτημα φιλίας εστάλει!'})
@@ -668,6 +669,34 @@ router.post('/jobApply', async(req, res)=>{
     await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal})
 
     res.json({message: 'Applied To JOb !!', user: targetUser})
+
+  }catch(err){
+    res.json({message: err})
+  }
+})
+
+router.post('/addView', async(req, res)=>{
+  try{
+    let targetUser = await user.findById(req.user._id)
+    let targetJob = await job.findById(req.body.jobId);
+
+    targetJob.views = targetJob.views+1
+    await job.findByIdAndUpdate(targetJob._id, {views: targetJob.views})
+
+    let flag = 0
+    for(let v of targetUser.personal.interested){
+      if(JSON.stringify(v.job)==JSON.stringify(targetJob._id)){
+        v.times = v.times+1
+        flag=1;
+        break;
+      }
+    }
+    if(flag==0)
+      targetUser.personal.interested.push({job:targetJob._id, times:1})
+    
+    await user.findByIdAndUpdate(targetUser._id, {personal: targetUser.personal})
+
+    res.json({message: 'View Added !!', user: targetUser})
 
   }catch(err){
     res.json({message: err})

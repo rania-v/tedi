@@ -60,6 +60,12 @@ const UserSchema = new mongoose.Schema({
         ],
         applied:[
             {type: mongoose.Schema.Types.ObjectId, ref: 'job'}
+        ],
+        interested:[
+            {
+                job:{type: mongoose.Schema.Types.ObjectId, ref: 'job'},
+                times:{type: Number}
+            }
         ]
     },
     contact:{

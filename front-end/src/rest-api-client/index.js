@@ -185,6 +185,18 @@ export const actions = {
       .catch(err=>{client=initClient();throw err})
   },
 
+  async addView(jobId){
+    return requests.addViewRequest(jobId, client.token.token)
+    .then(res=>{
+      actions.setClient(res);
+      return res;
+    })
+    .catch(err=>{
+      client = initClient();
+      throw err;
+    })
+  },
+
   async jobApply(jobId){
     return requests.jobApplyRequest(jobId, client.token.token)
       .then(res=>{

@@ -54,8 +54,22 @@ export default{
 		})
 	},
 
+	async addView({commit}, jobId){
+		commit("SET_LOADING", true)
+		return actions.addView(jobId)
+		.then(res=>{
+			commit("STORE_CLIENT", client.user)
+			commit("SET_LOADING", false)
+			return res;
+		})
+		.catch(err=>{
+			commit("SET_LOADING", false)
+			throw err;
+		})
+	},
+
 	async jobApply({commit}, jobId){
-		console.log('Gonna catch them all')
+		// console.log('Gonna catch them all')
 		commit("SET_LOADING", true)
 		return actions.jobApply(jobId)
 		.then(res=>{

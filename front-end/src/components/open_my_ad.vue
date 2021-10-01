@@ -30,11 +30,12 @@
                         <v-btn v-if="show_views" plain v-on:click="show_views=false"><i class="fas fa-chevron-up"></i></v-btn>
                     </v-card-title>
                     <v-card-text v-if="show_views" class="pa-0">
-                        <v-row class="ma-1" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
+                        <!-- <v-row class="ma-1" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
                             <v-col cols="4" v-for="i in [1,2,3,4,5,6,7,7,8,8,8,0,8,8]" :key="i">
                                 <UserCard/>
                             </v-col>                 
-                        </v-row>
+                        </v-row> -->
+                        {{ad.views}}
                     </v-card-text>
                 </v-card>
             </v-col>

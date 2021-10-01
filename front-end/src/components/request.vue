@@ -32,7 +32,7 @@
         </v-card-text>
         <v-card-actions class="mb-1 d-flex justify-center">
             <v-btn color="teal" outlined v-on:click="denyfreq(id)">Delete</v-btn>
-            <v-btn color="teal" style="color:white" v-on:click="this.accept()">Accept</v-btn>
+            <v-btn color="teal" style="color:white" v-on:click="accept()">Accept</v-btn>
         </v-card-actions>
     </v-card>
         </v-template>
@@ -45,7 +45,7 @@ import { mapActions } from 'vuex'
 export default ({
     name: 'Request',
     props: {
-        id: null
+        id: String
     },
     data() {
         return {
@@ -57,10 +57,10 @@ export default ({
     computed: { 
     },
     methods: {
-        ...mapActions(['acceptfreq', 'denyfreq', 'getSenderByReqId', 'getUser', 'fillJobs']),
+        ...mapActions(['acceptfreq', 'denyfreq', 'getSenderByReqId', 'getUser', 'fillJobsFeed']),
         async accept(){
             await this.acceptfreq(this.id)
-            await this.fillJobs();
+            await this.fillJobsFeed();
         }
     },
     async beforeMount() {
@@ -71,7 +71,7 @@ export default ({
 
         await this.getUser(c)
             .then(res => {console.log('res:', res); this.user = res.user})
-        console.log("result user", this.user)
+        // console.log("result user", this.user)
     }
 })
 </script>

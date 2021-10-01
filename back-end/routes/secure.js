@@ -176,7 +176,6 @@ router.post('/update-user-settings', async(req, res) =>{
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Update User Personal Info
 router.post('/update-user-personal', async(req, res) =>{
   try{
-    // console.log('AAAAAAAAAAAAAAA')
     const targetUser = await user.findById(req.user._id);
 
     // console.log(targetUser.personal);
@@ -267,7 +266,6 @@ router.post('/update-user-attrs', async(req, res) =>{
   try{
     const targetUser = await user.findById(req.user._id);
 
-      console.log('req b:', req.body);
     // console.log(targetUser.contact);
 
     if(req.body.resume.value){
@@ -301,6 +299,7 @@ router.post('/update-user-attrs', async(req, res) =>{
     if(req.body.skill_list.private!=null){
       targetUser.attrs.skill_list.private = req.body.skill_list.private;
     }
+
 
     await user.findByIdAndUpdate(targetUser._id, {attrs: targetUser.attrs}, {runValidators: true})
     res.json({

@@ -259,7 +259,10 @@ export default({
             // console.log('user: ', this.user)
             // this.updateUserProfile(user)
             
-            await this.updateUserProfile(this.user);
+            await this.updateUserProfile(this.user)
+            .then(res=>{
+                console.log('res: ;',res)})
+            .catch(err=>{console.log('err: ', err)})
         },
         mpla(event){
             console.log('eve: ', event)

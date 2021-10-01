@@ -16,15 +16,15 @@ export default{
 	},
 
     async login({commit}, payload){
-        console.log(payload);
+        // console.log(payload);
         commit("SET_LOADING", true)
         return actions.login(payload.email, payload.password)
 		.then( response => {
-			console.log('client: ', client)
-			console.log('responsesss: ', response);
-            console.log(client);
+			// console.log('client: ', client)
+			// console.log('responsesss: ', response);
+            // console.log(client);
 			// commit("STORE_CLIENT", client.user)
-            console.log(client);
+            // console.log(client);
 			commit("STORE_TOKEN", client.token)
 			commit("STORE_CLIENT", client.user)
 			commit("STORE_FEED", client.feed)
@@ -40,7 +40,7 @@ export default{
     },
 
 	async fillJobsFeed({commit}){
-		console.log('Gonna catch them all')
+		// console.log('Gonna catch them all')
 		commit("SET_LOADING", true)
 		return actions.fillJobs()
 		.then(res=>{
@@ -139,7 +139,7 @@ export default{
 	async getSenderByReqId({commit}, payload) {
 		commit("SET_LOADING", true);
 		return actions.getSenderRequest(payload)
-			.then(res => {commit("SET_LOADING", false);console.log('res: ', res); return res.fromUser;})
+			.then(res => {commit("SET_LOADING", false); return res.fromUser;})
 			.catch(err => {commit('SET_LOADING', false); throw err;})
 	},
 
@@ -158,10 +158,6 @@ export default{
 			throw err;
 		})
 	},
-
-    async mpla(){
-        console.log('mpla')
-    },
 
 	async getPost({commit}, payload){
 		commit("SET_LOADING", true);
@@ -320,10 +316,10 @@ export default{
 
 	async createPost({commit}, payload){
 		commit("SET_LOADING", true);
-		console.log('payload: ', payload)
+		// console.log('payload: ', payload)
 		return actions.createPost(payload)
 		.then(response => {
-			console.log('client: ', client)
+			// console.log('client: ', client)
 			commit("STORE_CLIENT", client.user)
 			commit("STORE_FEED", client.feed)
 			commit("SET_LOADING", false)
@@ -338,7 +334,7 @@ export default{
 
 	async acceptfreq({commit}, payload){
 		commit("SET_LOADING", true);
-		console.log('payload: ', payload)
+		// console.log('payload: ', payload)
 		return actions.acceptfreq(payload)
 		.then(response => {
 			commit("SET_LOADING", false)
@@ -498,7 +494,7 @@ export default{
 
 	async extractUsersData({commit}, extract){
 		commit("SET_LOADING", true)
-		console.log('extract: ', extract)
+		// console.log('extract: ', extract)
 		return actions.extractUsersData(extract)
 		.then(res=>{
 			commit("SET_LOADING", false);

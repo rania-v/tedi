@@ -6,7 +6,13 @@
         <v-col cols="6">
 
         <v-card class="pb-5 pt-5 pr-3 pl-3">
-            <v-card-title class="justify-center">Settings</v-card-title>
+            <v-card-title class="justify-center">Settings</v-card-title><v-alert v-if="err_mssg.length"
+                    border="top"
+                    color="red"
+                    dense
+                    text
+                    type="error"
+                >{{err_mssg}}</v-alert>
             <v-subheader class="justify-center">Update Login Information</v-subheader>
             <v-card-text>
                 <v-row>
@@ -81,7 +87,8 @@ export default ({
                 new_email: null,
                 pass_for_check: null,
                 new_pass: null,
-            }
+            },
+            err_mssg:''
         }
     },
     methods: {
@@ -93,6 +100,10 @@ export default ({
             }
             this.err = false;
             this.updateUserSettings(this.form)
+            .then(res=>{
+                if(!res.updated)
+                    this.err_mssg = res.message;
+            })
         },
         update_login_email() {
 

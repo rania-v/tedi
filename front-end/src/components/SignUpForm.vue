@@ -2,7 +2,7 @@
     <v-card id="card">
         <v-card-title class="pink--text">Be Part of the Community Now</v-card-title>
         <v-card-text>
-            <v-form>
+            <v-form @submit.prevent="handleSubmit(onSubmit)">
                 <v-row justify="space-between" align="center">
                     <v-col id="tf">
                         <v-text-field label="First Name" required v-model="user.personal.firstName"></v-text-field>
@@ -10,7 +10,7 @@
                         <v-text-field label="e-mail" v-model="user.contact.profEmail.value" ></v-text-field>
                         <v-text-field label="password" v-model="user.personal.password" :type="'password'" required></v-text-field>
                         <v-text-field label="confirm password" v-model="conf_password" v-on:blur="pass_confirm" :type="'password'" required></v-text-field>
-                        <v-alert v-if="user.personal.password!='' && conf_password!='' && !checkPass()" color="error" dense text>password not the same</v-alert>
+                        <v-alert v-if="password!='' && conf_password!='' && !checkPass()" color="error" dense text>password not the same</v-alert>
                     </v-col>
                     <v-col id="tf">
                         <v-text-field label="Last Name" v-model="user.personal.lastName" required></v-text-field>
@@ -62,7 +62,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['register','login']),
+        ...mapActions(['register','login', 'fillPostFeed']),
         async submit(){
             await this.register(this.user)
             .then(response=>{
@@ -70,9 +70,13 @@ export default {
                 })
             .catch(error=>{
                 console.log(error);
+                return;
             })
             console.log('user: ', this.user)
             await this.login({email:this.user.contact.profEmail.value, password:this.user.personal.password})
+            console.log('edw')
+            await this.fillPostFeed()
+            console.log('oxi edw')
             this.$router.push({name:"GettingStarted", params:{usr_name:this.user.personal.firstName}});
         },
         close() {

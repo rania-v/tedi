@@ -79,6 +79,9 @@ export default{
     DELETE_CLIENT(state){
       // console.log('payload: ', payload);
 
+
+      Vue.set(state, "isLoading", null)
+      Vue.set(state, "isLogedIn", null)
       Vue.set(state, "_id", null)
       Vue.set(state, "isAdmin", null);
 

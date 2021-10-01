@@ -54,8 +54,10 @@ export default {
                 this.error = true;
                 console.log(error);
             })
-            if(r.user.isAdmin)
+            if(r.user.isAdmin){
                 this.$router.push({name:"UserList"});
+                return;
+            }
             await this.fillJobsFeed()
             await this.fillPostFeed()
             this.$router.push({name:"Home"})

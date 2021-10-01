@@ -169,30 +169,37 @@ const router = new VueRouter({
 });
 
 
-import getters from '../store/getters'
+// import getters from '../store/getters'
 
-router.beforeEach((to, from, next) => {
-    let allow_admin = ['wlcm','UserList', 'Settings'];
-    let allow_user = ['wlcm','How_It_Works', 'Prices', 'Home'];
-    let allow_before_sign = []
+// router.beforeEach((to, from, next) => {
+//     let allow_admin = ['wlcm','UserList', 'Settings'];
+//     let allow_user = ['wlcm', 'Settings',
+//                 'GettingStarted',
+//                 'HomePage', 'Home', 'Network', 'Friend_Profile', 'MyNetwork', 'JobAds', 'CreateAd', 'AllJobAds','MyJobAds', 'MyAdsList','OpenMyAd','OpenAd', 'PersonalInfo','Settings', 'Chat','Notifications','OpenedPost','OpenAd']
+//     let allow_before_sign = ['wlcm']
 
-    let isAdmin = getters.isLogedIn;
-    let isLogedIn = getters.isLogedIn;
+//     let isAdmin = getters.isLogedIn;
+//     let isLogedIn = getters.isLogedIn;
   
-    let reachable = isLogedIn ? isAdmin ? allow_admin :allow_user : allow_before_sign;
+//     let reachable = isLogedIn ? (isAdmin ? allow_admin : allow_user) : allow_before_sign;
     
-    console.log('to: ', to)
-    console.log('from: ', from)
-    console.log('next: ', next)
-    
-    if( !reachable.includes(to.name)){
-        if(!reachable.includes(from.name))
-            router.push({name:reachable[0]})
-        else
-            router.push({name:from.name})
-    }
-    else next();
-})
+//     console.log('isLogedIn: ', isLogedIn)
+//     console.log('isAdmin: ', isAdmin)
+//     console.log('to: ', to)
+//     console.log('from: ', from)
+//     console.log('next: ', next)
+//     console.log('reachable: ', reachable)
+
+//     if( !reachable.includes(to.name)){
+//         console.log('EGW EIMAI O GAMIAS SOU')
+//         if(!reachable.includes(from.name)){
+//             router.push({name:reachable[0]})
+//         }
+//         else
+//             router.push({name:from.name})
+//     }
+//     else next();
+// })
 
 
 

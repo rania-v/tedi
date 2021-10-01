@@ -91,6 +91,7 @@ router.post('/getAllUsers', async (req,res)=>{
 
     let final = [];
     for(u of allUsers){
+      if(u.isAdmin) continue;
       await serUser(u)
       .then(res=>{final.push(res)})
       .catch(err=>{return res.json({message: err})})

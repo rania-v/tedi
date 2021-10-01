@@ -20,7 +20,10 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col><v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="form.image" @change="ShowImg" :color="form_text_color"></v-file-input></v-col>
+                    <v-col>
+                        <v-file-input prepend-icon="far fa-image" label="Ad Image" v-model="form.image" @change="ShowImg" :color="form_text_color">
+                        </v-file-input>
+                    </v-col>
                     <v-col style="max-width:50%; max-height:50%;"><v-img v-if="img_prev!=null" :src="img_prev"></v-img></v-col>
                 </v-row>
             </v-card-text>
@@ -121,7 +124,7 @@ export default ({
             ],
             form : {
                 title : '',
-                image : '',
+                image : null,
                 basic_info : {
                     job_title : '',
                     company_name : '',

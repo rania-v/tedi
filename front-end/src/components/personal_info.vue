@@ -163,7 +163,7 @@ export default({
                 },
                 attrs: {
                     resume: {value: null, private: null},
-                    professions:  {value: null, private: null},
+                    profession:  {value: null, private: null},
                     workplace:  {value: null, private: null},
                     skill_list:  {list: null, private: null}
                 }
@@ -255,11 +255,11 @@ export default({
             }
             return 0;
         },
-        submit() {
-            console.log('user: ', this.user)
+        async submit() {
+            // console.log('user: ', this.user)
             // this.updateUserProfile(user)
             
-            // this.updateUserProfile(this.user);
+            await this.updateUserProfile(this.user);
         },
         mpla(event){
             console.log('eve: ', event)

@@ -185,6 +185,15 @@ export const actions = {
       .catch(err=>{client=initClient();throw err})
   },
 
+  async fillPost(){
+    return requests.fillPostFeedRequest(client.token.token)
+      .then(res=>{
+        client.feed.postsToSee = res.postsToSee;
+        return res
+      })
+      .catch(err=>{client=initClient();throw err})
+  },
+
   async addView(jobId){
     return requests.addViewRequest(jobId, client.token.token)
     .then(res=>{

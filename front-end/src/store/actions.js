@@ -54,6 +54,21 @@ export default{
 		})
 	},
 
+	async fillPostFeed({commit}){
+		// console.log('Gonna catch them all')
+		commit("SET_LOADING", true)
+		return actions.fillPost()
+		.then(res=>{
+			commit("STORE_FEED", client.feed)
+			commit("SET_LOADING", false)
+			return res;
+		})
+		.catch(err=>{
+			commit("SET_LOADING", false)
+			throw err;
+		})
+	},
+
 	async addView({commit}, jobId){
 		commit("SET_LOADING", true)
 		return actions.addView(jobId)

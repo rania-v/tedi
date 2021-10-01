@@ -111,7 +111,7 @@ export default ({
                 return;
             }
             let pass=0;
-            for(let i in this.extract_data){
+            for(let i of this.extract_data){
                 if(i.status){
                     pass=1;
                     break;

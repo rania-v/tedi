@@ -13,7 +13,7 @@
             </v-card-title>
             <div class="d-flex justify-center flex-wrap" style="max-height:540px; overflow:scroll; overflow-x:hidden;">
                 <v-card v-for="i in network" :key="i._id" class="ma-2" max-width="16%" elevation="0">
-                    <UserCard :user="i"/>
+                    <UserCard :user="i" :choices='false'/>
                 </v-card>
             </div>
         </v-card>

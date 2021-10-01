@@ -27,9 +27,7 @@
                 </v-toolbar>
             </v-card-actions>
             <v-card v-if="sid!=null">
-                lalalal
                 {{sid}}
-                lalal
             </v-card>
         </v-card>
     </v-container>

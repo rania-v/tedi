@@ -2,28 +2,6 @@
     <router-view></router-view>
 </template>
 
-<script>
-
-// import NetworkSearch from './network_search.vue'
-// import FriendProfile from './friend_profile.vue'
-// import UserCard from './user_card.vue'
-
-export default ({
-    name: 'Network',
-    components: {
-        // NetworkSearch,
-        // FriendProfile,
-        // UserCard
-},
-    data() {
-        return {
-//             
-        }
-        
-    }
-})
-</script>
-
 <style>
 
 #friend {

@@ -116,7 +116,9 @@ export default ({
             if(this.reacted){   // remove react
             }
                                 // post react
+            // if(this.has_reacted)
             await this.react({postId: this.post._id, react: 1})
+
 
             await this.loadPost();
             this.reacted();

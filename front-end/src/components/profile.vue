@@ -1,7 +1,7 @@
 <template>
     <v-card>
             <v-card-title id="profile_card" >Profile</v-card-title>
-            <v-img  id="user_prof_pic" :src=image></v-img>
+            <v-img  id="user_prof_pic" :src='image'></v-img>
             <v-container id="personal">
                 <v-card elevation="1">
                     <v-card-title>Personal Info</v-card-title>
@@ -26,7 +26,7 @@
                             <v-badge :content=friend.name :value=hover color="deep-purple lighten-1" overlap>
                                 <router-link  :to="{ name: 'Friend_Profile', params:{ id: friend._id} }">
                                     <v-avatar>
-                                        <v-img v-bind:src=friend.avatar class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
+                                        <v-img v-bind:src="friend_image" class="ma-2" @mouseover="hover=true, usr=friend.user" @mouseleave="hover=false, usr=null" v-on:click="ShowFriendProf(friend.user)"></v-img>
                                     </v-avatar>
                                 </router-link>
                             </v-badge>
@@ -55,6 +55,7 @@ export default ({
             usr:null,
             network: [],
             loading_list: this.buildNetwork(),
+            friend_image: require('../icons/avatars/rei.png'),
        }
     },
     computed:{

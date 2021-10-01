@@ -39,8 +39,9 @@ export default {
     methods: {
         ...mapActions(['createPost']),
         newPost(){
-            console.log('con: ', this.newpost.content);
-            // this.createPost(this.newpost);
+            // console.log('con: ', this.newpost.content);
+            this.createPost(this.newpost);
+            // this.PostCreate.$forceUpdate();
         },
         check_post() {
             this.focus_rows=1;

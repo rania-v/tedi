@@ -169,30 +169,30 @@ const router = new VueRouter({
 });
 
 
-// import getters from '../store/getters'
+import getters from '../store/getters'
 
-// router.beforeEach((to, from, next) => {
-//     let allow_admin = ['UserList', 'Settings'];
-//     let allow_user = ['How_It_Works', 'Prices', 'Home'];
-//     let allow_before_sign = []
+router.beforeEach((to, from, next) => {
+    let allow_admin = ['wlcm','UserList', 'Settings'];
+    let allow_user = ['wlcm','How_It_Works', 'Prices', 'Home'];
+    let allow_before_sign = []
 
-//     let isAdmin = getters.isLogedIn;
-//     let isLogedIn = getters.isLogedIn;
+    let isAdmin = getters.isLogedIn;
+    let isLogedIn = getters.isLogedIn;
   
-//     let reachable = isLogedIn ? isAdmin ? allow_admin :allow_user : allow_before_sign;
+    let reachable = isLogedIn ? isAdmin ? allow_admin :allow_user : allow_before_sign;
     
-//     console.log('to: ', to)
-//     console.log('from: ', from)
-//     console.log('next: ', next)
+    console.log('to: ', to)
+    console.log('from: ', from)
+    console.log('next: ', next)
     
-//     if( !reachable.includes(to.name)){
-//         if(!reachable.includes(from.name))
-//             router.push({name:reachable[0]})
-//         else
-//             router.push({name:from.name})
-//     }
-//     else next();
-// })
+    if( !reachable.includes(to.name)){
+        if(!reachable.includes(from.name))
+            router.push({name:reachable[0]})
+        else
+            router.push({name:from.name})
+    }
+    else next();
+})
 
 
 

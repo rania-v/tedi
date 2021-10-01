@@ -301,6 +301,14 @@ export const fillJobsFeedRequest = async (token) =>{
   .catch(function(error) { throw error })
 }
 
+export const fillPostFeedRequest = async (token) =>{
+  let headers = { "Authorization": `${token}` };
+
+  return restAPI.send('POST', 'secure/fillPostFeed', null, headers)
+  .then(function(response) { return response })
+  .catch(function(error) { throw error })
+}
+
 
 export const addViewRequest = async(jobId, token)=>{
   let headers = { "Authorization": `${token}` };

@@ -62,10 +62,10 @@ export default {
         }
     },
     beforeMount(){
-        // if(this.isAdmin)
-            // this.items = [this.items.pop(),this.items.pop()]
-        // else
-            // this.items.pop()
+        if(this.isAdmin)
+            this.items = [this.items.pop(),this.items.pop()]
+        else
+            this.items.pop()
     },
     methods: {
         // Goto(tab_name) {

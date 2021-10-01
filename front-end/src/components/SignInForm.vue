@@ -43,17 +43,21 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["login","fillJobsFeed"]),
+        ...mapActions(["login","fillJobsFeed", "fillPostFeed"]),
         async log(){
+            let r;
             await this.login({email: this.email, password: this.password})
             .then( response => {
-                console.log(response);
+                console.log("res:", response); r = response;
             })
             .catch( error => { 
                 this.error = true;
                 console.log(error);
-            }) 
+            })
+            if(r.user.isAdmin)
+                this.$router.push({name:"UserList"});
             await this.fillJobsFeed()
+            await this.fillPostFeed()
             this.$router.push({name:"Home"})
         },
 

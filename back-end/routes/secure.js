@@ -59,6 +59,7 @@ router.post('/searchUsers', async(req, res) =>{
 
     let final = [];
     for(i of searched){
+      if(i.isAdmin) continue;
       if(i.personal.firstName.includes(val) || i.personal.lastName.includes(val)){
           final.push({name: i.personal.firstName + ' ' + i.personal.lastName, _id:i._id});
       }
@@ -713,14 +714,16 @@ router.post('/addView', async(req, res)=>{
 
 router.post('/fillJobFeed', async(req,res)=>{
   try{
+    const allUsers = await user.find({});
     const targetUser = await user.findById(req.user._id)
     if(!targetUser)
       return res.json({message: 'Ο χρήστης δεν βρέθηκε!'})
     
-    let fList = targetUser.personal.friendsList.list;
+    // let fList = targetUser.personal.friendsList.list;
     
     let jobsToSee = [];
-    for(let f of fList){
+    for(let f of allUsers){
+      if(json.stringify(f._id) == json.stringify(req.user._id)) continue;
       let fr = await user.findById(f);
       jobsToSee = jobsToSee.concat(fr.personal.myJobsAds.list);
     }
@@ -729,6 +732,30 @@ router.post('/fillJobFeed', async(req,res)=>{
     return res.json({message: 'Δεν υπάρχουν διαθέσιμες αγγελίες!'})
 
     res.json({jobsToSee: jobsToSee})
+
+  }catch(err){
+    res.json({
+      message: err
+    })
+  }
+})
+
+router.post('/fillPostFeed', async(req,res)=>{
+  try{
+    console.log('mphke')
+    const allUsers = await user.find({});
+    
+    let postsToSee = [];
+    for(let f of allUsers){
+      // if(json.stringify(f._id) == json.stringify(req.user._id)) continue;
+      let fr = await user.findById(f);
+      postsToSee = postsToSee.concat(fr.personal.myPosts.list);
+    }
+
+    if(!postsToSee.length)
+    return res.json({message: 'Δεν υπάρχουν διαθέσιμες αγγελίες!'})
+
+    res.json({postsToSee: postsToSee})
 
   }catch(err){
     res.json({

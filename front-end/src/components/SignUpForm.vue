@@ -62,16 +62,18 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['register']),
+        ...mapActions(['register','login']),
         async submit(){
             await this.register(this.user)
             .then(response=>{
                 console.log(response)
-                this.$router.push({name:"GettingStarted", params:{usr_name:this.user.personal.firstName}});
-            })
+                })
             .catch(error=>{
                 console.log(error);
             })
+            console.log('user: ', this.user)
+            await this.login({email:this.user.contact.profEmail.value, password:this.user.personal.password})
+            this.$router.push({name:"GettingStarted", params:{usr_name:this.user.personal.firstName}});
         },
         close() {
             this.$emit('close_up','');

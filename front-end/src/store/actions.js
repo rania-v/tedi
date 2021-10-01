@@ -103,9 +103,8 @@ export default{
 		commit("SET_LOADING", true);
 		return actions.register(payload)
 		.then(response=>{
-			// console.log("res: ", response);
-			// console.log('payload: ', payload)
-			this.login(payload.contact.profEmail, payload.personal.password)
+			console.log("res: ", response);
+			console.log('payload: ', payload)
 			commit("SET_LOADING", false);
 			return response;
 		})

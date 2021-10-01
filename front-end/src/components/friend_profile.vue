@@ -106,7 +106,6 @@
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-card v-for="item in this.user.posts" :key="item" class="pa-3 ma-3" elevation="0">
-                {{item}}
                     <PostComp :id="item"/>
                 </v-card>
             </v-col>

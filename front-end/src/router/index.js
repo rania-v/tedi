@@ -25,6 +25,8 @@ import MyAdsList from '../components//my_ads_list.vue'
 
 import MyNetwork from '../components/my_network.vue'
 
+import OpenedPost from '../components/opened_post.vue'
+
 import GettingStarted from '../components/getting_started.vue'
 Vue.use(VueRouter);
 
@@ -140,7 +142,15 @@ const routes = [
             {
                 path: '/Notifications',
                 name: 'Notifications',
-                component: Notifications
+                component: Notifications,
+                children: [
+                ]
+            },
+            {
+                path:'/Notifications/Post-:id',
+                name: 'OpenedPost',
+                component: OpenedPost,
+                props: true
             },
         ]
     },

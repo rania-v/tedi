@@ -21,12 +21,11 @@
         <v-divider></v-divider>
         <v-container>
             <v-card-title>See what your friends have been up to</v-card-title>
-            <v-card-text class="ma-0 pa-0">
-                <Notification
-                    :reacts='this.notifications.reacts'
-                    :comments='this.notifications.comments'
-                    :chats='this.notifications.chats'
-                />
+            <v-card-text class="ma-0 pa-0" >
+                <Notification class="ma-1" v-for="not in this.notifications.reacts" :key="not" :notification='not' type="reaction"/>
+            </v-card-text>
+            <v-card-text class="ma-0 pa-0" >
+                <Notification class="ma-1" v-for="not in this.notifications.comments" :key="not" :notification='not' type="comment"/>
             </v-card-text>
         </v-container>
     </v-container>
